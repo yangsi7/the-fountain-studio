@@ -1,0 +1,250 @@
+{
+  "metadata": {
+    "request_id": "REQ-20250120-UI-001",
+    "agent": "ui-ux-spec-agent",
+    "timestamp": "2025-09-20T01:53:00Z",
+    "session_id": "e258fd22-6cf5-4013-8377-4505fbe264cf",
+    "memory_system": "v1.0",
+    "version": "2.0.0"
+  },
+  "feature": "Landing Page - The Fountain Studio",
+  "requirements": {
+    "functional": [
+      "Single-page narrative with smooth scrolling",
+      "Bilingual support (DE/EN) with simple dictionary approach",
+      "Cal.com booking integration",
+      "WhatsApp Business integration with pre-filled messages",
+      "Contact form with Supabase backend",
+      "Responsive design (mobile-first)",
+      "48px minimum touch targets for mobile",
+      "Sticky navigation with transparent to solid transition at 80px"
+    ],
+    "accessibility": [
+      "WCAG 2.1 AA+ compliance",
+      "Screen reader support with ARIA labels",
+      "Keyboard navigation throughout",
+      "High contrast mode support",
+      "Focus visible indicators (2px gold outline)",
+      "Skip navigation link",
+      "Alt text for all images",
+      "Semantic HTML5 structure"
+    ],
+    "performance": [
+      "Lighthouse score 95+",
+      "First Contentful Paint < 1.5s",
+      "Time to Interactive < 3.5s",
+      "WebP image format with JPEG fallbacks",
+      "Lazy loading below fold",
+      "Critical CSS inline",
+      "Bundle size < 200KB initial",
+      "CDN deployment via Netlify"
+    ],
+    "visual": [
+      "Swiss Medical Spa aesthetic with sophisticated restraint",
+      "Champagne Gold (#B8956A) - 3% max usage (CTAs only)",
+      "Charcoal (#2C2B29) - primary text",
+      "Silk (#F8F6F3) - background",
+      "White (#FFFFFF) - cards and overlays",
+      "100vh hero with Ken Burns effect on IMG_4520.jpeg",
+      "50% minimum white space per viewport",
+      "Fade-up AOS animations with 200ms stagger",
+      "Subtle parallax on about image only"
+    ]
+  },
+  "sections": [
+    {
+      "id": "navigation",
+      "name": "Sticky Navigation",
+      "components": ["NavigationMenu", "Button", "Sheet"],
+      "features": [
+        "Transparent header with backdrop blur",
+        "Solid white transition at 80px scroll",
+        "Gold underline for active sections",
+        "Mobile Sheet drawer with full-screen overlay",
+        "Booking button with gold background (separated from menu)",
+        "5-7 menu items maximum",
+        "Language toggle (DE | EN) top-right"
+      ]
+    },
+    {
+      "id": "hero",
+      "name": "Hero Section",
+      "components": ["Button", "ScrollIndicator"],
+      "visual_asset": "IMG_4520.jpeg",
+      "features": [
+        "100vh fullscreen immersive background",
+        "Ken Burns subtle zoom effect (1.05 scale over 20s)",
+        "20% dark gradient overlay from bottom",
+        "Text positioned in lower third with backdrop blur",
+        "Minimal copy: tagline + subtitle + CTA only",
+        "Dual CTAs: primary (gold) and secondary (ghost)",
+        "Animated scroll indicator (bouncing chevron)",
+        "3-5 seconds to emotional engagement"
+      ]
+    },
+    {
+      "id": "services",
+      "name": "Services Grid",
+      "components": ["Card", "Badge", "Button"],
+      "visual_assets": ["IMG_4461.jpeg", "IMG_4589.jpeg", "IMG_4696.jpeg"],
+      "features": [
+        "140px vertical padding for breathing room",
+        "3-column grid (stack on mobile)",
+        "Cards with 30% dark overlay on images",
+        "Transparent pricing display",
+        "Hover lift effect (translateY -4px)",
+        "Ghost buttons with gold border",
+        "Stagger animation (200ms between cards)",
+        "400x300px optimized card images"
+      ]
+    },
+    {
+      "id": "about",
+      "name": "About Section",
+      "components": ["ParallaxImage", "Badge"],
+      "visual_asset": "IMG_4574.jpeg",
+      "features": [
+        "50/50 split layout (image left, text right)",
+        "Subtle parallax effect on portrait image",
+        "600x800px portrait with vignette",
+        "Professional bio with medical credibility",
+        "Certification badges for trust",
+        "Responsive stack on mobile",
+        "White background for contrast",
+        "Letter spacing 0.02em for elegance"
+      ]
+    },
+    {
+      "id": "learn",
+      "name": "Modalities Section",
+      "components": ["Accordion", "Badge"],
+      "visual_assets": ["IMG_4468.jpeg", "IMG_4576.jpeg", "IMG_4580.jpeg", "IMG_4598.jpeg"],
+      "features": [
+        "Expandable content modules",
+        "Educational information",
+        "Benefits listing",
+        "Scientific references"
+      ]
+    },
+    {
+      "id": "testimonials",
+      "name": "Testimonials Carousel",
+      "components": ["Carousel", "Card", "Avatar"],
+      "features": [
+        "Auto-play carousel",
+        "Client testimonials",
+        "Star ratings",
+        "Navigation controls"
+      ]
+    },
+    {
+      "id": "faq",
+      "name": "FAQ Section",
+      "components": ["Accordion"],
+      "features": [
+        "Common questions",
+        "Expandable answers",
+        "Plus/minus icons",
+        "Smooth animations"
+      ]
+    },
+    {
+      "id": "booking",
+      "name": "Contact & Booking",
+      "components": ["Form", "Input", "Button", "Textarea"],
+      "features": [
+        "Cal.com embed",
+        "Contact form fallback",
+        "Form validation",
+        "WhatsApp button"
+      ]
+    },
+    {
+      "id": "footer",
+      "name": "Footer",
+      "components": ["Separator"],
+      "features": [
+        "Contact information",
+        "Legal links",
+        "Social media icons",
+        "Copyright notice"
+      ]
+    }
+  ],
+  "testing_requirements": {
+    "unit_tests": [
+      "Form validation logic",
+      "Language switching",
+      "Navigation state management",
+      "Component rendering"
+    ],
+    "integration_tests": [
+      "Cal.com booking flow",
+      "Form submission to Supabase",
+      "WhatsApp link generation",
+      "Analytics tracking"
+    ],
+    "e2e_tests": [
+      "Complete user journey",
+      "Mobile navigation",
+      "Language switching flow",
+      "Booking completion"
+    ],
+    "accessibility_tests": [
+      "Screen reader navigation",
+      "Keyboard-only usage",
+      "Color contrast verification",
+      "Focus management"
+    ],
+    "browser_tests": [
+      "Chrome 90+",
+      "Firefox 88+",
+      "Safari 14+",
+      "Edge 90+",
+      "Mobile Safari iOS 14+",
+      "Chrome Android 90+"
+    ]
+  },
+  "copy_structure": {
+    "languages": ["de", "en"],
+    "primary_language": "de",
+    "tone": "Professional yet warm, scientific credibility with human touch",
+    "key_messages": [
+      "Swiss Medical Spa positioning",
+      "Evidence-based approach",
+      "Personalized care",
+      "Transformative results"
+    ]
+  },
+  "technical_stack": {
+    "framework": "Next.js 15 with App Router",
+    "language": "TypeScript",
+    "styling": "Tailwind CSS v4",
+    "components": "shadcn/ui (registry only)",
+    "i18n": "Dictionary-based (no middleware)",
+    "booking": "Cal.com embed",
+    "backend": "Supabase",
+    "deployment": "Netlify",
+    "analytics": "Google Analytics 4",
+    "animations": "AOS library"
+  },
+  "deliverables": {
+    "created": [
+      "landing-page-spec.json",
+      "landing-page-description.md",
+      "visual-asset-mapping.md"
+    ],
+    "updated": [
+      "product-tracker.md",
+      "event-stream.md"
+    ],
+    "dependencies": [
+      "shadcn/ui components (via MCP tools only)",
+      "aos (animate on scroll)",
+      "react-hook-form",
+      "zod",
+      "tailwind-merge",
+      "class-variance-authority"
+    ]
+  }
+}

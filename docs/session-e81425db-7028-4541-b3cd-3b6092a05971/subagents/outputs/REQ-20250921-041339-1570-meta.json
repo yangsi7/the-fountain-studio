@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250921-041339-1570",
+  "timestamp": "04:13:39",
+  "subagent_type": "index-analyzer",
+  "description": "Analyze project structure",
+  "prompt_length":      629,
+  "session_id": "e81425db-7028-4541-b3cd-3b6092a05971",
+  "status": "invoked",
+  "parent_chain": []
+}

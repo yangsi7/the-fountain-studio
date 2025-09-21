@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250921-020459-6593",
+  "timestamp": "02:04:59",
+  "subagent_type": "Jenny",
+  "description": "Jenny verification check",
+  "prompt_length":      504,
+  "session_id": "e630c5bd-0abd-4968-ac8a-cb685951bc58",
+  "status": "invoked",
+  "parent_chain": []
+}

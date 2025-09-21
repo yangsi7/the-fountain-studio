@@ -1,0 +1,2 @@
+\033[0;31mError: /Users/yangsim/Nanoleq/sideProjects/the-fountain-studio/project-index.json not found\033[0m
+Run: ./scripts/generate-indexes.sh to create indexes

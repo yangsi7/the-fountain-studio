@@ -1,0 +1,89 @@
+{
+  "mcpServers": {
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "BSAIjJzq_o-BEF2Qgcs_1ZJaDTGK5qD"
+      }
+    },
+    "Ref": {
+      "type": "http",
+      "url": "https://api.ref.tools/mcp",
+      "headers": {
+        "x-ref-api-key": "ref-dd4e77a8f073f099e8d8"
+      }
+    },
+    "serena": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant",
+        "--project",
+        "/Users/yangsim/Nanoleq/sideProjects/the-fountain-studio/"
+      ],
+      "env": {}
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ]
+    },
+    "21st-dev": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic@latest"
+      ],
+      "env": {
+        "API_KEY": "8c455d5b1d96b5677aa80400c33a98a0d41b1558c1ab6d004691f0e7429d7c77"
+      }
+    },
+    "gemini-cli": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "gemini-mcp-tool"
+      ],
+      "env": {
+        "GEMINI_API_KEY": "AIzaSyDeDjY_2hkNlpmj-bt8J4o1GjY8XxBL4UA"
+      }
+    },
+    "browsermcp": {
+      "command": "npx",
+      "args": [
+        "@browsermcp/mcp@latest"
+      ]
+    },
+    "calculator": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-calculator"
+      ]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
+    }
+  }
+}

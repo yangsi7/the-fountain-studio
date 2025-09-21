@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250920-074326-1082",
+  "timestamp": "07:43:26",
+  "subagent_type": "tree-of-thought-agent",
+  "description": "Map final architecture",
+  "prompt_length":     1814,
+  "session_id": "44fc8622-6cf1-49bf-b77f-0164055f64f6",
+  "status": "invoked",
+  "parent_chain": []
+}

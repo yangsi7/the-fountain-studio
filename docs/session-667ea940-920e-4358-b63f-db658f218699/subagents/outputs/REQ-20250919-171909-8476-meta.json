@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250919-171909-8476",
+  "timestamp": "17:19:09",
+  "subagent_type": "ui-ux-spec-agent",
+  "description": "Design system specification",
+  "prompt_length":     1322,
+  "session_id": "667ea940-920e-4358-b63f-db658f218699",
+  "status": "invoked",
+  "parent_chain": []
+}

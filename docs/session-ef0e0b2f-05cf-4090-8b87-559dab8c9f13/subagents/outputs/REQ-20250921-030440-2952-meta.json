@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250921-030440-2952",
+  "timestamp": "03:04:40",
+  "subagent_type": "karen",
+  "description": "Karen verification",
+  "prompt_length":     1957,
+  "session_id": "ef0e0b2f-05cf-4090-8b87-559dab8c9f13",
+  "status": "invoked",
+  "parent_chain": []
+}

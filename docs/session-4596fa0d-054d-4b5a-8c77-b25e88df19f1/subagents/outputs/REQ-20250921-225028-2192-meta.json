@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250921-225028-2192",
+  "timestamp": "22:50:28",
+  "subagent_type": "tree-of-thought-agent",
+  "description": "Map content to visuals",
+  "prompt_length":      200,
+  "session_id": "4596fa0d-054d-4b5a-8c77-b25e88df19f1",
+  "status": "invoked",
+  "parent_chain": []
+}

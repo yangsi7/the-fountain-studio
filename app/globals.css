@@ -4,31 +4,81 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    /* Swiss Medical Spa Design Tokens */
+    --color-gold: #B8956A;
+    --color-gold-hover: #A0825C;
+    --color-gold-active: #886F4E;
+    --color-charcoal: #2C2B29;
+    --color-charcoal-light: #56564C;
+    --color-charcoal-lighter: #A8A8A2;
+    --color-silk: #F8F6F3;
+    --color-silk-dark: #F5F2ED;
+    --color-white: #FFFFFF;
+    --color-stone-light: #D4D4D4;
+    --color-stone: #737373;
+
+    /* Semantic Tokens */
+    --color-primary: var(--color-gold);
+    --color-primary-hover: var(--color-gold-hover);
+    --color-text-primary: var(--color-charcoal);
+    --color-text-secondary: var(--color-charcoal-light);
+    --color-text-muted: var(--color-charcoal-lighter);
+    --color-background: var(--color-silk);
+    --color-background-alt: var(--color-white);
+    --color-border: var(--color-stone-light);
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+
+    /* Typography */
+    --font-serif: 'Libre Baskerville', Georgia, serif;
+    --font-sans: 'Source Sans 3', -apple-system, sans-serif;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px 0 rgba(44, 43, 41, 0.04);
+    --shadow-md: 0 8px 16px -4px rgba(44, 43, 41, 0.06);
+    --shadow-lg: 0 16px 24px -8px rgba(44, 43, 41, 0.08);
+    --shadow-glass: 0 8px 32px rgba(44, 43, 41, 0.08);
+
+    /* Animations */
+    --duration-fast: 150ms;
+    --duration-base: 200ms;
+    --duration-slow: 300ms;
+    --duration-slower: 500ms;
+    --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Shadcn variables aligned with Swiss palette */
+    --background: 36 33% 97%; /* Silk #F8F6F3 */
+    --foreground: 30 3% 17%; /* Charcoal #2C2B29 */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 30 3% 17%; /* Charcoal */
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 30 3% 17%;
+    --primary: 30 3% 17%; /* Charcoal for text */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 33% 97%; /* Silk */
+    --secondary-foreground: 30 3% 17%;
+    --muted: 0 0% 83%; /* Stone light */
+    --muted-foreground: 36 13% 34%; /* Charcoal light */
+    --accent: 33 29% 54%; /* Gold for accents */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --border: 0 0% 83%; /* Stone light */
+    --input: 36 33% 97%; /* Silk for inputs */
+    --ring: 33 29% 54%; /* Gold for focus rings */
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0.25rem;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -64,5 +114,63 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Swiss Medical Spa Utility Classes */
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+  .bg-silk {
+    background-color: var(--color-silk);
+  }
+  .bg-gold {
+    background-color: var(--color-gold);
+  }
+  .bg-gold-hover:hover {
+    background-color: var(--color-gold-hover);
+  }
+  .bg-charcoal {
+    background-color: var(--color-charcoal);
+  }
+  .bg-silk-dark {
+    background-color: var(--color-silk-dark);
+  }
+  .border-stone {
+    border-color: var(--color-stone-light);
+  }
+  .text-gold {
+    color: var(--color-gold);
+  }
+  .text-gold-hover:hover {
+    color: var(--color-gold-hover);
+  }
+  .shadow-swiss-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  .shadow-swiss-md {
+    box-shadow: var(--shadow-md);
+  }
+  .shadow-swiss-lg {
+    box-shadow: var(--shadow-lg);
+  }
+  .shadow-swiss-glass {
+    box-shadow: var(--shadow-glass);
+  }
+  .duration-swiss-fast {
+    transition-duration: var(--duration-fast);
+  }
+  .duration-swiss-base {
+    transition-duration: var(--duration-base);
+  }
+  .duration-swiss-slow {
+    transition-duration: var(--duration-slow);
   }
 }

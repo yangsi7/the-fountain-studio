@@ -1,0 +1,181 @@
+{
+  "version": "2.0",
+  "generated": "2025-09-19T15:01:10.402Z",
+  "summary": {
+    "totalAssets": 17,
+    "totalSize": 38914161,
+    "byType": {
+      "images": {
+        "count": 16,
+        "size": 38888230,
+        "sizeFormatted": "37.09 MB"
+      },
+      "icons": {
+        "count": 1,
+        "size": 25931,
+        "sizeFormatted": "25.32 KB"
+      },
+      "videos": {
+        "count": 0,
+        "size": 0,
+        "sizeFormatted": "0 B"
+      }
+    },
+    "byDirectory": {
+      "app": {
+        "count": 3,
+        "size": 605703,
+        "sizeFormatted": "591.51 KB"
+      },
+      "docs/starter-material/visual-assets": {
+        "count": 14,
+        "size": 38308458,
+        "sizeFormatted": "36.53 MB"
+      }
+    },
+    "totalSizeFormatted": "37.11 MB"
+  },
+  "assets": {
+    "app": [
+      {
+        "file": "favicon.ico",
+        "size": 25931,
+        "sizeFormatted": "25.32 KB",
+        "format": "ico",
+        "type": "icon",
+        "modified": "2025-09-18T19:17:51.000Z"
+      },
+      {
+        "file": "opengraph-image.png",
+        "size": 289886,
+        "sizeFormatted": "283.09 KB",
+        "format": "png",
+        "type": "image",
+        "modified": "2025-09-18T19:17:51.000Z"
+      },
+      {
+        "file": "twitter-image.png",
+        "size": 289886,
+        "sizeFormatted": "283.09 KB",
+        "format": "png",
+        "type": "image",
+        "modified": "2025-09-18T19:17:51.000Z"
+      }
+    ],
+    "docs/starter-material/visual-assets": [
+      {
+        "file": "IMG_4461.jpeg",
+        "size": 1252516,
+        "sizeFormatted": "1.19 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:19.000Z"
+      },
+      {
+        "file": "IMG_4468.jpeg",
+        "size": 3895629,
+        "sizeFormatted": "3.72 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4520.jpeg",
+        "size": 5251114,
+        "sizeFormatted": "5.01 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4572.jpeg",
+        "size": 2592543,
+        "sizeFormatted": "2.47 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4574.jpeg",
+        "size": 3492031,
+        "sizeFormatted": "3.33 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4576.jpeg",
+        "size": 2102931,
+        "sizeFormatted": "2.01 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4580.jpeg",
+        "size": 1517827,
+        "sizeFormatted": "1.45 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4589.jpeg",
+        "size": 3053869,
+        "sizeFormatted": "2.91 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:28.000Z"
+      },
+      {
+        "file": "IMG_4598.jpeg",
+        "size": 2158996,
+        "sizeFormatted": "2.06 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:29.000Z"
+      },
+      {
+        "file": "IMG_4662.jpeg",
+        "size": 3167022,
+        "sizeFormatted": "3.02 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:31.000Z"
+      },
+      {
+        "file": "IMG_4696.jpeg",
+        "size": 2492653,
+        "sizeFormatted": "2.38 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:30.000Z"
+      },
+      {
+        "file": "IMG_4708.jpeg",
+        "size": 2186586,
+        "sizeFormatted": "2.09 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:31.000Z"
+      },
+      {
+        "file": "IMG_4712.jpeg",
+        "size": 1564098,
+        "sizeFormatted": "1.49 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:32.000Z"
+      },
+      {
+        "file": "IMG_4716.jpeg",
+        "size": 3580643,
+        "sizeFormatted": "3.41 MB",
+        "format": "jpeg",
+        "type": "image",
+        "modified": "2025-07-28T13:12:32.000Z"
+      }
+    ]
+  },
+  "usage": {}
+}

@@ -1,40 +1,61 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Libre_Baskerville } from 'next/font/google';
+import { Source_Sans_3 } from 'next/font/google';
+import './globals.css';
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+const libreBaskerville = Libre_Baskerville({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-serif',
+});
+
+const sourceSans3 = Source_Sans_3({
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: 'The Fountain Studio - Healing Through Sound & Movement',
+  description: 'A boutique healing studio in Au, Zurich helping you clear the static and reconnect with your natural flow through Biofield Tuning, Gyrotonic®, and Breathwork.',
+  keywords: 'sound healing, biofield tuning, gyrotonic, breathwork, wellness, zurich, switzerland, healing, therapy',
+  authors: [{ name: 'The Fountain Studio' }],
+  openGraph: {
+    title: 'The Fountain Studio',
+    description: 'Healing Through Sound & Movement',
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: 'de_CH',
+    siteName: 'The Fountain Studio',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Fountain Studio',
+    description: 'Healing Through Sound & Movement',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    languages: {
+      'en': '/en',
+      'de': '/de',
+    },
+  },
 };
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+    <html lang="en" className={`${libreBaskerville.variable} ${sourceSans3.variable}`}>
+      <body className="font-sans antialiased">
+        {children}
       </body>
     </html>
   );

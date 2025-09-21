@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fountain Studio | Sound Healing & Wholistic Movement | Zurich</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #4a4a4a;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f1eb;
+        }
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f5f1eb 0%, #e8ddd4 50%, #d4c4a8 100%);
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border: 2px solid #e67e22;
+        }
+        h1 {
+            font-size: 2.8em;
+            color: #4a4a4a;
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+        .studio-name {
+            font-size: 1.8em;
+            color: #4a4a4a;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .slogan {
+            font-size: 1.4em;
+            color: #e67e22;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .action-statement {
+            font-size: 1.2em;
+            color: #4a4a4a;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .service-list {
+            font-size: 1.1em;
+            color: #4a4a4a;
+            margin-bottom: 25px;
+        }
+        .cta-button {
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        .cta-button:hover {
+            background: linear-gradient(45deg, #d35400, #c0392b);
+        }
+        h2 {
+            color: #4a4a4a;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #4a4a4a;
+            font-size: 1.3em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .hook-section {
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid #e67e22;
+        }
+        .hook-section h2 {
+            color: #e67e22;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+            border: none;
+        }
+        .how-it-works {
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 2px solid #e67e22;
+        }
+        .tv-metaphor {
+            background: #f5f1eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #e67e22;
+            font-style: italic;
+        }
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .service-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #e67e22;
+            box-shadow: 0 3px 10px rgba(230, 126, 34, 0.2);
+        }
+        .service-card h4 {
+            color: #4a4a4a;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .service-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .gyrotonic-trademark {
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+        }
+        .biofield-explanation {
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 2px solid #e67e22;
+        }
+        .eileen-quote {
+            font-style: italic;
+            color: #4a4a4a;
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #e67e22;
+        }
+        .quote-attribution {
+            font-weight: bold;
+            color: #e67e22;
+            margin-top: 15px;
+            font-style: normal;
+        }
+        .expectations-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 2px solid #e67e22;
+            box-shadow: 0 3px 10px rgba(230, 126, 34, 0.1);
+        }
+        .expectation-item {
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            border-radius: 8px;
+            border-left: 4px solid #e67e22;
+        }
+        .expectation-item h4 {
+            color: #4a4a4a;
+            margin-bottom: 10px;
+        }
+        .testimonial {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+            border-left: 4px solid #e67e22;
+            box-shadow: 0 2px 8px rgba(230, 126, 34, 0.1);
+        }
+        .testimonial-author {
+            font-weight: bold;
+            margin-top: 10px;
+            font-style: normal;
+            color: #4a4a4a;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 2px solid #e67e22;
+        }
+        .location-info {
+            background: linear-gradient(135deg, #f5f1eb, #e8ddd4);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px solid #e67e22;
+        }
+        .contact-section {
+            background: linear-gradient(135deg, #fff, #f5f1eb);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(230, 126, 34, 0.2);
+            border: 2px solid #e67e22;
+        }
+        .contact-details {
+            background: #f5f1eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+            display: inline-block;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .bold {
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="studio-name">THE FOUNTAIN STUDIO</div>
+        <div class="slogan">"Frequency is Everything"</div>
+        <div class="action-statement">
+            A boutique healing studio helping you clear the static and reconnect with your natural flow through gentle, embodied practices.
+        </div>
+        <div class="service-list">
+            <strong>Biofield Tuning • Gyrotonic® • Breathwork</strong>
+        </div>
+        <a href="#book" class="cta-button">Book Your Session</a>
+        <a href="#learn-more" class="cta-button">Learn More</a>
+    </div>
+
+    <div class="hook-section" id="learn-more">
+        <h2>Find Your Flow</h2>
+        <p>Most of us live with invisible tension - in our physical bodies and in our energy bodies:</p>
+        <ul>
+            <li>We are reactive rather than responsive</li>
+            <li>We store stress, old (even ancestral) patterns</li>
+            <li>We carry static that creates noise in our system</li>
+        </ul>
+        
+        <p><strong>What if there is a gentle way to unravel the knots and find your flow?</strong></p>
+    </div>
+
+    <div class="how-it-works">
+        <h2>Stay Grounded, No Matter What Life Throws at You</h2>
+        <p><strong>Biofield Tuning activates a stable, calming energy in your space, so you can respond, not react.</strong></p>
+        
+        <p>I work with your physical, energetic and electric body as inseparable parts of one system. Through sound healing, gyrotonic movement and breathwork, we create space for your natural healing intelligence to operate.</p>
+        
+        <div class="tv-metaphor">
+            <p><em>You can think of it like this: We all accept that the picture coming out of the TV is not coming from the actual device. The TV is simply the tool to make visible the signal.</em></p>
+            <p><strong><em>In your own body, the Electrical Field is the transmitting station and the Brain is the TV.</em></strong></p>
+        </div>
+        
+        <p><strong>Whether you choose a single approach or combine modalities, each works to clear the static and restore coherence to your system.</strong></p>
+    </div>
+
+    <h2>My Tool Kit</h2>
+    
+    <div class="service-grid">
+        <div class="service-card">
+            <div class="service-icon">🔱</div>
+            <h4>Biofield Tuning</h4>
+            <p>Using tuning forks to work with your <strong>energy field</strong>—the invisible electromagnetic space around your body where memories and patterns are stored.</p>
+            <ul>
+                <li><strong>Nervous system regulation</strong></li>
+                <li>Emotional release and processing</li>
+                <li>Deep relaxation and stress relief</li>
+                <li>Gentle, passive healing process</li>
+            </ul>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">🌀</div>
+            <h4><span class="gyrotonic-trademark">Gyrotonic® Expansion System</span> Method</h4>
+            <p>Flowing, breath-centered movement that supports <strong>spinal health</strong> and helps you reconnect with your body's natural intelligence.</p>
+            <ul>
+                <li><strong>Improved posture and mobility</strong></li>
+                <li>Nervous system regulation</li>
+                <li>Mind-body connection</li>
+                <li>For every body, every age, every level</li>
+            </ul>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">☀️</div>
+            <h4>Breathwork</h4>
+            <p>A gentle and fun breathing program to <strong>balance your nervous system</strong>, increase oxygen into the system and open your body's central energy channel.</p>
+            <ul>
+                <li><strong>Stress and anxiety relief</strong></li>
+                <li>Emotional regulation</li>
+                <li>Mental clarity and focus</li>
+                <li>If you are alive, you will benefit</li>
+            </ul>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">🌊</div>
+            <h4>Combi-Sound Healing and Movement</h4>
+            <p><strong>Moving the body is an ideal way to open the energy channels</strong> for a deeper state of openness.</p>
+            <ul>
+                <li><strong>90 minutes total</strong></li>
+                <li>45 mins <span class="gyrotonic-trademark">Gyrotonic®</span> movement</li>
+                <li>45 mins Biofield Tuning, sound healing</li>
+                <li>Comprehensive body-field integration</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="biofield-explanation">
+        <h3>What is Biofield Tuning?</h3>
+        
+        <div class="eileen-quote">
+            <p><strong>What actually happens when sound enters the biofield?</strong></p>
+            
+            <p>In Biofield Tuning, we understand the body as an electric system—and the biofield as the electromagnetic field that surrounds and informs it.</p>
+            
+            <p>When sound enters this field, it interacts with areas of dissonance—regions of turbulence, stagnation, or unresolved memory—and helps bring them into a state of greater coherence.</p>
+            
+            <p>Whether it creates a subtle shift or a profound release, sound works by signaling the system to reorganize. It helps the body regulate, recalibrate, and remember its natural rhythm—restoring flow, clarity, and connection beneath the static.</p>
+            
+            <div class="quote-attribution">— Eileen McKusick, Founder of Biofield Tuning</div>
+        </div>
+    </div>
+
+    <div class="expectations-section">
+        <h2>What You Can Expect</h2>
+        
+        <div class="expectation-item">
+            <h4>Stress Reduction & Relaxation</h4>
+            <p>Deep nervous system regulation that helps you feel more grounded and centered. Perfect if you're dealing with chronic stress or tension that won't release.</p>
+        </div>
+        
+        <div class="expectation-item">
+            <h4>Emotional Processing Without the Drama</h4>
+            <p>Gentle release of stored emotional patterns. "To feel is to heal" - but without needing to relive or analyze the story. Ideal if you're ready to move through stuck feelings.</p>
+        </div>
+        
+        <div class="expectation-item">
+            <h4>Deeper Integration & Alignment</h4>
+            <p>Working with what your system is ready to heal at a soul level. For those curious about the bigger picture of what makes you tick and ready to trust your inner guidance.</p>
+        </div>
+        
+        <p style="margin-top: 30px;"><strong>Common experiences:</strong> Feeling lighter and more grounded, improved sleep, greater body awareness, clearer thinking, physical relief from tension, and a sense of coming home to yourself.</p>
+    </div>
+
+    <div class="testimonial">
+        "I feel safe with you. You are congruent and authentic... I feel myself in such a subtle yet profound way."
+        <div class="testimonial-author">— Client testimonial</div>
+    </div>
+
+    <div class="testimonial">
+        "I have not been able to sing after my thyroid surgery until you worked on my throat. I sang the whole way home for the first time in years."
+        <div class="testimonial-author">— Heather</div>
+    </div>
+
+    <div class="highlight">
+        <p><strong>I operate from the premise that you are the healer and I am a catalyst in your process.</strong> Trained in Transpersonal Psychology, Sound Healing, the <span class="gyrotonic-trademark">Gyrotonic® Movement System</span> and Breathwork, I am in service to your process.</p>
+    </div>
+
+    <div class="location-info">
+        <h3>📍 Located in Au, Near Zurich</h3>
+        <p>Serving the greater Zurich area with easy access by public transport</p>
+    </div>
+
+    <div class="contact-section" id="book">
+        <h2>Ready to Explore?</h2>
+        <p>I offer <strong>individual sessions</strong> tailored to your needs and comfort level. Whether you're curious about sound healing, want to reconnect with your body through movement, or need support with stress and emotional regulation.</p>
+        
+        <div class="contact-details">
+            <strong>Kristen Slabaugh</strong><br>
+            Owner / Certified Practitioner<br>
+            Erlenweg 5A<br>
+            8804 Au ZH<br><br>
+            <strong>Web:</strong> www.fountainstudio.ch<br>
+            <strong>Email:</strong> info@fountainstudio.ch<br>
+            <strong>Phone:</strong> +41 78 404 86 54
+        </div>
+        
+        <a href="mailto:info@fountainstudio.ch" class="cta-button">Get In Touch</a>
+        <a href="#" class="cta-button">Book Online</a>
+        
+        <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+            <strong>Training & Credentials:</strong> Certified in Biofield Tuning, <span class="gyrotonic-trademark">Gyrotonic® Movement System</span>, with a degree in Transpersonal Psychology
+        </p>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #f5f1eb, #e8ddd4); border-radius: 8px; border: 2px solid #e67e22;">
+        <p><em>"Frequency is Everything"</em></p>
+    </div>
+</body>
+</html>
