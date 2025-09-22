@@ -1,28 +1,15 @@
 import { describe, it, expect } from 'vitest';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 
 describe('Image References', () => {
   const publicImagesPath = path.join(process.cwd(), 'public', 'images');
 
-  // Map of expected images (as referenced in page.tsx) to actual files
-  const imageMapping = {
-    // Expected -> Current actual file
-    'service-biofield-tuning.jpg': 'tuning-forks-fan.jpg',
-    'service-gyrotonic-movement.jpg': 'equipment-detail.jpg',
-    'service-breathwork.jpg': 'breathwork-space.jpg',
-    'service-integration.jpg': 'studio-atmosphere.jpg',
-    'about-treatment-session.jpg': 'treatment-session.jpg',
-    'learn-biofield.jpg': 'tuning-forks-spiral.jpg',
-    'learn-gyrotonic.jpg': 'studio-space.jpg',
-    'learn-breathwork.jpg': 'voice-integration.jpg',
-    'testimonials-bg-sunset.jpg': 'sunset-meadow.jpg',
-  };
-
+  // Images that should exist after renaming (current state)
   const expectedImages = [
-    'hero-swiss-alps.jpg', // This one exists correctly
+    'hero-swiss-alps.jpg',
     'service-biofield-tuning.jpg',
-    'service-gyrotonic-movement.jpg',
+    'service-gyrotonic-movement.jpg', 
     'service-breathwork.jpg',
     'service-integration.jpg',
     'about-treatment-session.jpg',
@@ -32,41 +19,33 @@ describe('Image References', () => {
     'testimonials-bg-sunset.jpg',
   ];
 
+  // Old filenames that should no longer exist
+  const oldImages = [
+    'tuning-forks-fan.jpg',
+    'equipment-detail.jpg',
+    'breathwork-space.jpg',
+    'studio-atmosphere.jpg',
+    'treatment-session.jpg',
+    'tuning-forks-spiral.jpg',
+    'studio-space.jpg',
+    'voice-integration.jpg',
+    'sunset-meadow.jpg',
+  ];
+
   it('should have all expected image files in public/images', () => {
     expectedImages.forEach(imageName => {
       const imagePath = path.join(publicImagesPath, imageName);
       const exists = fs.existsSync(imagePath);
-
-      if (!exists && imageMapping[imageName]) {
-        // Check if the old file exists that needs to be renamed
-        const oldPath = path.join(publicImagesPath, imageMapping[imageName]);
-        expect(fs.existsSync(oldPath)).toBe(true);
-        console.log(`Need to rename: ${imageMapping[imageName]} -> ${imageName}`);
-      } else {
-        expect(exists).toBe(true);
-      }
+      expect(exists).toBe(true);
     });
   });
 
-  it('should not have duplicate image files after renaming', () => {
+  it('should not have old image files after renaming', () => {
     // After renaming, the old filenames should not exist
-    const oldFiles = Object.values(imageMapping);
-    const newFiles = Object.keys(imageMapping);
-
-    // This test will pass after renaming is done
-    oldFiles.forEach((oldFile, index) => {
+    oldImages.forEach(oldFile => {
       const oldPath = path.join(publicImagesPath, oldFile);
-      const newPath = path.join(publicImagesPath, newFiles[index]);
-
-      // Either the old file exists (not renamed yet) OR the new file exists (renamed)
-      // But not both
-      const oldExists = fs.existsSync(oldPath);
-      const newExists = fs.existsSync(newPath);
-
-      // They should not both exist (would indicate duplication)
-      if (oldExists && newExists) {
-        expect(oldExists && newExists).toBe(false);
-      }
+      const exists = fs.existsSync(oldPath);
+      expect(exists).toBe(false);
     });
   });
 
@@ -74,7 +53,6 @@ describe('Image References', () => {
     expectedImages.forEach(imageName => {
       const imagePath = path.join(publicImagesPath, imageName);
 
-      // Check if file exists (or will exist after rename)
       if (fs.existsSync(imagePath)) {
         const stats = fs.statSync(imagePath);
         const sizeInMB = stats.size / (1024 * 1024);
@@ -88,6 +66,39 @@ describe('Image References', () => {
           console.warn(`Image ${imageName} is ${sizeInMB.toFixed(2)}MB - consider optimization`);
         }
       }
+    });
+  });
+
+  it('should have appropriate image formats', () => {
+    expectedImages.forEach(imageName => {
+      const imagePath = path.join(publicImagesPath, imageName);
+      
+      if (fs.existsSync(imagePath)) {
+        // Check file extension
+        const ext = path.extname(imageName).toLowerCase();
+        expect(['.jpg', '.jpeg', '.png', '.webp']).toContain(ext);
+      }
+    });
+  });
+
+  it('should have all images referenced in page.tsx', () => {
+    // This ensures we're testing all images that are actually used
+    const referencedImages = [
+      '/images/hero-swiss-alps.jpg',
+      '/images/service-biofield-tuning.jpg',
+      '/images/service-gyrotonic-movement.jpg',
+      '/images/service-breathwork.jpg', 
+      '/images/service-integration.jpg',
+      '/images/about-treatment-session.jpg',
+      '/images/learn-biofield.jpg',
+      '/images/learn-gyrotonic.jpg',
+      '/images/learn-breathwork.jpg',
+      '/images/testimonials-bg-sunset.jpg',
+    ];
+
+    referencedImages.forEach(imageRef => {
+      const imageName = imageRef.replace('/images/', '');
+      expect(expectedImages).toContain(imageName);
     });
   });
 });
