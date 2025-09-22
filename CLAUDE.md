@@ -670,10 +670,36 @@ mcp__brave-search__* (Web Search):
   MAX: 20 results per request, use offset for pagination
 
 mcp__gemini-cli__* (Analysis & Change Mode):
-  USE WHEN: Complex analysis, structured edits
+  USE WHEN: Complex analysis, structured edits, alternative perspectives
+  - ask-gemini → Analyze code with @ file references
   - ask-gemini --changeMode → Get structured edit suggestions
-  - brainstorm → Generate novel solutions
-  BENEFIT: Alternative perspective, chunked responses
+  - brainstorm → Generate novel solutions and ideas
+  - fetch-chunk → Retrieve chunked responses
+
+  CRITICAL REQUIREMENT - File References:
+    ⚠️ Gemini CANNOT read files directly from the codebase
+    ✅ MUST include files using @ notation in prompts
+    ✅ Example: "@lib/auth.ts @docs/auth.md explain the auth flow"
+    ❌ Without @ references, gemini has ZERO context about your code
+
+  CORRECT USAGE EXAMPLES:
+    # For code analysis:
+    mcp__gemini-cli__ask-gemini(
+      prompt: "Review @lib/core/*.ts @docs/README.md and identify issues"
+    )
+
+    # For changeMode (structured edits):
+    mcp__gemini-cli__ask-gemini(
+      prompt: "Suggest refactoring for @components/ui/button.tsx",
+      changeMode: true
+    )
+
+    # For brainstorming with context:
+    mcp__gemini-cli__brainstorm(
+      prompt: "Generate solutions using @architecture-core.md patterns"
+    )
+
+  BENEFIT: Alternative AI perspective, structured changes, creative solutions
 
 ERROR HANDLING patterns:
   IF mcp_timeout:

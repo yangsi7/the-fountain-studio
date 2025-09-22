@@ -33,10 +33,12 @@ Define the booking and scheduling system for The Fountain Studio, integrating Ca
 ### Cal.com Configuration
 
 ```typescript
-// lib/booking-config.ts
+// Actual Implementation: components/booking/CalBookingModal.tsx
 export const bookingConfig = {
-  // Cal.com username
-  username: 'fountainstudio',
+  // Cal.com username and namespace
+  username: 'simon-yang-z2fy7e',
+  namespace: 'secret',
+  calLink: 'simon-yang-z2fy7e/secret',
 
   // Service-specific event types
   eventTypes: {
@@ -97,34 +99,38 @@ export const bookingConfig = {
 }
 ```
 
-### Embed Implementation
+### Actual Implementation (September 2025)
 
 ```typescript
-// components/booking/CalEmbed.tsx
-'use client'
+// components/booking/CalBookingModal.tsx
+'use client';
 
-import Cal, { getCalApi } from '@calcom/embed-react'
-import { useEffect } from 'react'
-import { bookingConfig } from '@/lib/booking-config'
+import { useEffect } from 'react';
+import { getCalApi } from '@calcom/embed-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
-interface CalEmbedProps {
-  eventType: keyof typeof bookingConfig.eventTypes
-  locale?: 'de' | 'fr' | 'it' | 'en'
-}
-
-export function CalEmbed({ eventType, locale = 'de' }: CalEmbedProps) {
-  const event = bookingConfig.eventTypes[eventType]
-
+export function CalBookingModal({ open, onOpenChange }) {
   useEffect(() => {
     (async function () {
-      const cal = await getCalApi()
+      const cal = await getCalApi({ namespace: 'secret' });
       cal('ui', {
-        theme: 'light',
-        styles: {
-          branding: {
-            brandColor: '#B8956A', // Champagne gold
-            lightColor: '#F8F6F3', // Silk
-            lighterColor: '#FAF9F7',
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      });
+    })();
+  }, []);
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl h-[80vh] p-0">
+        <button
+          data-cal-namespace="secret"
+          data-cal-link="simon-yang-z2fy7e/secret"
+          data-cal-config='{"layout":"month_view"}'
+          className="hidden"
+        >
+          Trigger
+        </button>
             highlightColor: '#B8956A',
             medianColor: '#56564C' // Charcoal medium
           }

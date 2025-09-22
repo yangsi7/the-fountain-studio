@@ -15,11 +15,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { getDictionary, type Dictionary } from './dictionaries';
+import { CalBookingModal } from '@/components/booking/CalBookingModal';
 
 export default function LandingPage() {
   const [lang, setLang] = useState<'en' | 'de'>('en');
   const [dict, setDict] = useState<Dictionary | null>(null);
   const [loading, setLoading] = useState(true);
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
   // Load language preference from localStorage
   useEffect(() => {
@@ -189,7 +191,7 @@ export default function LandingPage() {
             <Button
               size="lg"
               className="bg-gold hover:bg-gold-hover text-white"
-              onClick={() => scrollToSection('contact')}
+              onClick={() => setBookingModalOpen(true)}
             >
               {dict.hero.cta.book}
             </Button>
@@ -634,7 +636,7 @@ export default function LandingPage() {
                   <Button
                     variant="outline"
                     className="w-full border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
-                    onClick={() => window.open('https://cal.com/', '_blank')}
+                    onClick={() => setBookingModalOpen(true)}
                   >
                     {dict.contact.alternatives.calendar}
                   </Button>
@@ -698,6 +700,16 @@ export default function LandingPage() {
       >
         <MessageCircle className="w-6 h-6 text-white" />
       </a>
+
+      {/* Cal.com Booking Modal */}
+      {dict && (
+        <CalBookingModal
+          open={bookingModalOpen}
+          onOpenChange={setBookingModalOpen}
+          title={dict.contact.alternatives.calendar}
+          description={lang === 'de' ? 'Wählen Sie eine Zeit, die für Sie passt' : 'Select a time that works best for you'}
+        />
+      )}
     </div>
   );
 }

@@ -158,6 +158,11 @@
     "alternatives": {
       "whatsapp": "Chat on WhatsApp",
       "calendar": "Schedule on Cal.com"
+    },
+    "booking": {
+      "title": "Book Your Session",
+      "description": "Select a time that works best for you",
+      "loading": "Loading calendar..."
     }
   },
   "footer": {

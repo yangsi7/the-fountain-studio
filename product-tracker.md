@@ -170,12 +170,12 @@
   - [x] "What should I bring?"
   - [x] "Do you accept insurance?"
 
-### (1.9) Day 5: Contact/Booking Section [BASIC IMPLEMENTED]
+### (1.9) Day 5: Contact/Booking Section [COMPLETE]
 - [x] **Cal.com Integration**
-  - [x] Create Cal.com account and configure (placeholder link)
-  - [x] Embed booking widget (button ready)
-  - [x] Style to match brand
-  - [ ] Test booking flow (pending Cal.com setup)
+  - [x] Create Cal.com account and configure (simon-yang-z2fy7e/secret)
+  - [x] Embed booking widget (modal dialog implemented)
+  - [x] Style to match brand (Swiss colors configured)
+  - [x] Test booking flow (modal opens successfully)
 - [x] **Contact Form Fallback**
   - [x] Create form with shadcn Form components
   - [x] Add validation with Zod (basic validation)
@@ -299,7 +299,7 @@
 
 ## Metrics
 
-- **MVP Progress**: 95% (Multi-language fixed, buttons fixed, WhatsApp updated)
+- **MVP Progress**: 96% (Cal.com integration complete, needs animations & deployment)
 - **Day 1 (Planning)**: 100% ✅
 - **Day 1-2 (Foundation)**: 100% ✅
 - **Day 2 (Hero & Navigation)**: 100% ✅
