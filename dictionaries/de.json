@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "services": "Angebote",
+    "about": "Über",
+    "learn": "Lernen",
+    "testimonials": "Erfahrungen",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "language": "DE"
+  },
+  "hero": {
+    "title": "Frequenz ist Alles",
+    "subtitle": "Ein Boutique-Heilstudio, das Ihnen hilft, statische Störungen zu klären und durch sanfte, verkörperte Praktiken wieder in Ihren natürlichen Fluss zu kommen: Biofield Tuning, Gyrotonic® und Atemarbeit.",
+    "cta": {
+      "book": "Termin Buchen",
+      "learn": "Mehr Erfahren"
+    },
+    "scroll": "Scrollen zum Entdecken"
+  },
+  "services": {
+    "title": "Meine Werkzeuge",
+    "subtitle": "Wählen Sie, wie Sie statische Störungen klären und Ihren Fluss finden möchten",
+    "biofield": {
+      "title": "Biofield Tuning",
+      "description": "Arbeitet mit Ihrem Energiefeld unter Verwendung von Stimmgabeln zur Lokalisierung und Auflösung von Verzerrungen",
+      "benefits": "Regulation des Nervensystems, emotionale Freisetzung, tiefe Entspannung",
+      "duration": "60 Minuten",
+      "price": "120 CHF",
+      "cta": "Mehr Erfahren"
+    },
+    "gyrotonic": {
+      "title": "Gyrotonic® Bewegung",
+      "description": "Fließende, dreidimensionale Bewegung mit spezialisierten Geräten",
+      "benefits": "Verbesserte Haltung, Regulation des Nervensystems, Körper-Geist-Verbindung",
+      "duration": "60 Minuten",
+      "price": "120 CHF",
+      "cta": "Mehr Erfahren"
+    },
+    "breathwork": {
+      "title": "Atemarbeit",
+      "description": "Strukturiertes Atemprogramm zur Balance des Nervensystems und Erhöhung der Sauerstoffzufuhr",
+      "benefits": "Stressabbau, mentale Klarheit, verbesserte Durchblutung",
+      "duration": "45 Minuten",
+      "price": "90 CHF",
+      "cta": "Mehr Erfahren"
+    },
+    "integration": {
+      "title": "Vollständige Integration",
+      "description": "90-minütige Sitzung, die Bewegung und Klangheilung für eine umfassende Körper-Feld-Integration kombiniert",
+      "benefits": "Tiefe Integration, Ganzsystem-Reset, nachhaltige Veränderung",
+      "duration": "90 Minuten",
+      "price": "180 CHF",
+      "cta": "Sitzung Buchen"
+    }
+  },
+  "about": {
+    "title": "Über Kristen",
+    "subtitle": "Ihre Bio-Elektrikerin",
+    "intro": "Ich sehe mich als Bio-Elektrikerin, die Klang und Frequenz nutzt, um mit Ihrem elektrischen System zu arbeiten.",
+    "description": "Mit einem Hintergrund in transpersonaler Psychologie und Zertifizierungen in Biofield Tuning, Gyrotonic® und Atemarbeit schaffe ich Raum für Sie, um Ruhe zu finden, sich mit Ihrem Körper zu verbinden und die Wahrheit in Ihrem Energiefeld wiederzuentdecken.",
+    "quote": "Das Ziel ist nicht, jemand anders zu werden, sondern zu dem zurückzukehren, wer Sie wirklich sind.",
+    "mission": "Kohärenz in einer chaotischen Welt aufbauen, ein Körper, ein Feld nach dem anderen.",
+    "credentials": {
+      "title": "Zertifizierungen",
+      "items": [
+        "Transpersonale Psychologie",
+        "Zertifizierte Biofield Tuning Praktikerin",
+        "Zertifizierte Gyrotonic® Praktikerin",
+        "Atemarbeit-Facilitator"
+      ]
+    },
+    "cta": "Entdeckungsgespräch Vereinbaren"
+  },
+  "learn": {
+    "title": "Wie es Funktioniert",
+    "subtitle": "Die Wissenschaft der Klangheilung verstehen",
+    "biofield": {
+      "title": "Biofield Tuning",
+      "content": "Ihr Körper funktioniert als elektrisches System mit eigenem elektromagnetischem Feld. Mit Stimmgabeln lokalisieren wir Bereiche von Turbulenzen oder Stagnation in Ihrem Feld - oft entsprechend vergangenen Erfahrungen oder emotionalen Mustern. Die kohärenten Frequenzen helfen Ihrem Körper, sich neu zu organisieren und loszulassen, was Ihnen nicht mehr dient."
+    },
+    "gyrotonic": {
+      "title": "Gyrotonic® Methode",
+      "content": "Dieses einzigartige Bewegungssystem arbeitet durch fließende, kreisförmige Bewegungen mit Ihrem ganzen Körper. Mit spezialisierten Geräten dekomprimieren wir Gelenke, verbessern die Durchblutung und stimulieren Ihr Nervensystem. Das Ergebnis ist eine verbesserte Haltung, Balance und ein tiefes Gefühl der Verkörperung."
+    },
+    "breathwork": {
+      "title": "Atemarbeit",
+      "content": "Durch bewusste Atemmuster und rhythmische Bewegung aktivieren wir die natürliche Heilungsreaktion Ihres Körpers. Dieses Herz-Kreislauf-Programm erhöht den Sauerstofffluss, stimuliert die Lymphdrainage und hilft, Ihr Nervensystem für anhaltende Ruhe und Klarheit zu regulieren."
+    }
+  },
+  "testimonials": {
+    "title": "Kunden-Erfahrungen",
+    "subtitle": "Transformationen durch Klang und Bewegung",
+    "items": [
+      {
+        "name": "Sarah M.",
+        "text": "Nach nur drei Sitzungen fühlte ich mich endlich, als würde ich in meinen eigenen Schuhen stehen. Die Kombination aus Klangheilung und Bewegung half mir, Muster loszulassen, die ich jahrelang mit mir getragen hatte.",
+        "rating": 5
+      },
+      {
+        "name": "Michael K.",
+        "text": "Kristens sanfter Ansatz und tiefes Verständnis der Energiesysteme des Körpers schuf einen sicheren Raum für tiefgreifende Heilung. Ich verlasse jede Sitzung leichter und mehr ich selbst.",
+        "rating": 5
+      },
+      {
+        "name": "Emma L.",
+        "text": "Die Integrationssitzungen sind transformativ. Die Kombination aus Atemarbeit, Bewegung und Klangheilung adressiert jede Ebene meines Seins. Sehr empfehlenswert!",
+        "rating": 5
+      }
+    ]
+  },
+  "faq": {
+    "title": "Häufig Gestellte Fragen",
+    "items": [
+      {
+        "question": "Was ist Klangheilung?",
+        "answer": "Klangheilung verwendet spezifische Frequenzen von Stimmgabeln, um mit dem elektromagnetischen Feld Ihres Körpers zu interagieren. Dies hilft, gespeicherte Spannungen, Emotionen und Muster freizusetzen, sodass Ihr Nervensystem in einen Zustand der Kohärenz und Ruhe zurückkehren kann."
+      },
+      {
+        "question": "Was kann ich in einer Sitzung erwarten?",
+        "answer": "Die Sitzungen beginnen mit einer kurzen Besprechung Ihres aktuellen Zustands. Bei der Klangheilung liegen Sie vollständig bekleidet auf einer Behandlungsliege, während ich mit Stimmgabeln in Ihrem Energiefeld arbeite. Sie können sanftes Zittern, emotionale Freisetzungen oder tiefe Entspannung erleben. Bewegungssitzungen beinhalten geführte Übungen an spezialisierten Geräten."
+      },
+      {
+        "question": "Ist Klangheilung sicher?",
+        "answer": "Ja, Biofield Tuning ist eine sanfte, nicht-invasive Praxis. Es wird jedoch nicht während der Schwangerschaft, bei Personen mit Herzschrittmachern oder während der Krebsbehandlung empfohlen. Bitte informieren Sie mich vor Ihrer Sitzung über eventuelle Gesundheitszustände."
+      },
+      {
+        "question": "Wie viele Sitzungen brauche ich?",
+        "answer": "Während Sie möglicherweise nach einer Sitzung Veränderungen spüren, empfehle ich, mit drei Sitzungen zu beginnen, um die vollen Vorteile zu erfahren. Dies gibt Zeit für Integration und nachhaltige Veränderung. Wir können dann bewerten, welche fortlaufende Unterstützung am vorteilhaftesten wäre."
+      },
+      {
+        "question": "Was soll ich mitbringen?",
+        "answer": "Nur sich selbst und bequeme Kleidung. Für Bewegungssitzungen tragen Sie bitte Kleidung, in der Sie sich frei bewegen können. Ich stelle alle für Ihre Sitzung benötigten Geräte und Hilfsmittel zur Verfügung."
+      },
+      {
+        "question": "Akzeptieren Sie Versicherung?",
+        "answer": "Einige Zusatzversicherungspläne können Teile der Sitzungen abdecken. Ich kann Quittungen für Ihre Versicherungseinreichung ausstellen. Bitte erkundigen Sie sich bei Ihrem Anbieter über die Deckung für alternative Therapien."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Beginnen Sie Ihre Reise",
+    "subtitle": "Vereinbaren Sie Ihr Entdeckungsgespräch oder buchen Sie eine Sitzung",
+    "form": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon (optional)",
+      "message": "Wie kann ich Sie unterstützen?",
+      "submit": "Nachricht Senden",
+      "success": "Vielen Dank! Ich melde mich innerhalb von 24 Stunden bei Ihnen.",
+      "error": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie mich direkt."
+    },
+    "info": {
+      "title": "Studio Standort",
+      "address": "Tiefenweg 5A, 8804 Au ZH",
+      "phone": "+41 78 795 00 09",
+      "email": "kristen@thefountainstudio.ch"
+    },
+    "alternatives": {
+      "whatsapp": "Chat auf WhatsApp",
+      "calendar": "Termin auf Cal.com"
+    }
+  },
+  "footer": {
+    "tagline": "Kohärenz in einer chaotischen Welt aufbauen, ein Körper, ein Feld nach dem anderen.",
+    "links": {
+      "services": "Angebote",
+      "about": "Über",
+      "contact": "Kontakt",
+      "privacy": "Datenschutz",
+      "terms": "AGB"
+    },
+    "copyright": "© 2025 The Fountain Studio. Alle Rechte vorbehalten."
+  }
+}

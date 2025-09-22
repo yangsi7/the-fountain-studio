@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, Menu, Phone, MessageCircle, Star, MapPin, Mail } from 'lucide-react';
@@ -11,8 +14,52 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { getDictionary, type Dictionary } from './dictionaries';
 
 export default function LandingPage() {
+  const [lang, setLang] = useState<'en' | 'de'>('en');
+  const [dict, setDict] = useState<Dictionary | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Load language preference from localStorage
+  useEffect(() => {
+    const savedLang = localStorage.getItem('language') as 'en' | 'de';
+    if (savedLang) {
+      setLang(savedLang);
+    }
+  }, []);
+
+  // Load dictionary when language changes
+  useEffect(() => {
+    const loadDictionary = async () => {
+      setLoading(true);
+      const dictionary = await getDictionary(lang);
+      setDict(dictionary);
+      setLoading(false);
+    };
+    loadDictionary();
+  }, [lang]);
+
+  const switchLanguage = (newLang: 'en' | 'de') => {
+    setLang(newLang);
+    localStorage.setItem('language', newLang);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  if (loading || !dict) {
+    return (
+      <div className="min-h-screen bg-silk flex items-center justify-center">
+        <div className="animate-pulse text-charcoal">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-silk">
       {/* Navigation Header - Sticky with backdrop blur */}
@@ -32,80 +79,82 @@ export default function LandingPage() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="#services" className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
-              Services
-            </Link>
-            <Link href="#about" className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
-              About
-            </Link>
-            <Link href="#learn" className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
-              Learn
-            </Link>
-            <Link href="#testimonials" className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
-              Testimonials
-            </Link>
-            <Link href="#faq" className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
-              FAQ
-            </Link>
-            <Link href="#contact" className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
-              Contact
-            </Link>
-
-            {/* CTA Button */}
-            <Button className="bg-charcoal hover:bg-charcoal-800 text-white">
-              Book Session
-            </Button>
+            <button onClick={() => scrollToSection('services')} className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
+              {dict.nav.services}
+            </button>
+            <button onClick={() => scrollToSection('about')} className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
+              {dict.nav.about}
+            </button>
+            <button onClick={() => scrollToSection('learn')} className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
+              {dict.nav.learn}
+            </button>
+            <button onClick={() => scrollToSection('testimonials')} className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
+              {dict.nav.testimonials}
+            </button>
+            <button onClick={() => scrollToSection('faq')} className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
+              {dict.nav.faq}
+            </button>
+            <button onClick={() => scrollToSection('contact')} className="text-charcoal/80 hover:text-charcoal transition-colors duration-200">
+              {dict.nav.contact}
+            </button>
 
             {/* Language Switcher */}
-            <div className="flex gap-2 text-sm">
-              <Link href="/de" className="text-muted-foreground hover:text-charcoal">
+            <div className="flex items-center gap-2 ml-4">
+              <Button
+                size="sm"
+                variant={lang === 'de' ? 'default' : 'outline'}
+                onClick={() => switchLanguage('de')}
+                className="h-8 px-3"
+              >
                 DE
-              </Link>
-              <span className="text-muted-foreground">|</span>
-              <Link href="/en" className="font-bold text-gold">
+              </Button>
+              <Button
+                size="sm"
+                variant={lang === 'en' ? 'default' : 'outline'}
+                onClick={() => switchLanguage('en')}
+                className="h-8 px-3"
+              >
                 EN
-              </Link>
+              </Button>
             </div>
           </div>
 
           {/* Mobile Menu */}
           <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="sm">
+                <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[80%] sm:w-[385px]">
+            <SheetContent>
               <SheetHeader>
-                <SheetTitle className="font-serif">Menu</SheetTitle>
+                <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col gap-4 mt-8">
-                <Link href="#services" className="text-lg text-charcoal hover:text-gold transition-colors">
-                  Services
-                </Link>
-                <Link href="#about" className="text-lg text-charcoal hover:text-gold transition-colors">
-                  About
-                </Link>
-                <Link href="#learn" className="text-lg text-charcoal hover:text-gold transition-colors">
-                  Learn
-                </Link>
-                <Link href="#testimonials" className="text-lg text-charcoal hover:text-gold transition-colors">
-                  Testimonials
-                </Link>
-                <Link href="#faq" className="text-lg text-charcoal hover:text-gold transition-colors">
-                  FAQ
-                </Link>
-                <Link href="#contact" className="text-lg text-charcoal hover:text-gold transition-colors">
-                  Contact
-                </Link>
+              <div className="flex flex-col gap-4 mt-6">
+                <button onClick={() => scrollToSection('services')} className="text-left">{dict.nav.services}</button>
+                <button onClick={() => scrollToSection('about')} className="text-left">{dict.nav.about}</button>
+                <button onClick={() => scrollToSection('learn')} className="text-left">{dict.nav.learn}</button>
+                <button onClick={() => scrollToSection('testimonials')} className="text-left">{dict.nav.testimonials}</button>
+                <button onClick={() => scrollToSection('faq')} className="text-left">{dict.nav.faq}</button>
+                <button onClick={() => scrollToSection('contact')} className="text-left">{dict.nav.contact}</button>
                 <Separator className="my-2" />
-                <Button className="w-full bg-charcoal hover:bg-charcoal-800 text-white">
-                  Book Session
-                </Button>
-                <div className="flex gap-4 justify-center">
-                  <Link href="/de" className="text-muted-foreground">DE</Link>
-                  <span className="text-muted-foreground">|</span>
-                  <Link href="/en" className="font-bold text-gold">EN</Link>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    variant={lang === 'de' ? 'default' : 'outline'}
+                    onClick={() => switchLanguage('de')}
+                    className="flex-1"
+                  >
+                    Deutsch
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant={lang === 'en' ? 'default' : 'outline'}
+                    onClick={() => switchLanguage('en')}
+                    className="flex-1"
+                  >
+                    English
+                  </Button>
                 </div>
               </div>
             </SheetContent>
@@ -113,35 +162,43 @@ export default function LandingPage() {
         </nav>
       </header>
 
-      {/* Hero Section - 100vh with background image */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section with Full-Screen Background */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}
-        <Image
-          src="/images/hero-swiss-alps.jpg"
-          alt="Swiss Alps vista representing elevated wellness and natural frequency"
-          fill
-          priority
-          quality={90}
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-swiss-alps.jpg"
+            alt="Swiss Alps healing space"
+            fill
+            className="object-cover"
+            priority
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+        </div>
 
-        {/* Content */}
-        <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-serif mb-6 animate-fade-up">
-            Frequency is Everything
+        {/* Hero Content */}
+        <div className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto">
+          <h1 className="text-5xl md:text-7xl font-serif mb-6 leading-tight">
+            {dict.hero.title}
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
-            A boutique healing studio helping you clear the static and reconnect with your natural flow through gentle, embodied practices: Biofield Tuning, Gyrotonic® and Breathwork.
+            {dict.hero.subtitle}
           </p>
           <div className="flex gap-4 justify-center">
-            <Button size="lg" className="bg-gold hover:bg-gold-hover text-white">
-              Book Your Session
+            <Button
+              size="lg"
+              className="bg-gold hover:bg-gold-hover text-white"
+              onClick={() => scrollToSection('contact')}
+            >
+              {dict.hero.cta.book}
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-              Learn More
+            <Button
+              size="lg"
+              className="bg-charcoal hover:bg-charcoal/90 text-white border-0"
+              onClick={() => scrollToSection('services')}
+            >
+              {dict.hero.cta.learn}
             </Button>
           </div>
         </div>
@@ -153,137 +210,137 @@ export default function LandingPage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 md:py-32 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-serif text-center mb-4 text-charcoal">
-            Our Services
-          </h2>
-          <p className="text-xl text-center mb-16 max-w-3xl mx-auto text-charcoal-light">
-            Tailored healing experiences to restore your natural frequency
-          </p>
+      <section id="services" className="py-24 px-6 bg-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
+              {dict.services.title}
+            </h2>
+            <p className="text-xl text-charcoal/70 max-w-2xl mx-auto">
+              {dict.services.subtitle}
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Biofield Tuning Card */}
-            <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-48 w-full overflow-hidden bg-stone-100">
+            <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/tuning-forks-fan.jpg"
-                  alt="Biofield Tuning - Sound healing with tuning forks"
+                  src="/images/service-biofield-tuning.jpg"
+                  alt="Biofield Tuning"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
               </div>
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-lg">Biofield Tuning</CardTitle>
-                <CardDescription className="text-sm">
-                  Sound healing that clears energetic blocks and restores coherence
-                </CardDescription>
+              <CardHeader>
+                <CardTitle className="text-charcoal">{dict.services.biofield.title}</CardTitle>
+                <CardDescription>{dict.services.biofield.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Badge variant="secondary" className="font-semibold">
-                    CHF 180
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">75 min</span>
+              <CardContent>
+                <p className="text-sm text-charcoal/70 mb-4">{dict.services.biofield.benefits}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-gold font-semibold">{dict.services.biofield.price}</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
+                    onClick={() => scrollToSection('learn')}
+                  >
+                    {dict.services.biofield.cta}
+                  </Button>
                 </div>
-                <p className="text-xs text-muted-foreground italic">
-                  Release tension & restore flow
-                </p>
               </CardContent>
             </Card>
 
             {/* Gyrotonic Card */}
-            <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-48 w-full overflow-hidden bg-stone-100">
+            <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/tuning-forks-spiral.jpg"
-                  alt="Gyrotonic® - Movement and frequency alignment"
+                  src="/images/service-gyrotonic-movement.jpg"
+                  alt="Gyrotonic Movement"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
               </div>
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-lg">Gyrotonic®</CardTitle>
-                <CardDescription className="text-sm">
-                  Fluid movement that enhances strength, flexibility and coordination
-                </CardDescription>
+              <CardHeader>
+                <CardTitle className="text-charcoal">{dict.services.gyrotonic.title}</CardTitle>
+                <CardDescription>{dict.services.gyrotonic.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Badge variant="secondary" className="font-semibold">
-                    CHF 160
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">60 min</span>
+              <CardContent>
+                <p className="text-sm text-charcoal/70 mb-4">{dict.services.gyrotonic.benefits}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-gold font-semibold">{dict.services.gyrotonic.price}</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
+                    onClick={() => scrollToSection('learn')}
+                  >
+                    {dict.services.gyrotonic.cta}
+                  </Button>
                 </div>
-                <p className="text-xs text-muted-foreground italic">
-                  Move with ease & grace
-                </p>
               </CardContent>
             </Card>
 
             {/* Breathwork Card */}
-            <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-48 w-full overflow-hidden bg-stone-100">
+            <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/breathwork-space.jpg"
-                  alt="Breathwork - Conscious breathing for stress release"
+                  src="/images/service-breathwork.jpg"
+                  alt="Breathwork"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
               </div>
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-lg">Breathwork</CardTitle>
-                <CardDescription className="text-sm">
-                  Conscious breathing to release stress and expand awareness
-                </CardDescription>
+              <CardHeader>
+                <CardTitle className="text-charcoal">{dict.services.breathwork.title}</CardTitle>
+                <CardDescription>{dict.services.breathwork.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Badge variant="secondary" className="font-semibold">
-                    CHF 150
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">60 min</span>
+              <CardContent>
+                <p className="text-sm text-charcoal/70 mb-4">{dict.services.breathwork.benefits}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-gold font-semibold">{dict.services.breathwork.price}</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
+                    onClick={() => scrollToSection('learn')}
+                  >
+                    {dict.services.breathwork.cta}
+                  </Button>
                 </div>
-                <p className="text-xs text-muted-foreground italic">
-                  Breathe into presence
-                </p>
               </CardContent>
             </Card>
 
             {/* Integration Card */}
-            <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="relative h-48 w-full overflow-hidden bg-stone-100">
+            <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden border-gold/30 bg-gradient-to-br from-white to-gold/5">
+              <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/gong-sacred-space.jpg"
-                  alt="Integration Experience - Combined healing modalities"
+                  src="/images/service-integration.jpg"
+                  alt="Complete Integration"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                <Badge className="absolute top-4 right-4 bg-gold text-white">
+                  Popular
+                </Badge>
               </div>
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-lg">Integration Experience</CardTitle>
-                <CardDescription className="text-sm">
-                  Combined session tailored to your specific needs
-                </CardDescription>
+              <CardHeader>
+                <CardTitle className="text-charcoal">{dict.services.integration.title}</CardTitle>
+                <CardDescription>{dict.services.integration.description}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Badge variant="secondary" className="font-semibold">
-                    CHF 220
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">90 min</span>
+              <CardContent>
+                <p className="text-sm text-charcoal/70 mb-4">{dict.services.integration.benefits}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-gold font-semibold">{dict.services.integration.price}</span>
+                  <Button
+                    size="sm"
+                    className="bg-charcoal hover:bg-charcoal/90 text-white"
+                    onClick={() => scrollToSection('contact')}
+                  >
+                    {dict.services.integration.cta}
+                  </Button>
                 </div>
-                <p className="text-xs text-muted-foreground italic">
-                  Complete healing journey
-                </p>
               </CardContent>
             </Card>
           </div>
@@ -291,162 +348,122 @@ export default function LandingPage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 md:py-32 bg-silk">
-        <div className="container mx-auto px-6">
+      <section id="about" className="py-24 px-6 bg-silk">
+        <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Image placeholder */}
-            <div className="relative h-96 md:h-[600px] rounded-lg overflow-hidden shadow-xl bg-stone-100">
+            <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/images/treatment-session.jpg"
-                alt="Kristen Kelly - Biofield Tuning practitioner and Gyrotonic instructor"
+                src="/images/about-treatment-session.jpg"
+                alt="Kristen Slabaugh"
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
+            <div>
+              <h2 className="text-4xl font-serif text-charcoal mb-4">{dict.about.title}</h2>
+              <p className="text-xl text-gold mb-4">{dict.about.subtitle}</p>
+              <p className="text-charcoal/70 mb-6">{dict.about.intro}</p>
+              <p className="text-charcoal/70 mb-6">{dict.about.description}</p>
+              <blockquote className="border-l-4 border-gold pl-6 mb-8 italic text-charcoal/80">
+                &ldquo;{dict.about.quote}&rdquo;
+              </blockquote>
+              <p className="font-semibold text-charcoal mb-6">{dict.about.mission}</p>
 
-            {/* Content */}
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-serif text-charcoal">
-                  Meet Kristen
-                </h2>
-                <p className="text-xl font-medium text-charcoal-light">
-                  Your Guide to Healing Through Sound & Movement
-                </p>
+              <div className="mb-8">
+                <h3 className="font-semibold text-charcoal mb-3">{dict.about.credentials.title}:</h3>
+                <ul className="space-y-2">
+                  {dict.about.credentials.items.map((item, index) => (
+                    <li key={index} className="flex items-center gap-2 text-charcoal/70">
+                      <span className="w-1.5 h-1.5 bg-gold rounded-full" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <div className="space-y-4 text-charcoal/90">
-                <p className="text-lg leading-relaxed">
-                  As a certified Biofield Tuning practitioner and Gyrotonic instructor, I help you clear energetic blocks and restore your body&apos;s natural harmony.
-                </p>
-                <blockquote className="border-l-4 border-gold pl-6 italic text-lg">
-                  &ldquo;You are your own healer. I&apos;m simply here to help you remember.&rdquo;
-                </blockquote>
-              </div>
-
-              <div className="space-y-3 pt-4">
-                <div className="flex items-start">
-                  <span className="mr-3 text-gold text-xl">✓</span>
-                  <span className="text-charcoal">Certified Biofield Tuning Practitioner</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="mr-3 text-gold text-xl">✓</span>
-                  <span className="text-charcoal">Gyrotonic® Level 1 Instructor</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="mr-3 text-gold text-xl">✓</span>
-                  <span className="text-charcoal">Conscious Breathwork Facilitator</span>
-                </div>
-                <div className="flex items-start">
-                  <span className="mr-3 text-gold text-xl">✓</span>
-                  <span className="text-charcoal">10+ Years of Healing Practice</span>
-                </div>
-              </div>
+              <Button
+                size="lg"
+                className="bg-charcoal hover:bg-charcoal/90 text-white"
+                onClick={() => scrollToSection('contact')}
+              >
+                {dict.about.cta}
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Learn Section - Accordion */}
-      <section id="learn" className="py-20 md:py-32 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-serif text-charcoal">
-              Learn About Our Modalities
+      {/* Learn Section */}
+      <section id="learn" className="py-24 px-6 bg-white">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
+              {dict.learn.title}
             </h2>
-            <p className="text-xl max-w-3xl mx-auto text-charcoal-light">
-              Discover how each practice can support your healing journey
+            <p className="text-xl text-charcoal/70">
+              {dict.learn.subtitle}
             </p>
           </div>
 
-          <Accordion type="single" collapsible className="max-w-4xl mx-auto">
-            <AccordionItem value="biofield" className="border rounded-lg mb-2 px-4">
-              <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-gold py-6">
-                Biofield Tuning - Clear Your Signal
+          <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem value="biofield" className="border rounded-lg px-4">
+              <AccordionTrigger className="text-lg font-semibold text-charcoal hover:text-gold">
+                {dict.learn.biofield.title}
               </AccordionTrigger>
-              <AccordionContent className="space-y-4 pb-6">
-                <p className="text-charcoal/90 leading-relaxed">
-                  Biofield Tuning uses tuning forks to detect and correct distortions in your body&apos;s electrical system,
-                  clearing static and restoring coherence to your biofield.
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  This gentle yet powerful technique helps release stored emotions, trauma, and limiting patterns,
-                  allowing your natural healing intelligence to emerge.
-                </p>
-                <div className="space-y-2 pt-2">
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Releases energetic blocks and stored trauma</span>
+              <AccordionContent className="text-charcoal/70 pb-4">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div>
+                    <p>{dict.learn.biofield.content}</p>
                   </div>
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Improves emotional resilience and mental clarity</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Restores your body&apos;s natural electrical flow</span>
+                  <div className="relative h-64 rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/learn-biofield.jpg"
+                      alt="Biofield Tuning"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="gyrotonic" className="border rounded-lg mb-2 px-4">
-              <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-gold py-6">
-                Gyrotonic® - Move Like Water
+            <AccordionItem value="gyrotonic" className="border rounded-lg px-4">
+              <AccordionTrigger className="text-lg font-semibold text-charcoal hover:text-gold">
+                {dict.learn.gyrotonic.title}
               </AccordionTrigger>
-              <AccordionContent className="space-y-4 pb-6">
-                <p className="text-charcoal/90 leading-relaxed">
-                  Gyrotonic exercise is a unique movement method that incorporates principles from yoga, dance, gymnastics,
-                  and swimming to create flowing, circular movements.
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Using specialized equipment, Gyrotonic helps decompress joints, enhance coordination, and build
-                  functional strength while maintaining a meditative quality.
-                </p>
-                <div className="space-y-2 pt-2">
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Increases flexibility and joint mobility</span>
+              <AccordionContent className="text-charcoal/70 pb-4">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div>
+                    <p>{dict.learn.gyrotonic.content}</p>
                   </div>
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Builds core strength and spinal health</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Enhances balance and coordination</span>
+                  <div className="relative h-64 rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/learn-gyrotonic.jpg"
+                      alt="Gyrotonic Method"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="breathwork" className="border rounded-lg mb-2 px-4">
-              <AccordionTrigger className="text-lg font-medium hover:no-underline hover:text-gold py-6">
-                Breathwork - Return to Presence
+            <AccordionItem value="breathwork" className="border rounded-lg px-4">
+              <AccordionTrigger className="text-lg font-semibold text-charcoal hover:text-gold">
+                {dict.learn.breathwork.title}
               </AccordionTrigger>
-              <AccordionContent className="space-y-4 pb-6">
-                <p className="text-charcoal/90 leading-relaxed">
-                  Conscious breathing techniques help you release stored tension, process emotions, and expand your
-                  awareness beyond the thinking mind.
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Through guided breath patterns, you&apos;ll learn to regulate your nervous system, access deeper states
-                  of consciousness, and cultivate inner peace.
-                </p>
-                <div className="space-y-2 pt-2">
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Reduces stress and anxiety naturally</span>
+              <AccordionContent className="text-charcoal/70 pb-4">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div>
+                    <p>{dict.learn.breathwork.content}</p>
                   </div>
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Increases energy and mental clarity</span>
-                  </div>
-                  <div className="flex items-start">
-                    <span className="mr-3 text-gold mt-1">•</span>
-                    <span className="text-charcoal/80">Supports emotional release and integration</span>
+                  <div className="relative h-64 rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/learn-breathwork.jpg"
+                      alt="Breathwork"
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
               </AccordionContent>
@@ -456,298 +473,228 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 md:py-32 bg-silk relative overflow-hidden">
-        {/* Subtle Background Image */}
+      <section id="testimonials" className="py-24 px-6 bg-silk relative">
+        {/* Background Image with Low Opacity */}
         <div className="absolute inset-0 opacity-5">
           <Image
-            src="/images/sunset-meadow.jpg"
-            alt=""
+            src="/images/testimonials-bg-sunset.jpg"
+            alt="Background"
             fill
             className="object-cover"
-            sizes="100vw"
-            aria-hidden="true"
           />
         </div>
-        <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-serif text-center mb-4 text-charcoal">
-            What Clients Say
-          </h2>
-          <p className="text-xl text-center mb-16 max-w-3xl mx-auto text-charcoal-light">
-            Transformative experiences from our healing community
-          </p>
 
-          <div className="max-w-4xl mx-auto">
-            <Carousel className="w-full">
-              <CarouselContent>
-                <CarouselItem>
-                  <Card className="border-0 bg-white/50">
-                    <CardContent className="p-8 text-center">
-                      <div className="flex justify-center mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-gold text-gold" />
-                        ))}
-                      </div>
-                      <p className="text-lg italic mb-6 text-charcoal/90">
-                        &ldquo;Kristen&apos;s Biofield Tuning sessions have been life-changing. I feel lighter, clearer, and more myself than I have in years.&rdquo;
-                      </p>
-                      <p className="font-semibold text-charcoal">Sarah M.</p>
-                      <p className="text-sm text-muted-foreground">Zurich</p>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-
-                <CarouselItem>
-                  <Card className="border-0 bg-white/50">
-                    <CardContent className="p-8 text-center">
-                      <div className="flex justify-center mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-gold text-gold" />
-                        ))}
-                      </div>
-                      <p className="text-lg italic mb-6 text-charcoal/90">
-                        &ldquo;The Gyrotonic sessions have completely transformed how I move. My chronic back pain is gone and I feel strong and fluid.&rdquo;
-                      </p>
-                      <p className="font-semibold text-charcoal">Michael T.</p>
-                      <p className="text-sm text-muted-foreground">Wädenswil</p>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-
-                <CarouselItem>
-                  <Card className="border-0 bg-white/50">
-                    <CardContent className="p-8 text-center">
-                      <div className="flex justify-center mb-4">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-gold text-gold" />
-                        ))}
-                      </div>
-                      <p className="text-lg italic mb-6 text-charcoal/90">
-                        &ldquo;The breathwork sessions helped me process years of stored emotions. Kristen creates such a safe, nurturing space.&rdquo;
-                      </p>
-                      <p className="font-semibold text-charcoal">Emma L.</p>
-                      <p className="text-sm text-muted-foreground">Au</p>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
+        <div className="container mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
+              {dict.testimonials.title}
+            </h2>
+            <p className="text-xl text-charcoal/70">
+              {dict.testimonials.subtitle}
+            </p>
           </div>
+
+          <Carousel className="max-w-4xl mx-auto">
+            <CarouselContent>
+              {dict.testimonials.items.map((testimonial, index) => (
+                <CarouselItem key={index}>
+                  <Card className="border-0 bg-white/90 backdrop-blur">
+                    <CardContent className="pt-8 pb-8 px-12">
+                      <div className="flex justify-center mb-4">
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                          <Star key={i} className="w-5 h-5 fill-gold text-gold" />
+                        ))}
+                      </div>
+                      <p className="text-lg text-charcoal/80 mb-6 italic text-center">
+                        &ldquo;{testimonial.text}&rdquo;
+                      </p>
+                      <p className="text-center font-semibold text-charcoal">
+                        - {testimonial.name}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 md:py-32 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-serif text-center mb-4 text-charcoal">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-center mb-16 max-w-3xl mx-auto text-charcoal-light">
-            Everything you need to know about your healing journey
-          </p>
+      <section id="faq" className="py-24 px-6 bg-white">
+        <div className="container mx-auto max-w-3xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
+              {dict.faq.title}
+            </h2>
+          </div>
 
-          <Accordion type="single" collapsible className="max-w-3xl mx-auto">
-            <AccordionItem value="what-expect">
-              <AccordionTrigger>What should I expect in my first session?</AccordionTrigger>
-              <AccordionContent>
-                Your first session begins with a conversation about your health history and intentions.
-                We&apos;ll then proceed with the chosen modality, working at a pace that feels comfortable for you.
-                Sessions are gentle yet powerful, and you may experience emotional releases or deep relaxation.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="how-many">
-              <AccordionTrigger>How many sessions will I need?</AccordionTrigger>
-              <AccordionContent>
-                Everyone&apos;s healing journey is unique. Some clients experience significant shifts in 1-3 sessions,
-                while others prefer ongoing support. We&apos;ll discuss your goals and create a plan that suits your needs.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="preparation">
-              <AccordionTrigger>How should I prepare for a session?</AccordionTrigger>
-              <AccordionContent>
-                Come hydrated and wear comfortable clothing. For Gyrotonic, athletic wear is ideal.
-                For Biofield Tuning and Breathwork, loose, comfortable clothing works best.
-                Avoid heavy meals 2 hours before your session.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="contraindications">
-              <AccordionTrigger>Are there any contraindications?</AccordionTrigger>
-              <AccordionContent>
-                Biofield Tuning is not recommended during pregnancy, for those with pacemakers, or immediately
-                after concussion. Please inform me of any health conditions or concerns before booking.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="location">
-              <AccordionTrigger>Where are sessions held?</AccordionTrigger>
-              <AccordionContent>
-                Sessions are held at my private studio in Au, Wädenswil (Tiefenweg 5A, 8804 Au ZH).
-                The space is easily accessible by public transport and parking is available.
-              </AccordionContent>
-            </AccordionItem>
+          <Accordion type="single" collapsible className="space-y-4">
+            {dict.faq.items.map((item, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-4">
+                <AccordionTrigger className="text-left text-charcoal hover:text-gold">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-charcoal/70 pb-4">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
           </Accordion>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 md:py-32 bg-silk">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-serif text-center mb-4 text-charcoal">
-            Begin Your Healing Journey
-          </h2>
-          <p className="text-xl text-center mb-16 max-w-3xl mx-auto text-charcoal-light">
-            Book a session or reach out with any questions
-          </p>
+      <section id="contact" className="py-24 px-6 bg-silk">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
+              {dict.contact.title}
+            </h2>
+            <p className="text-xl text-charcoal/70">
+              {dict.contact.subtitle}
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {/* Contact Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Send a Message</CardTitle>
-                <CardDescription>I&apos;ll respond within 24 hours</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" placeholder="Your name" />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" />
-                </div>
-                <div>
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea id="message" placeholder="Tell me about what you're looking for..." rows={4} />
-                </div>
-                <Button className="w-full bg-charcoal hover:bg-charcoal-800 text-white">
-                  Send Message
-                </Button>
-              </CardContent>
-            </Card>
+            <div>
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-charcoal">Send a Message</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                    <div>
+                      <Label htmlFor="name">{dict.contact.form.name}</Label>
+                      <Input id="name" placeholder="Your name" className="bg-white" />
+                    </div>
+                    <div>
+                      <Label htmlFor="email">{dict.contact.form.email}</Label>
+                      <Input id="email" type="email" placeholder="your@email.com" className="bg-white" />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">{dict.contact.form.phone}</Label>
+                      <Input id="phone" placeholder="+41..." className="bg-white" />
+                    </div>
+                    <div>
+                      <Label htmlFor="message">{dict.contact.form.message}</Label>
+                      <Textarea id="message" placeholder="Tell me about what you're looking for..." className="bg-white min-h-[100px]" />
+                    </div>
+                    <Button type="submit" className="w-full bg-charcoal hover:bg-charcoal/90 text-white">
+                      {dict.contact.form.submit}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
 
             {/* Contact Info */}
             <div className="space-y-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Book Directly</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full bg-gold hover:bg-gold-hover text-white mb-4">
-                    Schedule on Cal.com
-                  </Button>
-                  <p className="text-sm text-muted-foreground text-center">
-                    Choose your preferred time and modality
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Contact Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <div>
+                <h3 className="text-2xl font-serif text-charcoal mb-4">{dict.contact.info.title}</h3>
+                <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-gold mt-0.5" />
+                    <MapPin className="w-5 h-5 text-gold mt-1" />
                     <div>
-                      <p className="font-medium">The Fountain Studio</p>
-                      <p className="text-sm text-muted-foreground">
-                        Tiefenweg 5A<br />
-                        8804 Au ZH, Switzerland
-                      </p>
+                      <p className="font-semibold text-charcoal">Address</p>
+                      <p className="text-charcoal/70">{dict.contact.info.address}</p>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-gold" />
-                    <p className="text-sm">kristen@thefountainstudio.ch</p>
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-gold mt-1" />
+                    <div>
+                      <p className="font-semibold text-charcoal">Phone</p>
+                      <p className="text-charcoal/70">{dict.contact.info.phone}</p>
+                    </div>
                   </div>
-
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-gold" />
-                    <p className="text-sm">+41 79 123 45 67</p>
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-5 h-5 text-gold mt-1" />
+                    <div>
+                      <p className="font-semibold text-charcoal">Email</p>
+                      <p className="text-charcoal/70">{dict.contact.info.email}</p>
+                    </div>
                   </div>
+                </div>
+              </div>
 
-                  <Separator className="my-4" />
-
-                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Chat on WhatsApp
+              {/* Alternative Contact Methods */}
+              <div>
+                <h3 className="text-xl font-semibold text-charcoal mb-4">Quick Actions</h3>
+                <div className="space-y-3">
+                  <Button
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    onClick={() => window.open(`https://wa.me/41787950009?text=Hi%20Kristen,%20I'm%20interested%20in%20booking%20a%20session`, '_blank')}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    {dict.contact.alternatives.whatsapp}
                   </Button>
-                </CardContent>
-              </Card>
+                  <Button
+                    variant="outline"
+                    className="w-full border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
+                    onClick={() => window.open('https://cal.com/', '_blank')}
+                  >
+                    {dict.contact.alternatives.calendar}
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-charcoal text-silk py-12 relative overflow-hidden">
-        {/* Sacred Totem Watermark */}
-        <div className="absolute bottom-0 right-0 w-48 h-48 opacity-5">
+      <footer className="bg-charcoal text-white py-12 px-6 relative">
+        {/* Sacred Geometry Watermark */}
+        <div className="absolute bottom-0 right-0 opacity-10">
           <Image
             src="/images/sacred-totem.png"
-            alt=""
-            fill
-            className="object-contain object-bottom-right"
-            aria-hidden="true"
+            alt="Sacred geometry"
+            width={200}
+            height={200}
           />
         </div>
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+
+        <div className="container mx-auto relative z-10">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="font-serif text-2xl mb-4">The Fountain Studio</h3>
-              <p className="text-silk/80 text-sm">
-                Healing through sound, movement, and breath.
+              <p className="text-white/70">
+                {dict.footer.tagline}
               </p>
             </div>
-
             <div>
               <h4 className="font-semibold mb-3">Quick Links</h4>
-              <div className="space-y-2 text-sm">
-                <Link href="#services" className="block text-silk/80 hover:text-silk">Services</Link>
-                <Link href="#about" className="block text-silk/80 hover:text-silk">About</Link>
-                <Link href="#learn" className="block text-silk/80 hover:text-silk">Learn</Link>
-                <Link href="#contact" className="block text-silk/80 hover:text-silk">Contact</Link>
-              </div>
+              <ul className="space-y-2 text-white/70">
+                <li><button onClick={() => scrollToSection('services')} className="hover:text-white">{dict.footer.links.services}</button></li>
+                <li><button onClick={() => scrollToSection('about')} className="hover:text-white">{dict.footer.links.about}</button></li>
+                <li><button onClick={() => scrollToSection('contact')} className="hover:text-white">{dict.footer.links.contact}</button></li>
+              </ul>
             </div>
-
             <div>
-              <h4 className="font-semibold mb-3">Services</h4>
-              <div className="space-y-2 text-sm">
-                <p className="text-silk/80">Biofield Tuning</p>
-                <p className="text-silk/80">Gyrotonic®</p>
-                <p className="text-silk/80">Breathwork</p>
-                <p className="text-silk/80">Integration Sessions</p>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-3">Hours</h4>
-              <div className="space-y-2 text-sm text-silk/80">
-                <p>Monday - Friday: 9:00 - 18:00</p>
-                <p>Saturday: 10:00 - 16:00</p>
-                <p>Sunday: Closed</p>
-              </div>
+              <h4 className="font-semibold mb-3">Legal</h4>
+              <ul className="space-y-2 text-white/70">
+                <li><Link href="/privacy" className="hover:text-white">{dict.footer.links.privacy}</Link></li>
+                <li><Link href="/terms" className="hover:text-white">{dict.footer.links.terms}</Link></li>
+              </ul>
             </div>
           </div>
-
-          <Separator className="bg-silk/20 mb-8" />
-
-          <div className="text-center text-sm text-silk/60">
-            <p>© 2025 The Fountain Studio. All rights reserved.</p>
+          <Separator className="bg-white/20 mb-6" />
+          <div className="text-center text-white/60 text-sm">
+            {dict.footer.copyright}
           </div>
         </div>
       </footer>
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/41791234567?text=Hi%20Kristen,%20I'm%20interested%20in%20booking%20a%20session"
+        href="https://wa.me/41787950009?text=Hi%20Kristen,%20I'm%20interested%20in%20booking%20a%20session"
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 p-4 rounded-full shadow-lg transition-all hover:scale-105"
         aria-label="Chat on WhatsApp"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         <MessageCircle className="w-6 h-6 text-white" />
       </a>

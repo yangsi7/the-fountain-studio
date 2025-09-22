@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "learn": "Learn",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "language": "EN"
+  },
+  "hero": {
+    "title": "Frequency is Everything",
+    "subtitle": "A boutique healing studio helping you clear the static and reconnect with your natural flow through gentle, embodied practices: Biofield Tuning, Gyrotonic® and Breathwork.",
+    "cta": {
+      "book": "Book Your Session",
+      "learn": "Learn More"
+    },
+    "scroll": "Scroll to explore"
+  },
+  "services": {
+    "title": "My Tool Kit",
+    "subtitle": "Choose how you want to clear static and find your flow",
+    "biofield": {
+      "title": "Biofield Tuning",
+      "description": "Works with your energy field using tuning forks to locate and dissolve distortion",
+      "benefits": "Nervous system regulation, emotional release, deep relaxation",
+      "duration": "60 minutes",
+      "price": "120 CHF",
+      "cta": "Learn More"
+    },
+    "gyrotonic": {
+      "title": "Gyrotonic® Movement",
+      "description": "Flowing, three-dimensional movement with specialized equipment",
+      "benefits": "Improved posture, nervous system regulation, mind-body connection",
+      "duration": "60 minutes",
+      "price": "120 CHF",
+      "cta": "Learn More"
+    },
+    "breathwork": {
+      "title": "Breathwork",
+      "description": "Structured breathing program to balance nervous system and increase oxygen",
+      "benefits": "Stress relief, mental clarity, improved circulation",
+      "duration": "45 minutes",
+      "price": "90 CHF",
+      "cta": "Learn More"
+    },
+    "integration": {
+      "title": "Complete Integration",
+      "description": "90-minute session combining movement and sound healing for comprehensive body-field integration",
+      "benefits": "Deep integration, full-system reset, lasting change",
+      "duration": "90 minutes",
+      "price": "180 CHF",
+      "cta": "Book Session"
+    }
+  },
+  "about": {
+    "title": "About Kristen",
+    "subtitle": "Your Bio-Electrician",
+    "intro": "I view myself as a bio-electrician who uses sound and frequency to work with your electrical system.",
+    "description": "With a background in transpersonal psychology and certifications in Biofield Tuning, Gyrotonic®, and breathwork, I create space for you to gain calm, connect with your body, and rediscover the truth present in your energy field.",
+    "quote": "The goal isn't to become someone else, but to come back to who you truly are.",
+    "mission": "Building coherence in a chaotic world, one body, one field at a time.",
+    "credentials": {
+      "title": "Certifications",
+      "items": [
+        "Transpersonal Psychology",
+        "Certified Biofield Tuning Practitioner",
+        "Certified Gyrotonic® Practitioner",
+        "Breathwork Facilitator"
+      ]
+    },
+    "cta": "Schedule Discovery Call"
+  },
+  "learn": {
+    "title": "How It Works",
+    "subtitle": "Understanding the Science of Sound Healing",
+    "biofield": {
+      "title": "Biofield Tuning",
+      "content": "Your body operates as an electrical system with its own electromagnetic field. Using tuning forks, we locate areas of turbulence or stagnation in your field - often corresponding to past experiences or emotional patterns. The coherent frequencies help your body reorganize itself, releasing what no longer serves you."
+    },
+    "gyrotonic": {
+      "title": "Gyrotonic® Method",
+      "content": "This unique movement system works with your whole body through flowing, circular movements. Using specialized equipment, we decompress joints, improve circulation, and stimulate your nervous system. The result is improved posture, balance, and a deep sense of embodiment."
+    },
+    "breathwork": {
+      "title": "Breathwork",
+      "content": "Through conscious breathing patterns and rhythmic movement, we activate your body's natural healing response. This cardiovascular program increases oxygen flow, stimulates lymphatic drainage, and helps regulate your nervous system for lasting calm and clarity."
+    }
+  },
+  "testimonials": {
+    "title": "Client Experiences",
+    "subtitle": "Transformations through sound and movement",
+    "items": [
+      {
+        "name": "Sarah M.",
+        "text": "After just three sessions, I felt like I was finally standing in my own shoes. The combination of sound healing and movement helped me release patterns I'd been carrying for years.",
+        "rating": 5
+      },
+      {
+        "name": "Michael K.",
+        "text": "Kristen's gentle approach and deep understanding of the body's energy systems created a safe space for profound healing. I leave each session feeling lighter and more myself.",
+        "rating": 5
+      },
+      {
+        "name": "Emma L.",
+        "text": "The integration sessions are transformative. The combination of breathwork, movement, and sound healing addresses every level of my being. Highly recommended!",
+        "rating": 5
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "What is sound healing?",
+        "answer": "Sound healing uses specific frequencies from tuning forks to interact with your body's electromagnetic field. This helps release stored tension, emotions, and patterns, allowing your nervous system to return to a state of coherence and calm."
+      },
+      {
+        "question": "What should I expect in a session?",
+        "answer": "Sessions begin with a brief discussion of your current state. For sound healing, you'll lie fully clothed on a treatment table while I work in your energy field with tuning forks. You may experience gentle shaking, emotional releases, or deep relaxation. Movement sessions involve guided exercises on specialized equipment."
+      },
+      {
+        "question": "Is sound healing safe?",
+        "answer": "Yes, Biofield Tuning is a gentle, non-invasive practice. However, it's not recommended during pregnancy, for those with pacemakers, or during cancer treatment. Please inform me of any health conditions before your session."
+      },
+      {
+        "question": "How many sessions do I need?",
+        "answer": "While you may feel shifts after one session, I recommend starting with three sessions to experience the full benefits. This allows time for integration and lasting change. We can then assess what ongoing support would be most beneficial."
+      },
+      {
+        "question": "What should I bring?",
+        "answer": "Just yourself and comfortable clothing. For movement sessions, please wear clothes you can move freely in. I provide all equipment and props needed for your session."
+      },
+      {
+        "question": "Do you accept insurance?",
+        "answer": "Some complementary insurance plans may cover portions of the sessions. I can provide receipts for your insurance submission. Please check with your provider about coverage for alternative therapies."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Begin Your Journey",
+    "subtitle": "Schedule your discovery call or book a session",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "message": "How can I support you?",
+      "submit": "Send Message",
+      "success": "Thank you! I'll be in touch within 24 hours.",
+      "error": "Something went wrong. Please try again or contact me directly."
+    },
+    "info": {
+      "title": "Studio Location",
+      "address": "Tiefenweg 5A, 8804 Au ZH",
+      "phone": "+41 78 795 00 09",
+      "email": "kristen@thefountainstudio.ch"
+    },
+    "alternatives": {
+      "whatsapp": "Chat on WhatsApp",
+      "calendar": "Schedule on Cal.com"
+    }
+  },
+  "footer": {
+    "tagline": "Building coherence in a chaotic world, one body, one field at a time.",
+    "links": {
+      "services": "Services",
+      "about": "About",
+      "contact": "Contact",
+      "privacy": "Privacy",
+      "terms": "Terms"
+    },
+    "copyright": "© 2025 The Fountain Studio. All rights reserved."
+  }
+}
