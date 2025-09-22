@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, Menu, Phone, MessageCircle, Star, MapPin, Mail } from 'lucide-react';
+import { ChevronDown, Menu, Phone, MessageCircle, Star, MapPin, Mail, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,9 +11,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { getDictionary, type Dictionary } from './dictionaries';
 import { CalBookingModal } from '@/components/booking/CalBookingModal';
 
@@ -561,34 +558,45 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            {/* Contact Form */}
+            {/* Booking Section */}
             <div>
-              <Card className="border-0 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-charcoal">Send a Message</CardTitle>
+              <Card className="border-0 shadow-xl">
+                <CardHeader className="text-center">
+                  <CardTitle className="text-3xl font-serif text-charcoal">
+                    {dict.booking.title}
+                  </CardTitle>
+                  <CardDescription className="text-lg text-charcoal/70 mt-4">
+                    {dict.booking.subtitle}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                    <div>
-                      <Label htmlFor="name">{dict.contact.form.name}</Label>
-                      <Input id="name" placeholder="Your name" className="bg-white" />
+                <CardContent className="space-y-6">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Check className="w-5 h-5 text-gold" />
+                      <span className="text-charcoal">{dict.booking.benefits.time}</span>
                     </div>
-                    <div>
-                      <Label htmlFor="email">{dict.contact.form.email}</Label>
-                      <Input id="email" type="email" placeholder="your@email.com" className="bg-white" />
+                    <div className="flex items-center gap-3">
+                      <Check className="w-5 h-5 text-gold" />
+                      <span className="text-charcoal">{dict.booking.benefits.confirmation}</span>
                     </div>
-                    <div>
-                      <Label htmlFor="phone">{dict.contact.form.phone}</Label>
-                      <Input id="phone" placeholder="+41..." className="bg-white" />
+                    <div className="flex items-center gap-3">
+                      <Check className="w-5 h-5 text-gold" />
+                      <span className="text-charcoal">{dict.booking.benefits.secure}</span>
                     </div>
-                    <div>
-                      <Label htmlFor="message">{dict.contact.form.message}</Label>
-                      <Textarea id="message" placeholder="Tell me about what you're looking for..." className="bg-white min-h-[100px]" />
-                    </div>
-                    <Button type="submit" className="w-full bg-charcoal hover:bg-charcoal/90 text-white">
-                      {dict.contact.form.submit}
-                    </Button>
-                  </form>
+                  </div>
+
+                  <Button
+                    size="lg"
+                    className="w-full bg-gold hover:bg-gold-hover text-white transform hover:scale-105 transition-all"
+                    onClick={() => setBookingModalOpen(true)}
+                  >
+                    {dict.booking.cta}
+                  </Button>
+
+                  <div className="text-sm text-charcoal/60 text-center space-y-1">
+                    <p>{dict.booking.details.duration} • {dict.booking.details.location}</p>
+                    <p className="mt-2">{dict.booking.details.cancellation}</p>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -632,13 +640,6 @@ export default function LandingPage() {
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
                     {dict.contact.alternatives.whatsapp}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full border-charcoal text-charcoal hover:bg-charcoal hover:text-white"
-                    onClick={() => setBookingModalOpen(true)}
-                  >
-                    {dict.contact.alternatives.calendar}
                   </Button>
                 </div>
               </div>

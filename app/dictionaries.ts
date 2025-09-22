@@ -78,6 +78,25 @@ export type Dictionary = {
       calendar: string;
     };
   };
+  booking: {
+    title: string;
+    subtitle: string;
+    benefits: {
+      time: string;
+      confirmation: string;
+      secure: string;
+    };
+    cta: string;
+    details: {
+      duration: string;
+      location: string;
+      cancellation: string;
+    };
+    modal: {
+      title: string;
+      description: string;
+    };
+  };
   footer: {
     tagline: string;
     links: {
