@@ -26,10 +26,6 @@ export function CalBookingModal({
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({ namespace: 'secret' });
-      cal('floatingButton', {
-        calLink: 'simon-yang-z2fy7e/secret',
-        config: { layout: 'month_view' }
-      });
       cal('ui', {
         hideEventTypeDetails: false,
         layout: 'month_view',
