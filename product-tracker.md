@@ -186,7 +186,35 @@
   - [x] Configure business number (placeholder)
   - [x] Add pre-filled message template
 
-### (1.10) Day 6: Animations & Polish
+### (1.10) Cal.com @calcom/atoms Migration [IN PROGRESS]
+**Goal**: Migrate from @calcom/embed-react to @calcom/atoms BookerEmbed
+**Status**: Phase 1 - Foundation Setup
+**Estimated Time**: 3 weeks
+
+#### Phase 1: Foundation Setup (Week 1) [ACTIVE]
+- [ ] Install @calcom/atoms package
+- [ ] Create TypeScript interfaces for BookerEmbed
+- [ ] Build BookingComposer root component
+- [ ] Implement BookingComposer.Trigger subcomponent
+- [ ] Create BookingComposer.Modal wrapper
+- [ ] Build BookingComposer.Calendar with BookerEmbed
+- [ ] Add BookingComposer.Success handler
+- [ ] Write unit tests for compound components
+
+#### Phase 2: BookerEmbed Integration (Week 2)
+- [ ] Integrate BookerEmbed with view modes
+- [ ] State management optimization
+- [ ] Multi-language support integration
+- [ ] Loading and error states
+
+#### Phase 3: Migration & Optimization (Week 3)
+- [ ] Replace CalBookingModal with new components
+- [ ] Remove old @calcom/embed-react code
+- [ ] Performance optimization
+- [ ] E2E testing with Browser MCP
+- [ ] Documentation and cleanup
+
+### (1.11) Day 6: Animations & Polish [DEFERRED]
 - [ ] **Scroll Animations**
   - [ ] Install and configure AOS library
   - [ ] Add fade-in animations to sections
