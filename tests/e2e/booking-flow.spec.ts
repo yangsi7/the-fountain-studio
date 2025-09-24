@@ -80,21 +80,23 @@ test.describe('Booking Section Flow', () => {
     // Start in English - check booking section title (flexible regex to match)
     await expect(page.getByText('Schedule Your Session')).toBeVisible();
 
-    // Switch to German (more specific selector for language switcher)
-    await page.getByRole('button', { name: 'DE', exact: true }).first().click();
+    // Switch to German by clicking the link (more reliable than button)
+    await page.click('nav a[href="/de"]:visible');
 
-    // Wait for language change
-    await page.waitForTimeout(500);
+    // Wait for navigation to complete
+    await page.waitForURL('**/de');
+    await page.locator('#contact').scrollIntoViewIfNeeded();
 
     // Verify German text
     await expect(page.getByText('Termin vereinbaren')).toBeVisible();
     await expect(page.getByText('Wählen Sie Ihre bevorzugte Zeit')).toBeVisible();
 
-    // Switch back to English (more specific selector)
-    await page.getByRole('button', { name: 'EN', exact: true }).first().click();
+    // Switch back to English
+    await page.click('nav a[href="/en"]:visible');
 
-    // Wait for language change
-    await page.waitForTimeout(500);
+    // Wait for navigation to complete
+    await page.waitForURL('**/en');
+    await page.locator('#contact').scrollIntoViewIfNeeded();
 
     // Verify English text is back
     await expect(page.getByText('Schedule Your Session')).toBeVisible();
