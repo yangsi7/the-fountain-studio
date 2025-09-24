@@ -1,4 +1,17 @@
-// Dictionary type definition matching our JSON structure
+import 'server-only';
+
+const dictionaries = {
+  en: () => import('@/dictionaries/en.json').then((module) => module.default),
+  de: () => import('@/dictionaries/de.json').then((module) => module.default),
+};
+
+export const getDictionary = async (locale: string) => {
+  // Fallback to 'de' if locale is not supported
+  const lang = locale === 'en' ? 'en' : 'de';
+  return dictionaries[lang]();
+};
+
+// Type for the dictionary - matches the structure of our JSON files
 export type Dictionary = {
   nav: {
     services: string;
@@ -21,10 +34,38 @@ export type Dictionary = {
   services: {
     title: string;
     subtitle: string;
-    biofield: ServiceItem;
-    gyrotonic: ServiceItem;
-    breathwork: ServiceItem;
-    integration: ServiceItem;
+    biofield: {
+      title: string;
+      description: string;
+      benefits: string;
+      duration: string;
+      price: string;
+      cta: string;
+    };
+    gyrotonic: {
+      title: string;
+      description: string;
+      benefits: string;
+      duration: string;
+      price: string;
+      cta: string;
+    };
+    breathwork: {
+      title: string;
+      description: string;
+      benefits: string;
+      duration: string;
+      price: string;
+      cta: string;
+    };
+    integration: {
+      title: string;
+      description: string;
+      benefits: string;
+      duration: string;
+      price: string;
+      cta: string;
+    };
   };
   about: {
     title: string;
@@ -42,18 +83,34 @@ export type Dictionary = {
   learn: {
     title: string;
     subtitle: string;
-    biofield: ModalityItem;
-    gyrotonic: ModalityItem;
-    breathwork: ModalityItem;
+    biofield: {
+      title: string;
+      content: string;
+    };
+    gyrotonic: {
+      title: string;
+      content: string;
+    };
+    breathwork: {
+      title: string;
+      content: string;
+    };
   };
   testimonials: {
     title: string;
     subtitle: string;
-    items: TestimonialItem[];
+    items: Array<{
+      name: string;
+      text: string;
+      rating: number;
+    }>;
   };
   faq: {
     title: string;
-    items: FAQItem[];
+    items: Array<{
+      question: string;
+      answer: string;
+    }>;
   };
   contact: {
     title: string;
@@ -76,6 +133,11 @@ export type Dictionary = {
     alternatives: {
       whatsapp: string;
       calendar: string;
+    };
+    booking: {
+      title: string;
+      description: string;
+      loading: string;
     };
   };
   booking: {
@@ -108,41 +170,4 @@ export type Dictionary = {
     };
     copyright: string;
   };
-};
-
-type ServiceItem = {
-  title: string;
-  description: string;
-  benefits: string;
-  duration: string;
-  price: string;
-  cta: string;
-};
-
-type ModalityItem = {
-  title: string;
-  content: string;
-};
-
-type TestimonialItem = {
-  name: string;
-  text: string;
-  rating: number;
-};
-
-type FAQItem = {
-  question: string;
-  answer: string;
-};
-
-// Dictionary loader function
-const dictionaries = {
-  en: () => import('../dictionaries/en.json').then((module) => module.default),
-  de: () => import('../dictionaries/de.json').then((module) => module.default),
-};
-
-export const getDictionary = async (locale: string): Promise<Dictionary> => {
-  // Default to English if locale not found
-  const loader = dictionaries[locale as keyof typeof dictionaries] || dictionaries.en;
-  return loader() as Promise<Dictionary>;
 };

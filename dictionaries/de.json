@@ -165,6 +165,25 @@
       "loading": "Kalender wird geladen..."
     }
   },
+  "booking": {
+    "title": "Termin vereinbaren",
+    "subtitle": "Wählen Sie eine Zeit, die zu Ihrer Heilungsreise passt",
+    "benefits": {
+      "time": "Wählen Sie Ihre bevorzugte Zeit",
+      "confirmation": "Sofortige Bestätigung",
+      "secure": "Sichere Online-Buchung"
+    },
+    "cta": "Verfügbare Zeiten anzeigen",
+    "details": {
+      "duration": "60-90 Minuten Sitzungen",
+      "location": "Persönlich in unserem Studio in Au ZH",
+      "cancellation": "Stornierung bis 24 Stunden vorher möglich"
+    },
+    "modal": {
+      "title": "Termin buchen",
+      "description": "Wählen Sie eine Zeit, die für Sie am besten passt"
+    }
+  },
   "footer": {
     "tagline": "Kohärenz in einer chaotischen Welt aufbauen, ein Körper, ein Feld nach dem anderen.",
     "links": {

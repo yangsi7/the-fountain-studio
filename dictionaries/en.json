@@ -165,6 +165,25 @@
       "loading": "Loading calendar..."
     }
   },
+  "booking": {
+    "title": "Schedule Your Session",
+    "subtitle": "Choose a time that aligns with your healing journey",
+    "benefits": {
+      "time": "Select your preferred time",
+      "confirmation": "Instant confirmation",
+      "secure": "Secure online booking"
+    },
+    "cta": "View Available Times",
+    "details": {
+      "duration": "60-90 minute sessions",
+      "location": "In-person at our Au ZH studio",
+      "cancellation": "Cancellation available up to 24 hours before"
+    },
+    "modal": {
+      "title": "Book Your Session",
+      "description": "Select a time that works best for you"
+    }
+  },
   "footer": {
     "tagline": "Building coherence in a chaotic world, one body, one field at a time.",
     "links": {
