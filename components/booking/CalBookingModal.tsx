@@ -25,13 +25,26 @@ export function CalBookingModal({
 }: CalBookingModalProps) {
   useEffect(() => {
     (async function () {
-      const cal = await getCalApi({ namespace: 'secret' });
+      const cal = await getCalApi({ namespace: 'booking-modal' });
       cal('ui', {
+        styles: { branding: { brandColor: '#2C2B29' } },
         hideEventTypeDetails: false,
         layout: 'month_view',
       });
     })();
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      // Trigger Cal.com modal when our dialog opens
+      (async function () {
+        const cal = await getCalApi({ namespace: 'booking-modal' });
+        cal('modal', {
+          calLink: 'simon-yang-z2fy7e/secret',
+        });
+      })();
+    }
+  }, [open]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -45,19 +58,13 @@ export function CalBookingModal({
           </DialogDescription>
         </DialogHeader>
         <div className="h-full overflow-auto px-6 pb-6">
-          {/* Cal.com will be triggered by the button with data attributes */}
-          <button
-            data-cal-namespace="secret"
+          {/* Cal.com inline embed */}
+          <div
             data-cal-link="simon-yang-z2fy7e/secret"
-            data-cal-config='{"layout":"month_view"}'
-            className="hidden"
-            aria-hidden="true"
-          >
-            Click me
-          </button>
-          <div className="bg-silk rounded-lg p-4 min-h-[500px] flex items-center justify-center">
-            <p className="text-charcoal/50 text-sm">Loading calendar...</p>
-          </div>
+            data-cal-namespace="booking-modal"
+            data-cal-config='{"layout":"month_view","theme":"light"}'
+            style={{ width: '100%', height: '100%', minHeight: '500px' }}
+          />
         </div>
       </DialogContent>
     </Dialog>

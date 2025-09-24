@@ -1,0 +1,10 @@
+{
+  "request_id": "REQ-20250923-140915-3241",
+  "timestamp": "14:09:15",
+  "subagent_type": "index-analyzer",
+  "description": "Analyze Cal.com integration",
+  "prompt_length":      516,
+  "session_id": "98aa6832-2b99-4574-aef9-dc5d2078b944",
+  "status": "invoked",
+  "parent_chain": []
+}

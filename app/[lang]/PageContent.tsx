@@ -1,7 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { MessageCircle } from 'lucide-react';
-import { BookingComposer, useBookingComposer } from '@/components/booking';
+import { CalBookingModal } from '@/components/booking/CalBookingModal';
 import { NavigationHeader } from '@/components/sections/NavigationHeader';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ServicesGrid } from '@/components/sections/ServicesGrid';
@@ -18,8 +19,8 @@ interface PageContentProps {
   lang: string;
 }
 
-function PageContentInner({ dict, lang }: PageContentProps) {
-  const { setIsOpen } = useBookingComposer();
+export function PageContent({ dict, lang }: PageContentProps) {
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -28,17 +29,13 @@ function PageContentInner({ dict, lang }: PageContentProps) {
     }
   };
 
-  const openBookingModal = () => {
-    setIsOpen(true);
-  };
-
   return (
-    <>
+    <div className="min-h-screen bg-silk">
       <NavigationHeader dict={dict} lang={lang} />
 
       <HeroSection
         dict={dict.hero}
-        onBookingClick={openBookingModal}
+        onBookingClick={() => setBookingModalOpen(true)}
         onLearnMoreClick={() => scrollToSection('services')}
       />
 
@@ -61,7 +58,7 @@ function PageContentInner({ dict, lang }: PageContentProps) {
 
       <BookingSection
         dict={dict}
-        onBookingClick={openBookingModal}
+        onBookingClick={() => setBookingModalOpen(true)}
       />
 
       <Footer dict={dict.footer} onNavigate={scrollToSection} />
@@ -77,34 +74,11 @@ function PageContentInner({ dict, lang }: PageContentProps) {
         <MessageCircle className="w-6 h-6 text-white" />
       </a>
 
-      {/* BookingComposer Modal */}
-      <BookingComposer.Modal>
-        <BookingComposer.Calendar />
-      </BookingComposer.Modal>
-    </>
-  );
-}
-
-export function PageContent({ dict, lang }: PageContentProps) {
-  const handleBookingSuccess = (booking: { uid: string; title: string }) => {
-    console.log('Booking successful:', booking);
-    // Could show a toast notification here
-  };
-
-  return (
-    <div className="min-h-screen bg-silk">
-      <BookingComposer
-        username="simon-yang-z2fy7e"
-        eventSlug="secret"
-        view="MONTH_VIEW"
-        onSuccess={handleBookingSuccess}
-        dictionary={{
-          title: dict.booking?.title || 'Book Your Session',
-          description: dict.booking?.subtitle || 'Select a time that works best for you',
-        }}
-      >
-        <PageContentInner dict={dict} lang={lang} />
-      </BookingComposer>
+      {/* Cal.com Booking Modal */}
+      <CalBookingModal
+        open={bookingModalOpen}
+        onOpenChange={setBookingModalOpen}
+      />
     </div>
   );
 }
