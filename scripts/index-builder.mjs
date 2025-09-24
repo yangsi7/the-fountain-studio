@@ -2,10 +2,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.join(__dirname, '..');
@@ -75,7 +71,7 @@ function formatBytes(bytes) {
 }
 
 // Scan directory recursively
-function scanDirectory(dir, basePath = '') {
+function scanDirectory(dir) {
   const results = {
     directories: {},
     files: {},
@@ -153,7 +149,7 @@ function scanDirectory(dir, basePath = '') {
               results.directories[parentDir].fileCount++;
             }
           }
-        } catch (err) {
+        } catch {
           // Skip files we can't access
         }
       });
@@ -191,7 +187,7 @@ async function extractImports(filePath) {
     while ((match = exportRegex.exec(content)) !== null) {
       exports.push(match[1]);
     }
-  } catch (err) {
+  } catch {
     // Ignore read errors
   }
   
@@ -208,7 +204,7 @@ async function buildDependencyGraph(files) {
   
   // Process only code files
   const codeFiles = Object.entries(files)
-    .filter(([_, info]) => info.kind === 'code' || info.kind === 'test')
+    .filter(([, info]) => info.kind === 'code' || info.kind === 'test')
     .map(([path]) => path);
   
   for (const filePath of codeFiles) {
@@ -373,7 +369,7 @@ function scanVisualAssets() {
               results.summary.byType[typeKey].size += stat.size;
             }
           }
-        } catch (err) {
+        } catch {
           // Skip inaccessible files
         }
       });
@@ -407,7 +403,7 @@ function getTechStack() {
       devDependencies: Object.keys(packageData.devDependencies || {}),
       scripts: Object.keys(packageData.scripts || {}),
     };
-  } catch (err) {
+  } catch {
     return null;
   }
 }
