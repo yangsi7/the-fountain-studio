@@ -1,105 +1,177 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# The Fountain Studio
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+A modern wellness website for Swiss sound healing and therapeutic services, built with Next.js 15 and Supabase.
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## 🌟 Live Site
 
-## Features
+**Production**: [https://the-fountain-studio.netlify.app](https://the-fountain-studio.netlify.app)
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+## ✨ Features
 
-## Demo
+- **Multi-language Support**: German (DE) and English (EN) with dictionary-based translations
+- **Booking System**: Integrated Cal.com scheduling with direct button triggers
+- **Modern Stack**: Next.js 15, TypeScript, React 19, Tailwind CSS
+- **Swiss Design**: Clean, minimal aesthetic with careful gold accent usage (3%)
+- **Responsive**: Mobile-first design that works beautifully on all devices
+- **Performance**: Optimized images, lazy loading, and efficient bundle size
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+## 🛠️ Tech Stack
 
-## Deploy to Vercel
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Authentication**: Supabase Auth (cookie-based sessions)
+- **Database**: Supabase (PostgreSQL)
+- **Booking**: Cal.com integration
+- **Animations**: Framer Motion
+- **Deployment**: Netlify with automatic deployments
 
-Vercel deployment will guide you through creating a Supabase account and project.
+## 📦 Installation
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
+### Prerequisites
+- Node.js 18+
+- pnpm 10.4.1+
+- Supabase account (for auth features)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+### Clone and Install
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+```bash
+# Clone the repository
+git clone https://github.com/yangsi7/the-fountain-studio.git
+cd the-fountain-studio
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+# Install dependencies
+pnpm install
 
-## Clone and run locally
+# Copy environment variables
+cp .env.example .env.local
+```
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+### Environment Variables
 
-2. Create a Next.js app using the Supabase Starter template npx command
+Create a `.env.local` file with:
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+# Optional: Cal.com
+NEXT_PUBLIC_CAL_LINK=your_cal_username/event-type
+```
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+## 🚀 Development
 
-3. Use `cd` to change into the app's directory
+```bash
+# Start development server
+pnpm dev
 
-   ```bash
-   cd with-supabase-app
-   ```
+# Open browser
+open http://localhost:3000
+```
 
-4. Rename `.env.example` to `.env.local` and update the following:
+## 🧪 Testing
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+```bash
+# Run all tests
+pnpm test
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+# Unit tests only
+pnpm test:unit
 
-5. You can now run the Next.js local development server:
+# E2E tests
+pnpm test:e2e
 
-   ```bash
-   npm run dev
-   ```
+# Type checking
+pnpm type-check
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
+# Linting
+pnpm lint
+```
 
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+## 📁 Project Structure
 
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
+```
+the-fountain-studio/
+├── app/
+│   ├── [lang]/          # Language-based routing
+│   ├── auth/            # Authentication pages
+│   └── protected/       # Protected routes
+├── components/
+│   ├── sections/        # Page sections
+│   └── ui/              # shadcn/ui components
+├── dictionaries/        # Translation files
+├── lib/                 # Utilities and configs
+├── public/              # Static assets
+└── tests/               # Test files
+```
 
-## Feedback and issues
+## 🌍 Multi-Language Support
 
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
+The site supports German and English through a simple dictionary system:
 
-## More Supabase examples
+- `/de` - German version
+- `/en` - English version
 
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+Translations are stored in `dictionaries/de.json` and `dictionaries/en.json`.
+
+## 📅 Booking Integration
+
+The booking system uses Cal.com with data attributes on CTA buttons:
+
+```html
+<button
+  data-cal-namespace="15min"
+  data-cal-link="simon-yang-z2fy7e/15min"
+  data-cal-config='{"layout":"month_view"}'
+>
+  Book Now
+</button>
+```
+
+## 🚢 Deployment
+
+### Automatic Deployment
+
+The site automatically deploys to Netlify on push to `main` branch.
+
+### Manual Deployment
+
+```bash
+# Build for production
+pnpm build
+
+# Deploy to Netlify
+netlify deploy --prod
+```
+
+## 📝 Documentation
+
+- [Multi-language Strategy](docs/specs/i18n-strategy.md)
+- [Design System](docs/specs/design-system.md)
+- [Component Library](docs/specs/component-library.md)
+- [Landing Page Spec](docs/specs/landing-page-spec.json)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is private and proprietary to The Fountain Studio.
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org)
+- UI components from [shadcn/ui](https://ui.shadcn.com)
+- Authentication by [Supabase](https://supabase.com)
+- Booking powered by [Cal.com](https://cal.com)
+- Deployed on [Netlify](https://netlify.com)
+
+---
+
+**The Fountain Studio** - Building coherence in a chaotic world, one body, one field at a time.

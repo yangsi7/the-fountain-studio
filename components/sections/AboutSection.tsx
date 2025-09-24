@@ -16,7 +16,7 @@ export function AboutSection({ dict, onContactClick }: AboutSectionProps) {
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            className="relative h-[500px] rounded-lg overflow-hidden shadow-xl"
+            className="relative aspect-[3/4] md:aspect-[4/5] rounded-lg overflow-hidden shadow-xl"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -25,7 +25,7 @@ export function AboutSection({ dict, onContactClick }: AboutSectionProps) {
               src="/images/Kristen-faceshot.jpeg"
               alt="Kristen Slabaugh"
               fill
-              className="object-cover"
+              className="object-cover object-center"
             />
           </motion.div>
           <motion.div
