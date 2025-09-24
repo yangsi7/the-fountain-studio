@@ -7,10 +7,9 @@ import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface BookingSectionProps {
   dict: Dictionary;
-  onBookingClick: () => void;
 }
 
-export function BookingSection({ dict, onBookingClick }: BookingSectionProps) {
+export function BookingSection({ dict }: BookingSectionProps) {
   return (
     <section id="contact" className="py-20 lg:py-[140px] px-6 bg-silk">
       <div className="container mx-auto">
@@ -54,7 +53,9 @@ export function BookingSection({ dict, onBookingClick }: BookingSectionProps) {
                 <Button
                   size="lg"
                   className="w-full bg-gold hover:bg-gold-hover text-white transform hover:scale-105 transition-all"
-                  onClick={onBookingClick}
+                  data-cal-namespace="15min"
+                  data-cal-link="simon-yang-z2fy7e/15min"
+                  data-cal-config='{"layout":"month_view"}'
                 >
                   {dict.booking.cta}
                 </Button>

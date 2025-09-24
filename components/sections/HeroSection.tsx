@@ -8,11 +8,10 @@ import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface HeroSectionProps {
   dict: Dictionary['hero'];
-  onBookingClick: () => void;
   onLearnMoreClick: () => void;
 }
 
-export function HeroSection({ dict, onBookingClick, onLearnMoreClick }: HeroSectionProps) {
+export function HeroSection({ dict, onLearnMoreClick }: HeroSectionProps) {
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
@@ -60,7 +59,9 @@ export function HeroSection({ dict, onBookingClick, onLearnMoreClick }: HeroSect
           <Button
             size="lg"
             className="bg-gold hover:bg-gold-hover text-white"
-            onClick={onBookingClick}
+            data-cal-namespace="15min"
+            data-cal-link="simon-yang-z2fy7e/15min"
+            data-cal-config='{"layout":"month_view"}'
           >
             {dict.cta.book}
           </Button>

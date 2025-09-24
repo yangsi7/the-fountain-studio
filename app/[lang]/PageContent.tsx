@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { MessageCircle } from 'lucide-react';
-import { CalBookingModal } from '@/components/booking/CalBookingModal';
+import { getCalApi } from '@calcom/embed-react';
 import { NavigationHeader } from '@/components/sections/NavigationHeader';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ServicesGrid } from '@/components/sections/ServicesGrid';
@@ -20,7 +20,12 @@ interface PageContentProps {
 }
 
 export function PageContent({ dict, lang }: PageContentProps) {
-  const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace":"15min"});
+      cal("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+    })();
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -35,7 +40,6 @@ export function PageContent({ dict, lang }: PageContentProps) {
 
       <HeroSection
         dict={dict.hero}
-        onBookingClick={() => setBookingModalOpen(true)}
         onLearnMoreClick={() => scrollToSection('services')}
       />
 
@@ -58,7 +62,6 @@ export function PageContent({ dict, lang }: PageContentProps) {
 
       <BookingSection
         dict={dict}
-        onBookingClick={() => setBookingModalOpen(true)}
       />
 
       <Footer dict={dict.footer} onNavigate={scrollToSection} />
@@ -74,11 +77,6 @@ export function PageContent({ dict, lang }: PageContentProps) {
         <MessageCircle className="w-6 h-6 text-white" />
       </a>
 
-      {/* Cal.com Booking Modal */}
-      <CalBookingModal
-        open={bookingModalOpen}
-        onOpenChange={setBookingModalOpen}
-      />
     </div>
   );
 }
