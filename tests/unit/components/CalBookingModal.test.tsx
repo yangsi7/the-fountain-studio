@@ -49,7 +49,7 @@ describe('CalBookingModal', () => {
     expect(hasFloatingButtonCall).toBe(false);
   });
 
-  it('should only configure UI settings without floating button', async () => {
+  it('should configure UI settings and trigger modal when open', async () => {
     render(
       <CalBookingModal
         open={true}
@@ -62,10 +62,16 @@ describe('CalBookingModal', () => {
       expect(mockCalApi).toHaveBeenCalled();
     });
 
-    // Verify only 'ui' configuration is called
+    // Verify 'ui' configuration is called with styles
     expect(mockCalApi).toHaveBeenCalledWith('ui', {
+      styles: { branding: { brandColor: '#2C2B29' } },
       hideEventTypeDetails: false,
       layout: 'month_view',
+    });
+
+    // Verify 'modal' is called when open
+    expect(mockCalApi).toHaveBeenCalledWith('modal', {
+      calLink: 'simon-yang-z2fy7e/secret',
     });
 
     // Verify floatingButton was NOT called

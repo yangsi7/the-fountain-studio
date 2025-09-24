@@ -8,6 +8,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
+    include: ['tests/unit/**/*.{test,spec}.{js,jsx,ts,tsx}'],
+    exclude: ['**/node_modules/**', '**/.next/**', '**/dist/**', '**/.netlify/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
