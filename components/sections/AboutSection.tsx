@@ -26,6 +26,11 @@ export function AboutSection({ dict, onContactClick }: AboutSectionProps) {
               alt="Kristen Slabaugh"
               fill
               className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={85}
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ=="
+              data-testid="about-image"
             />
           </motion.div>
           <motion.div
