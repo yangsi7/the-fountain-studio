@@ -32,6 +32,10 @@ export function HeroSection({ dict, onLearnMoreClick }: HeroSectionProps) {
           className="object-cover"
           priority
           quality={90}
+          sizes="100vw"
+          placeholder="blur"
+          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQ=="
+          data-testid="hero-image"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
       </div>

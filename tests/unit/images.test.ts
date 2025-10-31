@@ -5,18 +5,19 @@ import * as path from 'path';
 describe('Image References', () => {
   const publicImagesPath = path.join(process.cwd(), 'public', 'images');
 
-  // Images that should exist after renaming (current state)
+  // Images that should exist after cleanup
   const expectedImages = [
     'hero-swiss-alps.jpg',
-    'service-biofield-tuning.jpg',
-    'service-gyrotonic-movement.jpg', 
+    'Kristen-faceshot.jpeg',
+    'Kristen-giving-treatment.jpeg',
+    'service-gyrotonic-movement.jpg',
     'service-breathwork.jpg',
     'service-integration.jpg',
-    'about-treatment-session.jpg',
     'learn-biofield.jpg',
     'learn-gyrotonic.jpg',
     'learn-breathwork.jpg',
     'testimonials-bg-sunset.jpg',
+    'sacred-totem.png',
   ];
 
   // Old filenames that should no longer exist
@@ -81,19 +82,20 @@ describe('Image References', () => {
     });
   });
 
-  it('should have all images referenced in page.tsx', () => {
+  it('should have all images referenced in components', () => {
     // This ensures we're testing all images that are actually used
     const referencedImages = [
       '/images/hero-swiss-alps.jpg',
-      '/images/service-biofield-tuning.jpg',
+      '/images/Kristen-faceshot.jpeg',
+      '/images/Kristen-giving-treatment.jpeg',
       '/images/service-gyrotonic-movement.jpg',
-      '/images/service-breathwork.jpg', 
+      '/images/service-breathwork.jpg',
       '/images/service-integration.jpg',
-      '/images/about-treatment-session.jpg',
       '/images/learn-biofield.jpg',
       '/images/learn-gyrotonic.jpg',
       '/images/learn-breathwork.jpg',
       '/images/testimonials-bg-sunset.jpg',
+      '/images/sacred-totem.png',
     ];
 
     referencedImages.forEach(imageRef => {

@@ -1,15 +1,5 @@
 {
   "mcpServers": {
-    "brave-search": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-brave-search"
-      ],
-      "env": {
-        "BRAVE_API_KEY": "BSAIjJzq_o-BEF2Qgcs_1ZJaDTGK5qD"
-      }
-    },
     "Ref": {
       "type": "http",
       "url": "https://api.ref.tools/mcp",
@@ -17,33 +7,11 @@
         "x-ref-api-key": "ref-dd4e77a8f073f099e8d8"
       }
     },
-    "serena": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "--from",
-        "git+https://github.com/oraios/serena",
-        "serena",
-        "start-mcp-server",
-        "--context",
-        "ide-assistant",
-        "--project",
-        "/Users/yangsim/Nanoleq/sideProjects/the-fountain-studio/"
-      ],
-      "env": {}
-    },
     "playwright": {
       "command": "npx",
       "args": [
         "-y",
         "@executeautomation/playwright-mcp-server"
-      ]
-    },
-    "context7": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp@latest"
       ]
     },
     "21st-dev": {
@@ -56,27 +24,25 @@
         "API_KEY": "8c455d5b1d96b5677aa80400c33a98a0d41b1558c1ab6d004691f0e7429d7c77"
       }
     },
-    "gemini-cli": {
+    "mcp-server-firecrawl": {
       "command": "npx",
       "args": [
         "-y",
-        "gemini-mcp-tool"
+        "firecrawl-mcp"
       ],
       "env": {
-        "GEMINI_API_KEY": "AIzaSyDeDjY_2hkNlpmj-bt8J4o1GjY8XxBL4UA"
+        "FIRECRAWL_API_KEY": "fc-fbf3d554863348fb9a7c54436ad069c9",
+        "FIRECRAWL_RETRY_MAX_ATTEMPTS": "5",
+        "FIRECRAWL_RETRY_INITIAL_DELAY": "2000",
+        "FIRECRAWL_RETRY_MAX_DELAY": "30000",
+        "FIRECRAWL_RETRY_BACKOFF_FACTOR": "3",
+        "FIRECRAWL_CREDIT_WARNING_THRESHOLD": "2000",
+        "FIRECRAWL_CREDIT_CRITICAL_THRESHOLD": "500"
       }
     },
-    "browsermcp": {
-      "command": "npx",
-      "args": [
-        "@browsermcp/mcp@latest"
-      ]
-    },
-    "calculator": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-calculator"
-      ]
+    "vercel": {
+      "type": "http",
+      "url": "https://mcp.vercel.com/"
     },
     "shadcn": {
       "command": "npx",

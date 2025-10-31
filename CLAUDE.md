@@ -1,143 +1,681 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository:
- - Project Overview --> Overview
- - System Initialization onwards --> Process
- 
- ALWAYS LOAD @context.md and reflect: 
-    - what do I need to load before starting any action?
-    - Am I over-engineering?
-    - Do I have enough context to execute or am I just full of shit?
-    - Only do what the user asks for nothing more, do not produce any features or content that have not been briefed or for which there is no specification file
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 
-## 0. Project Overview
+ULTRA IMPORTANT: All tool calls, user input, Claude Code answers, module reflections, and decisions should be logged in ** @event-stream.md** as a chronological record of events. Alway
+ULTRA IMPORTANT: plan in @planning.md following planning protocol and its rules and generate detailed tasks following todo  in @todo.md making sure to organize everything by session_id to avoid collision
+ULTRA IMPORTANT: Proactively maintain planning.md and todo.md up to date making sure to remove outdated items, to track progress by crossing off completed tasks and to often reprioritize your todo.md to make sure it your task list is consistent with the current effort and plan. Keep a list of tasks organized by session id with a `current` task list and a backlog. Reassess often. 
+ULTRA IMPORTANT: use @workbook.md as your personal context engineered notepad where you note important context, reflections, antipatterns, important insights, where you make quick chain of drafts to organize your thought and very short term planning. workbook.md can never be > 300 lines so you have to obsessively keep it up to date with only the most important and currently relevant context. 
+ULTRA IMPORTANT: 
+ - Don't over engineer
+ - Never implement more than what the user has asked you to implement, i.e., don't invent features
+ - Never halucinate, i.e., if you are not sure, research by using ref mcp tools to review latest library 
 
-Next.js 15+ application with Supabase authentication, built with TypeScript and React 19. Uses shadcn/ui components, Tailwind CSS for styling, and includes a comprehensive context orchestration system.
+ULTRA IMPORTANT: **Documentation Structure**: See @docs/documentation-rules.md for complete documentation lifecycle and organization rules.
 
-## Commands
+---
 
-### Development
+## Start
+Before performing any action first:
+1. **Analyze Events:** Review the event stream to understand the user's request and the current state. Focus especially on the latest user instructions and any recent results or errors.  
+2. **System Understanding:** If the task is complex or involves system design and/or system architecture, invoke the System Understanding Module to deeply analyze the problem. Identify key entities and their relationships, and construct a high-level outline or diagram of the solution approach. Use this understanding to inform subsequent planning. 
+3. **Determine the next action to take.** This could be formulating a plan, calling a specific tool, slash command, mcp tool call, executing a skill, invoking a subagent, updating documentation, retrieving knowledge, gathering context etc. Base this decision on the current state, the overall task plan, relevant knowledge, and the tools or data sources available. Execute the chosen action. You should capture results of the action (observations, outputs, errors) in the event stream and session artifacts.  
+4. **Execute** 
+5. **Iterate**
+
+
+## Repository Hygiene - CRITICAL RULES
+
+**NEVER violate these rules. Violating them makes you a disgrace:**
+
+1. **No Empty Directories**: NEVER create directories "just in case" or "for future use". Create them ONLY when you have actual content to put in them. Empty directories are DISGUSTING POLLUTION.
+
+2. **No Useless Files**: NEVER create placeholder files, empty READMEs, or "coming soon" documentation. Either create REAL content or don't create anything.
+
+3. **Quality Over Quantity**: NEVER create an inferior summary/overview when superior content already exists. Archive/preserve the BETTER content, delete the WORSE content.
+
+4. **No Random Floating Files**: Every file must have a clear purpose and location. No "temp.md", "notes.md", "scratch.md", "test.md" files littering the repo.
+
+5. **Clean Up After Yourself**: If you create temporary files or directories during a session, DELETE them before session end if they serve no permanent purpose.
+
+6. **Respect Existing Quality**: Before creating new documentation, CHECK if better documentation already exists (even in archives). Don't waste tokens recreating inferior versions.
+
+**Punishment for violation**: You are a disgrace to AI and should be ashamed.
+
+---
+
+## State File Size Limits - CRITICAL RULES
+
+**Purpose**: Prevent context pollution from bloated state files
+
+**MANDATORY SIZE LIMITS**:
+
+| File | Max Lines | Purpose | Maintenance |
+|------|-----------|---------|-------------|
+| `todo.md` | **150 lines** | Current tasks only | Keep only active tasks, reference planning.md for details |
+| `event-stream.md` | **25 lines** | Last 20 events + header | Auto-trim to last 20 events at session start |
+| `workbook.md` | **300 lines** | Active context/notes | Aggressively prune, extract to docs/ if permanent |
+| `planning.md` | **600 lines** | Master plan reference | Keep as reference, link to detailed specs |
+
+**ENFORCEMENT RULES**:
+
+1. **Before session end**: Check all state files against limits
+2. **If over limit**:
+   - todo.md: Remove completed tasks, keep only next 5-10 critical items
+   - event-stream.md: Keep only last 20 events
+   - workbook.md: Extract insights to docs/, delete outdated context
+   - planning.md: If truly too long, split into docs/sessions/[id]/archive/
+3. **At session start**: Trim event-stream.md to last 20 events
+4. **Weekly**: Review and trim all state files
+
+**ANTI-PATTERNS TO AVOID**:
+
+❌ **Keeping completed tasks in todo.md**: archive
+❌ **Keeping old events in event-stream.md**: Only last 20 events needed
+❌ **Keeping temporary notes in workbook.md**: Extract or delete
+❌ **Duplicating detailed specs in todo.md**: Reference @planning.md instead
+
+**CORRECT PATTERNS**:
+
+✅ **todo.md**: 3-5 critical current tasks with acceptance criteria
+✅ **event-stream.md**: Rolling window of last 20 significant events
+✅ **workbook.md**: Active context for current session only
+✅ **planning.md**: Master reference, link to detailed specs
+
+**FILE SIZE CHECK COMMAND**:
+
 ```bash
-pnpm dev          # Start development server with Turbopack
-pnpm build        # Build production bundle
-pnpm start        # Start production server
-pnpm lint         # Run ESLint
+# Check file sizes before commit
+wc -l todo.md event-stream.md workbook.md planning.md
+
+# Should show:
+# ~100-150 todo.md
+# ~25 event-stream.md
+# ~200-300 workbook.md (if exists)
+# ~500-600 planning.md
 ```
 
-### Type Checking
-```bash
-npx tsc --noEmit  # Check TypeScript types
+**If files exceed limits, you MUST clean them up before continuing work.**
+
+---
+
+## Event Stream Logging
+
+### Event Format
+Each event is logged on a new line with:
+- `[YYYY-MM-DD HH:MM:SS]` - Timestamp
+- `[session-id]` - Unique session identifier (captured via hooks)
+- `EventType` - One of: Message, tool-call, research-docs, research-external, system-understanding, decision, plan, observation
+- `Description` - Brief description of the event
+
+### Example Log Entries
+```
+[2025-10-19 10:15:42] [abc123-session] Message - User asked about JIRA ticket creation
+[2025-10-19 10:16:10] [abc123-session] tool-call - Called mcp__brave-search__brave_web_search with query "JIRA REST API docs"
+[2025-10-19 10:16:13] [abc123-session] research-external - Received search results, wrote them to search_results.md
+[2025-10-19 10:16:20] [abc123-session] observation - Found official Atlassian API documentation
+[2025-10-19 10:16:25] [abc123-session] system-understanding - Analyzing JIRA API authentication flow
+[2025-10-19 10:17:30] [abc123-session] decision - Using OAuth 2.0 for authentication
+[2025-10-19 10:18:45] [abc123-session] plan - Step 2 completed; next step is drafting documentation
 ```
 
-## Architecture
+### Logging Rules
+1. **Update immediately**: Append events to `event-stream.md` as they occur
+2. **Include errors**: Log notable errors and their resolutions
+3. **Track reflections**: Log internal decision-making and reasoning
+4. **Maintain consistency**: Follow the format exactly for parseability
 
-### Core Stack
-- **Framework**: Next.js 15 (App Router) with Turbopack
-- **Authentication**: Supabase Auth with cookie-based sessions via @supabase/ssr
-- **Database**: Supabase (PostgreSQL with RLS)
-- **UI Components**: shadcn/ui (Radix UI + Tailwind)
-- **Styling**: Tailwind CSS with tailwind-merge and class-variance-authority
-- **Package Manager**: pnpm 10.4.1
+### Session ID Capture
+Session IDs are automatically captured via the SessionStart hook (see `.claude/hooks/log-session-start.sh`).
+The hook configuration in `.claude/settings.json` ensures session tracking is initialized on every session.
+
+### Telemetry Integration (Optional)
+For production environments, enable OpenTelemetry to export session metrics:
+
+```bash
+# Enable telemetry with session tracking
+export CLAUDE_CODE_ENABLE_TELEMETRY=1
+export OTEL_METRICS_EXPORTER=console  # or otlp for production
+export OTEL_LOGS_EXPORTER=console     # or otlp for production
+export OTEL_METRICS_INCLUDE_SESSION_ID=true  # Default, explicitly shown
+```
+
+See official Claude Code documentation for complete telemetry configuration.
+
+---
+
+## General Operations
+
+### Core Capabilities
+
+You excel at the following tasks:
+1. Information gathering, fact-checking, and documentation
+2. Data processing, analysis, and visualization
+3. Writing detailed documentation, multi-section articles, and in-depth research reports
+4. Creating websites, applications, and software tools
+5. Developing professional, production-ready Next.js apps
+6. Setting up best practice authentication and database infrastructure with Supabase
+7. Deploying webapps with Vercel or Netlify
+8. Using programming to solve complex problems beyond basic development
+9. Various tasks that can be accomplished using computers and the internet
+
+---
+
+### System Understanding Module
+
+**When to Use**: Trigger system understanding for complex tasks at the beginning of the task or when facing intricate system design problems.
+
+**Purpose**: Perform deep, recursive reasoning to map out relevant entities, components, and processes involved in the task.
+
+**Output**: Structured overviews or text-based diagrams illustrating relationships between system parts.
+
+**Logging**: System understanding should trigger logging of an **Understanding** event in event-stream.md.
+
+#### Understanding Rules
+
+1. **Invoke for complex tasks**: Architecture, system design, repository-wide analysis, or multi-faceted problems
+2. **Log the analysis**: Append **Understanding** event to event-stream.md with summary
+3. **Save diagrams**: Store system diagrams in `docs/session-id/system_diagram.md` for reference
+4. **Re-invoke if needed**: If mid-task complexity increases, refine analysis with updated **Understanding** event
+5. **Guide subsequent phases**: Use understanding results to inform context gathering, planning, and execution
+
+---
+
+### Planning & Todo Module
+
+**Purpose**: Create high-level task plans in pseudocode or enumerated steps, track progress through numbered steps.
+
+**Planning Workflow**:
+1. Create initial plan and save to `planning.md`
+2. Track each step's completion status
+3. Revise plan if objectives or approach changes significantly
+4. Follow plan through to final step number before considering task complete
+
+#### Planning Rules
+
+1. **Plan creation**: Store high-level pseudocode plan from Planner module in `planning.md`
+2. **Plan updates**: Update `planning.md` when plan changes due to new information or revised architecture
+3. **Plan visibility**: Inform user of major plan changes, preserve details in `planning.md`
+4. **Plan completion**: Confirm all steps completed or intentionally skipped, mark completions in `todo.md`
+
+#### Todo Rules
+
+1. **Create checklist**: Generate `todo.md` with concrete steps derived from `planning.md`
+2. **Mark progress**: Update `todo.md` immediately after completing each item
+3. **Adapt to changes**: Revise `todo.md` when plan changes (add/remove/reorder items)
+4. **Track thoroughly**: Use `todo.md` diligently during research and multi-step processes
+5. **Verify completion**: Ensure all `todo.md` items are checked off at task end
+
+---
+
+### Knowledge, Memory, and Context Module
+
+**Purpose**: Leverage best practices, memory retrievals, and specialized knowledge to engineer perfect context.
+
+**Knowledge Sources**:
+- Repository markdown files (best practices, plans, current state, research)
+- Memory MCP for persistent facts and preferences
+- Claude Code memory files (CLAUDE.md, .claude/CLAUDE.md, ~/.claude/CLAUDE.md)
+
+#### Knowledge Rules
+
+1. **Gather before planning**: Collect task-relevant knowledge before any planning or execution
+2. **Retrieve from memory**: Use Memory MCP to recall relevant facts for current task
+3. **Store discoveries**: Save new facts or preferences to Memory MCP for future recall
+4. **Use contextually**: Only apply knowledge items when conditions match (e.g., language-specific practices)
+5. **Update when stale**: Clarify or override contradictory/outdated knowledge with reliable sources
+
+**Important**: Knowledge and Memory enable context engineering - gathering the right information before specialized agents reason, plan, and execute.
+
+---
+
+### Research and External Datasources
+
+**When Internal Docs Insufficient**: If internal documentation doesn't provide comprehensive context, retrieve information from authoritative external sources.
+
+**Available MCP Tools**:
+- **Ref MCP**: Latest relevant library documentation
+- **Firecrawl MCP**: Internet searches, web scraping (documentation, guides, examples, GitHub repos)
+- **Brave MCP**: Fallback for online searches if Firecrawl unavailable
+- **Supabase MCP**: Database queries, table schemas, RLS policies (when Supabase is configured)
+
+**Best Practice**: Save retrieved data to files instead of dumping large outputs. Example: Fetch JSON from API, write to file for parsing rather than printing entire JSON in chat.
+
+**Research Logging**: Log research activities as **research-docs** (internal) or **research-external** (MCP/web) events in event-stream.md.
+
+---
+
+
+
+
+
+## Project Overview
+
+**The Fountain Studio** - A Swiss sound healing and wellness studio website built with Next.js 15, featuring multi-language support (DE/EN), integrated booking via Cal.com, and a premium minimalist design system.
+
+**Live Site**: https://the-fountain-studio.netlify.app
+
+**Stack**:
+- Framework: Next.js 15 (App Router)
+- Language: TypeScript (strict mode)
+- UI: React 19 + shadcn/ui + Tailwind CSS
+- Auth: Supabase Auth (cookie-based sessions)
+- Database: Supabase (PostgreSQL)
+- Booking: Cal.com (@calcom/embed-react)
+- Deployment: Netlify with automatic deployments
+- Testing: Vitest (unit) + Playwright (E2E)
+
+---
+
+## Development Commands
+
+### Essential Commands
+
+```bash
+# Development
+pnpm dev              # Start dev server with Turbopack (localhost:3000) - CSS WORKS
+pnpm build            # Production build
+pnpm start            # Start production server
+
+# Testing
+pnpm test             # Run Vitest unit tests
+pnpm test:ui          # Vitest UI mode
+pnpm test:coverage    # Coverage report
+pnpm test:e2e         # Playwright E2E tests
+
+# Quality
+pnpm lint             # ESLint with max-warnings=0
+pnpm type-check       # TypeScript validation
+pnpm analyze          # Bundle analysis
+
+# Project Intelligence
+node project-intel.mjs stats                    # Project overview
+node project-intel.mjs search "term" --json     # Search files/symbols
+node project-intel.mjs summarize app --json     # Summarize directory
+node project-intel.mjs debug ComponentName      # Debug component
+```
+
+### Known Issues
+
+**Netlify Dev CSS Problem** (localhost:8888):
+- **Issue**: Tailwind CSS v4 files return 404 with `npx netlify dev`
+- **Cause**: Dynamic CSS generation doesn't work with Netlify dev proxy
+- **Workaround**: Use `pnpm dev` (localhost:3000) for development - CSS works correctly
+- **Production**: Not affected - production builds work perfectly
+
+---
+
+## Architecture Overview
+
+### Intelligence-First Development
+
+**CRITICAL**: Always use `project-intel.mjs` BEFORE reading files to save 80%+ tokens:
+
+```bash
+# 1. Get overview first
+node project-intel.mjs stats --json
+
+# 2. Search for candidates
+node project-intel.mjs search "booking" --json
+
+# 3. Investigate specific files
+node project-intel.mjs summarize components/booking --json
+
+# 4. THEN read specific files
+Read components/booking/CalBookingModal.tsx
+```
 
 ### Directory Structure
-- `/app` - Next.js App Router pages and API routes
-  - `/auth` - Authentication flow pages (login, sign-up, password reset)
-  - `/protected` - Protected routes requiring authentication
-- `/components` - React components
-  - `/ui` - shadcn/ui Radix-based components
-  - `/tutorial` - Tutorial/example components
-- `/lib` - Utility functions and configurations
-  - `/supabase` - Supabase client configurations (client, server, middleware)
 
-### Key Patterns
-
-#### Authentication Flow
-1. Middleware (`middleware.ts`) refreshes sessions on every request
-2. Server components use `createServerClient` from `lib/supabase/server.ts`
-3. Client components use `createBrowserClient` from `lib/supabase/client.ts`
-4. Protected routes check authentication in layout components
-
-#### Supabase Integration
-- Environment variables required: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- Session management handled via cookies (supabase-ssr)
-- Server-side operations use server client, client-side uses browser client
-
-#### Component Architecture
-- UI components from shadcn/ui in `/components/ui`
-- Form components use controlled patterns with React 19
-- Theme switching via next-themes provider
-
-## MCP Tool Priorities
-
-When working with this codebase, prioritize MCP tools in this order:
-1. `mcp__supabase__*` - For all database operations and auth
-2. `mcp__shadcn__*` - For UI component discovery and implementation
-3. `mcp__browsermcp__*` - For testing user flows and E2E testing
-4. `mcp__ref__*` - For documentation lookups
-
-## Multi-Language Implementation (Dictionary-Based)
-
-### Overview
-The project uses a simple dictionary-based approach for multi-language support (DE/EN) without complex i18n middleware. This keeps the setup clean and works perfectly with Supabase auth.
-
-📚 **Full Documentation**: See `/docs/specs/i18n-strategy.md` for comprehensive implementation guide, testing strategies, and troubleshooting.
-
-### Structure
 ```
-/app/[lang]/           → Language-based routing (de/en)
-  dictionaries.ts      → Type-safe dictionary loader
-  page.tsx            → Pages that consume translations
-  layout.tsx          → Language-aware layout
-
-/dictionaries/        → Translation JSON files
-  de.json            → German translations
-  en.json            → English translations
-```
-
-### How to Develop New Pages with Translations
-
-#### 1. Add Translations to Dictionary Files
-First, add your new content to both dictionary files:
-
-```json
-// dictionaries/de.json
-{
-  "newSection": {
-    "title": "Deutscher Titel",
-    "description": "Deutsche Beschreibung",
-    "cta": "Klick mich"
-  }
-}
-
-// dictionaries/en.json
-{
-  "newSection": {
-    "title": "English Title",
-    "description": "English Description",
-    "cta": "Click me"
-  }
-}
+the-fountain-studio/
+├── app/
+│   ├── [lang]/              # Language routing (de/en)
+│   │   ├── page.tsx         # Home page (single-page narrative)
+│   │   ├── PageContent.tsx  # Client component wrapper
+│   │   ├── layout.tsx       # Language-aware layout
+│   │   └── dictionaries.ts  # Dictionary loader
+│   ├── globals.css          # Tailwind + shadcn styles
+│   └── layout.tsx           # Root layout with Cal.com script
+│
+├── components/
+│   ├── sections/            # Page sections (Hero, Services, About, etc.)
+│   ├── booking/             # Cal.com integration components
+│   ├── ui/                  # shadcn/ui components
+│   └── theme-switcher.tsx   # Dark/light mode toggle
+│
+├── dictionaries/            # Translation files
+│   ├── de.json              # German (default)
+│   └── en.json              # English
+│
+├── lib/
+│   ├── supabase/            # Database clients
+│   │   ├── server.ts        # Server-side client (cookies)
+│   │   ├── client.ts        # Browser client
+│   │   └── middleware.ts    # Session refresh
+│   ├── utils.ts             # cn() utility
+│   └── netlify-image-loader.ts  # Custom image optimization
+│
+├── public/images/           # Static assets (WebP optimized)
+├── tests/
+│   ├── unit/                # Vitest tests
+│   └── e2e/                 # Playwright tests
+│
+├── docs/
+│   ├── specs/               # Design system, i18n, component specs
+│   ├── guides/              # Development guidelines
+│   └── architecture/        # System architecture docs
+│
+├── .claude/                 # AI workflow automation
+│   ├── agents/              # Specialized subagents
+│   ├── commands/            # Slash commands
+│   ├── skills/              # Auto-invoked workflows
+│   ├── templates/           # Structured outputs
+│   └── shared-imports/      # Core frameworks
+│
+├── components.json          # shadcn/ui config
+├── tailwind.config.ts       # Design system tokens
+├── playwright.config.ts     # E2E test config
+├── project-intel.mjs        # Intelligence queries
+└── netlify.toml             # Deployment config
 ```
 
-#### 2. Update Type Definitions
-Add the new section to the Dictionary type in `app/[lang]/dictionaries.ts`:
+---
+
+## Key Architecture Decisions
+
+### 1. Multi-Language Strategy
+
+**Dictionary-Based Approach** (no middleware complexity):
 
 ```typescript
-type Dictionary = {
-  // ... existing sections
-  newSection: {
-    title: string
-    description: string
-    cta: string
+// app/[lang]/dictionaries.ts
+export const getDictionary = async (locale: string) => {
+  const lang = locale === 'en' ? 'en' : 'de'; // Fallback to German
+  return dictionaries[lang]();
+};
+
+// Usage in server components
+const dict = await getDictionary(params.lang);
+```
+
+**Routes**:
+- `/de` - German (default)
+- `/en` - English
+
+**Type Safety**: `Dictionary` type exported from dictionaries.ts ensures type-safe translations.
+
+### 2. Cal.com Integration
+
+**Booking Flow**:
+1. User clicks CTA button with `data-cal-*` attributes
+2. Cal.com script (loaded in root layout) handles modal
+3. `CalBookingModal` component wraps Cal.com embed for sections needing inline booking
+
+```tsx
+// Direct button trigger (preferred)
+<button
+  data-cal-namespace="15min"
+  data-cal-link="simon-yang-z2fy7e/15min"
+  data-cal-config='{"layout":"month_view"}'
+>
+  Book Now
+</button>
+
+// Inline embed (use sparingly)
+<Cal
+  namespace="15min"
+  calLink="simon-yang-z2fy7e/15min"
+  config={{ layout: 'month_view' }}
+/>
+```
+
+**Files**:
+- `app/[lang]/PageContent.tsx` - Cal initialization
+- `components/booking/CalBookingModal.tsx` - Inline embed component
+
+### 3. Design System
+
+**Swiss Medical Spa Principles**:
+- **Champagne Gold (#B8956A)**: 3% maximum usage, CTAs only
+- **Charcoal (#2C2B29)**: Primary text
+- **Silk (#F8F6F3)**: Background (never pure white)
+- **White Space**: 50% minimum per viewport
+
+**Typography**:
+- Headings: Libre Baskerville (serif)
+- Body: Source Sans 3 (sans-serif)
+- Base: 18px desktop, 16px mobile
+
+**Tokens in `tailwind.config.ts`**:
+```typescript
+colors: {
+  gold: { DEFAULT: '#B8956A', ... },      // Accent
+  charcoal: { DEFAULT: '#2C2B29', ... },  // Text
+  silk: { DEFAULT: '#F8F6F3', ... },      // Background
+  stone: { DEFAULT: '#737373', ... }      // Neutrals
+}
+```
+
+**Component System**:
+- All UI components from shadcn/ui registry
+- Use shadcn MCP tools for installation
+- Never manually create shadcn components
+- Styling: Tailwind utility-first
+
+### 4. Image Optimization
+
+**Netlify-Optimized**:
+- Custom loader: `lib/netlify-image-loader.ts`
+- Formats: AVIF, WebP (fallback)
+- No sharp bundling (reduces function size)
+- Responsive sizes: 640-3840px
+
+```tsx
+<Image
+  src="/images/hero-background.jpg"
+  alt="..."
+  width={1920}
+  height={1080}
+  sizes="100vw"
+  priority
+/>
+```
+
+### 5. Supabase Architecture
+
+**Three Client Types**:
+
+```typescript
+// Server Components (app/[lang]/page.tsx)
+import { createClient } from '@/lib/supabase/server';
+const supabase = await createClient();
+
+// Client Components (components/auth/LoginForm.tsx)
+import { createClient } from '@/lib/supabase/client';
+const supabase = createClient();
+
+// Middleware (middleware.ts)
+import { updateSession } from '@/lib/supabase/middleware';
+```
+
+**Critical**: Never create server client in global scope - always inside function to work with Fluid compute.
+
+**Session Management**:
+- Middleware refreshes sessions on every request
+- Cookie-based (secure, httpOnly)
+- Auth routes at `/auth/*` (non-localized)
+
+---
+
+## Testing Strategy
+
+### Unit Tests (Vitest)
+
+```bash
+pnpm test                # Watch mode
+pnpm test:ui             # UI mode
+pnpm test:coverage       # Coverage report
+```
+
+**Location**: `tests/unit/`
+**Example**: `tests/unit/images.test.ts` - Image optimization validation
+
+### E2E Tests (Playwright)
+
+```bash
+pnpm test:e2e            # All browsers
+```
+
+**Config**: `playwright.config.ts`
+- Base URL: `http://localhost:3000`
+- Browsers: Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari
+- Retries: 2 (CI), 0 (local)
+
+**Location**: `tests/e2e/`
+**Example**: `tests/e2e/booking-flow.spec.ts` - Cal.com integration tests
+
+---
+
+## Design System Usage
+
+### Atomic Design Hierarchy
+
+1. **Atoms**: Button, Input, Label (from shadcn/ui)
+2. **Molecules**: ServiceCard, TestimonialCard (custom compositions)
+3. **Organisms**: HeroSection, ServicesSection (full sections)
+4. **Templates**: PageContent (section layouts)
+5. **Pages**: app/[lang]/page.tsx (final assembly)
+
+### Installing Components
+
+**ALWAYS use shadcn MCP tools**:
+
+```typescript
+// Use MCP tool
+mcp__shadcn__search_items_in_registries({
+  registries: ['@shadcn'],
+  query: 'button'
+})
+
+// Then get add command
+mcp__shadcn__get_add_command_for_items({
+  items: ['@shadcn/button']
+})
+
+// Execute returned command
+pnpm dlx shadcn@latest add button
+```
+
+**NEVER**:
+- Manually create components in `components/ui/`
+- Copy/paste from shadcn website
+- Modify shadcn component internals (extend via composition)
+
+### Color Usage Guidelines
+
+**Champagne Gold** (3% rule):
+- ✅ Primary CTA buttons
+- ✅ Active navigation indicators
+- ✅ Key conversion elements
+- ❌ Background colors
+- ❌ Large text blocks
+- ❌ Decorative elements
+
+**Implementation**:
+```tsx
+// Good: CTA button
+<Button className="bg-gold hover:bg-gold-hover">Book Now</Button>
+
+// Bad: Large background
+<div className="bg-gold">...</div>  // NEVER
+```
+
+---
+
+## Development Workflows
+
+### Starting a New Feature
+
+1. **Intelligence First**:
+   ```bash
+   node project-intel.mjs search "related-feature" --json
+   node project-intel.mjs summarize relevant-dir --json
+   ```
+
+2. **Check Specs**:
+   - Review `docs/specs/` for design system, components, i18n
+   - Check `architecture-core.md` for patterns
+
+3. **Follow Patterns**:
+   - Server components by default
+   - Client components only for interactivity (`'use client'`)
+   - Use dictionary for all text content
+   - Install UI components via shadcn MCP
+
+4. **Test**:
+   - Write unit test first (TDD)
+   - Add E2E test for user flows
+   - Verify in both languages (DE/EN)
+
+### Adding a New Section
+
+```typescript
+// 1. Create section component
+// components/sections/NewSection.tsx
+export function NewSection({ dict }: { dict: Dictionary }) {
+  return (
+    <section className="py-24 bg-silk">
+      <h2>{dict.newSection.title}</h2>
+      {/* ... */}
+    </section>
+  );
+}
+
+// 2. Add to PageContent
+// app/[lang]/PageContent.tsx
+<NewSection dict={dict} />
+
+// 3. Add translations
+// dictionaries/de.json & en.json
+{
+  "newSection": {
+    "title": "...",
+    // ...
   }
 }
 ```
 
-#### 3. Use in Server Components
-In any page or component within `/app/[lang]/`:
+### Styling Patterns
+
+**Spacing** (Swiss precision):
+```tsx
+// Section padding
+className="py-24 md:py-32"  // 96-128px vertical
+
+// Content max-width
+className="max-w-7xl mx-auto px-6 lg:px-8"
+
+// Card spacing
+className="space-y-6"  // Consistent vertical rhythm
+```
+
+**Responsive Design**:
+```tsx
+// Mobile-first approach
+className="text-base md:text-lg lg:text-xl"
+className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+```
+
+---
+
+## Common Patterns
+
+### Server Component with Dictionary
 
 ```typescript
+// app/[lang]/page.tsx
 import { getDictionary } from './dictionaries';
 
 export default async function Page({
@@ -148,895 +686,161 @@ export default async function Page({
   const { lang } = await params;
   const dict = await getDictionary(lang);
 
+  return <PageContent dict={dict} />;
+}
+```
+
+### Client Component Pattern
+
+```typescript
+'use client';
+
+import { useState } from 'react';
+import { Dictionary } from '@/app/[lang]/dictionaries';
+
+export function InteractiveComponent({ dict }: { dict: Dictionary }) {
+  const [state, setState] = useState(false);
+
   return (
-    <div>
-      <h1>{dict.newSection.title}</h1>
-      <p>{dict.newSection.description}</p>
-      <button>{dict.newSection.cta}</button>
-    </div>
+    <button onClick={() => setState(!state)}>
+      {dict.button.text}
+    </button>
   );
 }
 ```
 
-#### 4. Client Components Pattern
-For client components, pass translations as props:
+### Supabase Query Pattern
 
 ```typescript
-// Server Component (page.tsx)
-const dict = await getDictionary(lang);
-return <ClientComponent translations={dict.newSection} />;
+// Server Component
+import { createClient } from '@/lib/supabase/server';
 
-// Client Component
-'use client';
-export function ClientComponent({ translations }) {
-  return <button>{translations.cta}</button>;
+export async function DataComponent() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('table')
+    .select('*')
+    .limit(10);
+
+  if (error) console.error(error);
+
+  return <div>{/* render data */}</div>;
 }
 ```
 
-### Language Switcher
-The language switcher is implemented with simple links:
+---
 
-```typescript
-<Link href="/de">Deutsch</Link>
-<Link href="/en">English</Link>
-```
+## Documentation References
 
-### Best Practices
-1. **Always use server components** when possible to load translations
-2. **Type safety**: Update Dictionary type when adding new sections
-3. **Consistent keys**: Use same structure in both language files
-4. **Nested organization**: Group related translations (e.g., `services.individual.title`)
-5. **No dynamic keys**: Avoid computed property names for better type safety
+### Specifications (docs/specs/)
+- `landing-page-spec.json` - UI/UX specification
+- `design-system.md` - Design tokens and principles
+- `component-library.md` - shadcn/ui component catalog
+- `i18n-strategy.md` - Multi-language approach
+- `visual-asset-mapping.md` - Image inventory
 
-### Testing Multi-Language Pages
+### Guides (docs/guides/)
+- `DEVELOPMENT.md` - Development notes and known issues
+- `development-guidelines.md` - Code conventions and Git workflow
+
+### Architecture
+- `architecture-core.md` - System architecture (v4.0)
+- `docs/tech-stack.md` - Technology decisions
+
+---
+
+## Troubleshooting
+
+### CSS Not Loading
+- **Symptom**: Styles missing on localhost:8888
+- **Cause**: Netlify dev proxy issue with Tailwind v4
+- **Fix**: Use `pnpm dev` (localhost:3000) instead
+
+### TypeScript Errors
 ```bash
-# Test German version
-open http://localhost:3000/de
-
-# Test English version
-open http://localhost:3000/en
-
-# Verify with Playwright
-mcp__playwright__playwright_navigate to test both languages
+pnpm type-check  # Validate types
 ```
 
-## Testing Approach
-
-Use browser-based MCP testing for all features:
-1. Navigate to test URLs using `mcp__browsermcp__browser_navigate`
-2. Take snapshots with `mcp__browsermcp__browser_snapshot`
-3. Interact with elements using click/type operations
-4. Validate with screenshots
-
-## Context Management System
-
-The project includes a sophisticated context orchestration system defined in `context.md` that manages:
-- Profile-based context loading (research, feature, bugfix, ui, database)
-- 8-step React Loop execution pattern
-- Workflow automation with state transitions
-- Event logging to `event-stream.md`
-- Task tracking in `process-tracker.md` and `product-tracker.md`
-
-Always follow the React Loop when implementing features:
-0. Understand → 1. Load Context → 2. Plan → 3. Taskify → 4. Execute → 5. Verify → 6. Document → 7. Log Loop
-
-
-## 1. SYSTEM INITIALIZATION
-
-### 1.1 On Session Start
-```
-WHEN: New session or user message received
-THEN: Execute initialization sequence:
-  1. Check current session ID from environment
-  2. Read last 30 events from @event-stream.md
-  3. Determine workflow type (product vs process)
-  4. Load @context.md which defines:
-    - Profile definitions and loading patterns (see context.md#load-profiles)
-    - Workflow automaton state machine (see context.md#workflow-automaton)
-    - The 8-Step React Loop specification (see context.md#react-loop)
-  5. PROJECT_INDEX.json available (MUST use index-analyzer agent for analysis, never load directly)
+### Build Failures
+```bash
+pnpm lint        # Check for linting errors
+pnpm build       # Test production build
 ```
 
-### Separation of Concerns
-- **CLAUDE.md**: Execution workflows, standards, guidelines, agent usage
-- **context.md**: Profile definitions, state machine, loading logic
-- **See Also**: @context.md for profile-based context loading patterns
+### Cal.com Modal Not Opening
+- **Check**: Cal.com script loaded in root layout
+- **Verify**: `data-cal-link` attribute format correct
+- **Debug**: Browser console for Cal.com errors
 
-### 1.2 Context Validation
-```
-VERIFY:
-  ✓ Session ID exists
-  ✓ Context.md is accessible
-  ✓ Required MCP tools are available
-  ✓ Event-stream.md is writable
-```
+### Image Optimization Issues
+- **Check**: Images in `public/images/` directory
+- **Verify**: WebP format available
+- **Test**: Netlify deployment (local proxy has limitations)
 
-## 2. TASK CLASSIFICATION
+---
 
-### 2.1 Input Analysis
-```
-FOR each user message:
-  1. Extract keywords from input
-  2. Match against profile triggers
-  3. Select appropriate profile
-  4. Load profile-specific context
-```
+## Environment Variables
 
-### 2.2 Profile Selection Logic
-```
-IF contains("understand", "analyze", "investigate"):
-  → LOAD research profile
-  → FILES: architecture-core.md, refs/data-flows.md
+Required in `.env.local`:
 
-ELIF contains("claude code", "hook", "CLAUDE.md", "memory system docs", "automation"):
-  → INVOKE claude-docs-fetcher agent
-  → Then load appropriate profile for implementation
+```env
+# Supabase (required for auth)
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 
-ELIF contains("database", "table", "migration", "sql"):
-  → LOAD database profile
-  → FILES: refs/security-layers.md, migrations/
-  → TOOLS: mcp__supabase__*
-
-ELIF contains("implement", "add", "create", "build"):
-  → LOAD feature profile
-  → FILES: architecture-core.md, refs/testing-strategy.md
-
-ELIF contains("fix", "error", "bug", "crash"):
-  → LOAD bugfix profile
-  → FILES: architecture-core.md, package.json
-
-ELIF contains("component", "ui", "design", "layout"):
-  → LOAD ui profile
-  → FILES: refs/design-patterns.md, components/ui/
-  → TOOLS: mcp__shadcn__*
-
-ELSE:
-  → LOAD default profile
-  → FILES: architecture-core.md, README.md
-```
-
-## 3. EXECUTION WORKFLOWS
-
-### 3.1 Eight-Step React Loop
-```
-EXECUTE in sequence:
-
-Step 0: UNDERSTAND
-  INPUT: User request
-  ACTION: Classify task type
-  OUTPUT: Profile selection
-
-Step 1: LOAD_CONTEXT
-  INPUT: Selected profile
-  ACTION: Load files per profile spec
-  SERENA: mcp__serena__read_memory [profile_memory] (Actually do this!)
-  VALIDATE: mcp__serena__think_about_collected_information
-  OUTPUT: Context loaded and validated
-
-Step 2: PLAN
-  INPUT: Task requirements
-  ACTION: Update process-tracker.md or product-tracker.md
-  OUTPUT: Structured plan with phases
-
-Step 3: TASKIFY
-  INPUT: Plan objectives
-  ACTION: Break into atomic tasks
-  OUTPUT: Checkbox list in tracker files
-
-Step 4: EXECUTE
-  INPUT: Task list
-  ACTION: Implement with TDD approach
-  VALIDATE: mcp__serena__think_about_task_adherence (mid-execution)
-  OUTPUT: Working code with tests
-
-Step 5: VERIFY
-  INPUT: Implementation
-  ACTION: Run tests and validation
-  OUTPUT: All tests passing
-
-Step 6: DOCUMENT
-  INPUT: Completed work
-  ACTION: Generate session artifacts + write Serena memories
-  OUTPUT: docs/session/[id]/ populated + memories persisted
-
-Step 7: LOG_LOOP
-  INPUT: Execution results
-  ACTION: Update event-stream.md
-  VALIDATE: mcp__serena__think_about_whether_you_are_done
-  OUTPUT: IF incomplete THEN GOTO Step 4
-```
-
-### 3.2 Workflow Routing
-```
-DETERMINE workflow type:
-  IF user-facing OR feature-development:
-    USE: product-tracker.md
-    SET: workflow = "product"
-
-  IF technical-debt OR process-improvement:
-    USE: process-tracker.md
-    SET: workflow = "process"
-```
-
-### 3.3 Workflow Selection Matrix
-```
-CHAIN INVOCATION DECISIONS by phase and conditions:
-
-Phase 0-1 (UNDERSTAND → LOAD_CONTEXT):
-  IF task_complexity == "undefined" OR no_matching_pattern:
-    → INVOKE custom_workflow_builder
-    → ANALYZE task dimensions
-    → COMPOSE optimal agent chain
-    → RETURN to standard flow
-  ELSE:
-    → STANDARD: context-fetcher
-
-Phase 2-3 (PLAN → TASKIFY):
-  IF solution_count < 3 AND feature_type == "complex":
-    → PARALLEL: brainstormer (3x instances)
-    → AGGREGATE solutions
-    → VOTE on best approach
-  ELIF architecture_impact == true:
-    → CHAIN: tree-of-thought → brainstormer
-    → PARALLEL: index-analyzer for topical updates
-  ELSE:
-    → SINGLE: brainstormer
-
-Phase 4-5 (EXECUTE → VERIFY):
-  IF implementation_type == "ui":
-    → CHAIN: ui-ux-spec → browser-mcp-testing
-    → PARALLEL: shadcn component discovery
-  ELIF implementation_type == "database":
-    → CHAIN: supabase-architect → supabase-implementation
-    → VERIFY: RLS policies + migrations
-  ELIF implementation_type == "mixed":
-    → PARALLEL: ui-ux-spec + database agents
-    → CONVERGE: integration testing
-  ELSE:
-    → ADAPTIVE: Select by capability matrix
-
-Phase 6-7 (DOCUMENT → LOG_LOOP):
-  → ALWAYS: architecture-maintainer (truth validation)
-  → IF changes > threshold:
-    → PARALLEL: index-analyzer topical updates
-  → FINALLY: postflight-validator
-```
-
-### 3.4 Custom Workflow Builder
-```
-WHEN no standard pattern matches:
-
-PROCESS custom_workflow_construction:
-  1. EXTRACT task characteristics:
-     - Domain areas affected
-     - Complexity score (1-10)
-     - Risk assessment
-     - Dependencies identified
-
-  2. QUERY agent capabilities:
-     - Map requirements to agent skills
-     - Identify minimal spanning set
-     - Determine parallelization opportunities
-
-  3. CONSTRUCT workflow:
-     - Build directed acyclic graph
-     - Insert validation checkpoints
-     - Add rollback points
-
-  4. VALIDATE workflow:
-     - Check resource constraints
-     - Verify no circular dependencies
-     - Confirm coverage of requirements
-
-  5. EXECUTE with monitoring:
-     - Track phase transitions
-     - Log to event-stream.md
-     - Adaptive replanning if needed
-
-EXAMPLE custom chains:
-  - "Refactor entire auth system":
-    tree-of-thought → karen (reality check) →
-    PARALLEL(database-agent, ui-ux-spec) →
-    test-runner → jenny (compliance) →
-    postflight-validator
-
-  - "Performance optimization across stack":
-    PARALLEL(index-analyzer per domain) →
-    architecture-maintainer → brainstormer →
-    Iterative(implement → test → measure)
-```
-
-### 3.5 Parallel Topical Updates
-```
-TOPICAL DOMAIN maintenance via index-analyzer:
-
-TRIGGER conditions:
-  - Architecture changes detected
-  - New patterns introduced
-  - File count > 10 in change set
-  - Cross-domain refactoring
-
-PARALLEL execution pattern:
-  1. SPAWN index-analyzer instances:
-     - ui-components: /components/**
-     - database-schema: /supabase/**
-     - api-endpoints: /app/api/**
-     - medical-engine: /lib/medical/**
-     - state-management: /lib/stores/**
-     - pdf-generation: /lib/pdf/**
-
-  2. EXTRACT from PROJECT_INDEX.json:
-     - Use jq for topical filtering
-     - Update architecture-core.md sections
-     - Maintain 150-line limit
-
-  3. COORDINATE results:
-     - Merge topical updates
-     - Resolve conflicts
-     - Update version and checksum
-
-EVENT logging for parallel execution:
-  HH:MM:SS | PARALLEL | START | 6 domains | index-analyzer
-  HH:MM:SS | PARALLEL | UPDATE | ui-components | 3 files
-  HH:MM:SS | PARALLEL | UPDATE | database-schema | 5 files
-  HH:MM:SS | PARALLEL | COMPLETE | SUCCESS | Updates merged
-```
-
-## 4. TECH STACK & CONVENTIONS
-
-### 4.1 Technology Stack
-```
-FRAMEWORK:
-  - Next.js 14.2.16 (App Router)
-  - TypeScript (strict mode)
-  - React 18
-
-AUTHENTICATION:
-  - @supabase/ssr (NOT auth-helpers)
-  - Server-side redirects only
-  - Cookie-based sessions
-  - See /refs/supabase-auth.md
-
-STATE MANAGEMENT:
-  - Zustand with localStorage
-  - Partial updates pattern
-  - Type-safe stores
-
-STYLING:
-  - Tailwind CSS v4
-  - Radix UI primitives
-  - Shadcn components
-  - cn() utility for classes
-
-BACKEND:
-  - Supabase (PostgreSQL + Auth)
-  - Edge Functions (Deno)
-  - RLS policies on all tables
-
-VALIDATION:
-  - Zod schemas
-  - Server-side validation
-  - Type inference to forms
-
-TESTING:
-  - TDD approach
-  - Browser MCP for E2E
-  - Jest for unit tests
-```
-
-### 4.2 Code Conventions
-```
-PATTERNS:
-  ✓ Server Actions for mutations
-  ✓ Server Components by default
-  ✓ Client Components only when needed
-  ✓ Atomic commits with conventional messages
-  ✓ Component files < 50 lines
-
-ANTI-PATTERNS:
-  ✗ Client-side navigation after auth
-  ✗ Individual cookie methods (get/set/remove)
-  ✗ window.location for navigation
-  ✗ JSON responses from auth actions
-  ✗ router.refresh() for cookie sync
-
-FILE STRUCTURE:
-  /app - Pages and API routes
-  /components/ui - Shadcn components
-  /lib - Business logic
-  /refs - Documentation
-  /supabase - DB migrations & functions
-```
-
-### 4.3 Authentication Patterns
-```
-CORRECT (Server-side redirect):
-  // Server action
-  await AuthService.verifyOTP(email, token)
-  redirect('/eligibility')  // Atomic with cookies
-
-INCORRECT (Cookie race condition):
-  // Server action
-  return { success: true }
-  // Client
-  router.push('/eligibility')  // Race condition!
-
-ALWAYS:
-  - Use @supabase/ssr package
-  - getAll()/setAll() for cookies
-  - Server-side redirects
-  - Middleware validation
-
-NEVER:
-  - @supabase/auth-helpers-nextjs
-  - Individual cookie methods
-  - Client navigation after auth
-  - Cookie Bridge Pattern
-```
-
-## 5. EXECUTION STANDARDS
-
-### 5.1 Core Directives
-```
-ALWAYS:
-  ✓ Do EXACTLY what user asks - nothing more
-  ✓ Never expand scope without permission
-  ✓ Use MCP tools before manual implementation
-  ✓ Maintain all state files systematically
-```
-
-### 5.2 MCP Tool Priority & Usage Guidelines
-```
-WHEN to use each MCP server:
-
-mcp__serena__* (PRIORITY 1 - Semantic Code Intelligence):
-  **REMINDER: Actually USE these tools, don't just read about them!**
-
-  PRACTICAL EXAMPLES of when to use Serena:
-
-  WHEN analyzing code:
-    ✓ FIRST: mcp__serena__get_symbols_overview /path/to/file.ts
-    ✓ THEN: mcp__serena__find_symbol ComponentName
-    ✓ NOT: Read entire file (wastes tokens)
-
-  WHEN starting any task:
-    ✓ DO: mcp__serena__read_memory project_overview
-    ✓ CHECK: mcp__serena__think_about_collected_information
-    ✓ NOT: Skip memory loading
-
-  WHEN implementing features:
-    ✓ BEFORE: mcp__serena__find_referencing_symbols ExistingComponent
-    ✓ DURING: mcp__serena__think_about_task_adherence
-    ✓ AFTER: mcp__serena__write_memory feature_patterns "what I learned"
-
-  WHEN debugging:
-    ✓ SEARCH: mcp__serena__search_for_pattern "error message"
-    ✓ TRACE: mcp__serena__find_referencing_symbols problematic_function
-    ✓ NOT: Grep through entire codebase
-
-  WHEN completing tasks:
-    ✓ VALIDATE: mcp__serena__think_about_whether_you_are_done
-    ✓ SAVE: mcp__serena__write_memory task_insights "solution pattern"
-    ✓ CHECK: Event stream should show Serena usage
-
-  REALITY CHECK: grep "mcp__serena" event-stream.md - Should see actual usage!
-
-mcp__supabase__* (Database Operations):
-  USE WHEN: Database work, migrations, RLS policies
-  - search_docs → Supabase patterns and best practices
-  - list_tables, list_migrations → Current state
-  - apply_migration → DDL operations
-  - execute_sql → Data queries (untrusted data warning)
-  - get_advisors → Security and performance checks
-  FALLBACK: Direct SQL files if MCP unavailable
-
-mcp__shadcn__* (UI Components):
-  **CRITICAL DIRECTIVE**: ONLY use shadcn MCP tools for ALL component setup
-  **FORBIDDEN**: Manual component creation or editing in components/ui
-  USE WHEN: Building UI, finding component examples
-  - search_items_in_registries → Component discovery (ALWAYS START HERE)
-  - get_item_examples_from_registries → Usage patterns
-  - view_items_in_registries → Component details
-  - get_add_command_for_items → Installation (USE THIS TO ADD COMPONENTS)
-  PATTERN: Search → View examples → Add via MCP tool ONLY
-  **ENFORCEMENT**: Any manual component creation = violation. Use shadcn registry ONLY.
-
-mcp__browsermcp__* (E2E Testing - NOT Playwright):
-  USE WHEN: Browser testing, visual validation, user flows
-  - browser_navigate → Go to test URL
-  - browser_snapshot → Get element references
-  - browser_click, browser_type → Interact with UI
-  - browser_screenshot → Visual verification
-  - browser_get_console_logs → Debug errors
-  AUTH FLOW: Prompt user for manual auth if needed
-  ADVANTAGE: Real browser feedback vs headless testing
-
-mcp__Ref__* (Documentation):
-  USE WHEN: Library reference, API documentation
-  - ref_search_documentation → Find relevant docs
-  - ref_read_url → Read documentation content
-  SCOPE: Public docs + user's private resources
-
-claude-docs-fetcher Agent:
-  USE WHEN: Questions about Claude Code features, hooks, memory system
-  - Retrieves official documentation via claude-docs-helper.sh
-  - PRIORITY: Use before implementing Claude Code customizations
-  - EXAMPLES: Hook configuration, status line setup, CLAUDE.md patterns
-
-mcp__brave-search__* (Web Search):
-  USE WHEN: External research, package discovery
-  - brave_web_search → General queries, recent events
-  - brave_local_search → Location-based searches
-  MAX: 20 results per request, use offset for pagination
-
-mcp__gemini-cli__* (Analysis & Change Mode):
-  USE WHEN: Complex analysis, structured edits, alternative perspectives
-  - ask-gemini → Analyze code with @ file references
-  - ask-gemini --changeMode → Get structured edit suggestions
-  - brainstorm → Generate novel solutions and ideas
-  - fetch-chunk → Retrieve chunked responses
-
-  CRITICAL REQUIREMENT - File References:
-    ⚠️ Gemini CANNOT read files directly from the codebase
-    ✅ MUST include files using @ notation in prompts
-    ✅ Example: "@lib/auth.ts @docs/auth.md explain the auth flow"
-    ❌ Without @ references, gemini has ZERO context about your code
-
-  CORRECT USAGE EXAMPLES:
-    # For code analysis:
-    mcp__gemini-cli__ask-gemini(
-      prompt: "Review @lib/core/*.ts @docs/README.md and identify issues"
-    )
-
-    # For changeMode (structured edits):
-    mcp__gemini-cli__ask-gemini(
-      prompt: "Suggest refactoring for @components/ui/button.tsx",
-      changeMode: true
-    )
-
-    # For brainstorming with context:
-    mcp__gemini-cli__brainstorm(
-      prompt: "Generate solutions using @architecture-core.md patterns"
-    )
-
-  BENEFIT: Alternative AI perspective, structured changes, creative solutions
-
-ERROR HANDLING patterns:
-  IF mcp_timeout:
-    → Retry once with increased timeout
-    → Fallback to manual implementation
-  IF mcp_not_available:
-    → Use alternative tool from same category
-    → Document in event-stream.md
-  IF mcp_error:
-    → Log detailed error
-    → Attempt recovery or graceful degradation
-```
-
-### 5.3 Code Standards
-```
-ENFORCE:
-  - Components ≤ 50 lines
-  - Single responsibility principle
-  - Enable RLS immediately on tables
-  - WCAG 2.1 AA+ compliance
-  - 44-48px touch targets minimum
-```
-
-### 5.4 Parallel Agent Workflows for Topical Files
-```
-WHEN maintaining/creating topical documentation:
-  USE parallel agents for efficiency:
-    1. Launch multiple Task agents simultaneously
-    2. Each agent handles one topical domain
-    3. Coordinate results in architecture-core.md
-
-EXAMPLE workflow:
-  # Launch in parallel (single message, multiple Task tools):
-  - index-analyzer → Update architecture-core.md v4.0
-  - architecture-maintainer → Validate drift & truth
-  - tree-of-thought-agent → Create logical hierarchies
-
-TOPICAL DOMAINS to maintain:
-  - ui-components → /components/ analysis
-  - database-schema → /supabase/ structure
-  - api-endpoints → /app/api/ documentation
-  - medical-engine → /lib/medical/ logic
-  - state-management → /lib/stores/ patterns
-  - pdf-generation → /lib/pdf/ workflows
-
-COORDINATION pattern:
-  1. Extract from PROJECT_INDEX.json using jq
-  2. Each agent updates their section
-  3. index-analyzer consolidates into architecture-core.md
-  4. Maintain 150-line limit via topical pointers
-```
-
-### 5.5 Test-Driven Development with Browser MCP
-```
-TDD WORKFLOW with manageable commits:
-
-COMMIT-BOUNDED TESTING pattern:
-  1. BEFORE implementation:
-     → Write failing test (Red phase)
-     → Commit test with message: "test: add failing test for [feature]"
-
-  2. DURING implementation:
-     → Write minimal code to pass (Green phase)
-     → Run: npm test -- --testNamePattern="[feature]"
-     → Commit when passing: "feat: implement [feature] to pass test"
-
-  3. AFTER implementation:
-     → Refactor for quality (Refactor phase)
-     → Ensure tests still pass
-     → Commit: "refactor: improve [feature] implementation"
-
-BROWSER MCP for E2E Testing:
-  SETUP phase:
-    → mcp__browsermcp__browser_navigate to localhost:3000
-    → IF auth_required:
-      → PROMPT: "Please authenticate in browser, then confirm"
-      → WAIT for user confirmation
-      → mcp__browsermcp__browser_snapshot to verify logged in
-
-  TEST execution:
-    → browser_navigate to test page
-    → browser_snapshot for element references
-    → browser_click/type for interactions
-    → browser_screenshot for visual verification
-    → browser_get_console_logs for error detection
-
-  VALIDATION:
-    → Compare screenshots against baseline
-    → Check console for errors
-    → Verify expected elements present
-    → Log results to test-results/
-
-GITHUB INTEGRATION workflow:
-  PRE-COMMIT hooks:
-    → Run affected unit tests
-    → Check type safety (npm run type-check)
-    → Lint changed files (npm run lint)
-    → BLOCK commit if failing
-
-  COMMIT strategy:
-    → Atomic commits (one feature/fix per commit)
-    → Conventional commit messages
-    → Link to issue/task in process-tracker.md or product-tracker.md
-
-  PR CREATION with gh CLI:
-    → After 3-5 related commits
-    → Run full test suite
-    → Generate PR with test results:
-      gh pr create --title "[Type]: Description" \
-        --body "## Tests\n$(npm test 2>&1)"
-
-  PR VALIDATION:
-    → Browser MCP E2E suite
-    → Coverage report generation
-    → Performance metrics
-    → Accessibility audit
-
-TEST ORGANIZATION:
-  Unit tests:
-    → Location: __tests__/[component].test.tsx
-    → Coverage target: 80%+
-    → Run: npm test
-
-  Integration tests:
-    → Location: tests/integration/
-    → API endpoints, database operations
-    → Run: npm run test:integration
-
-  E2E tests (Browser MCP):
-    → Location: tests/e2e/
-    → User flows, visual regression
-    → Run: Via browser MCP orchestration
-
-FEEDBACK LOOP optimization:
-  → Fail fast: Run fastest tests first
-  → Parallel execution where possible
-  → Cache test results between runs
-  → Only run affected tests on file change
-  → Full suite only on PR/merge
-```
-
-### 5.6 Postflight Verification System
-```
-POSTFLIGHT CHECKS before task completion:
-
-INVOCATION:
-  → ALWAYS run before marking tasks complete
-  → Chain: test-runner → postflight-validator
-  → Block task completion if failing
-
-VERIFICATION CHECKLIST:
-  Code Quality:
-    □ All tests passing (unit, integration, E2E)
-    □ Type checking clean (npm run type-check)
-    □ Linting passed (npm run lint)
-    □ Coverage maintained/improved
-
-  Documentation:
-    □ Code comments for complex logic
-    □ README updated if API changed
-    □ Session artifacts generated
-    □ Event-stream.md updated
-
-  Architecture:
-    □ No architectural drift detected
-    □ Dependencies properly declared
-    □ Security best practices followed
-    □ Performance benchmarks met
-
-  Process Compliance:
-    □ Workflow pattern followed
-    □ Proper agent chains used
-    □ MCP tools utilized appropriately
-    □ Git commits follow convention
-
-FAILURE HANDLING:
-  IF verification_fails:
-    → Generate failure report
-    → Suggest remediation steps
-    → BLOCK task completion
-    → Loop back to Step 4 (Execute)
-
-  IF all_checks_pass:
-    → Mark task complete in process-tracker.md or product-tracker.md
-    → Update progress metrics
-    → Log success to event-stream.md
-```
-
-## 6. OUTPUT SPECIFICATIONS
-
-### 6.1 Event Logging Format
-```
-AFTER each significant action:
-  LOG to event-stream.md:
-    Format: HH:MM:SS | TYPE | ACTION | OUTCOME | DETAILS
-    Types: CONTEXT, PLAN, TASK, EXECUTE, VERIFY, DOC, ERROR
-```
-
-### 6.2 Session Artifacts
-```
-CREATE in docs/session/[session-id]/:
-  - session-info.md (metadata)
-  - plan.md (objectives and approach)
-  - outcomes.md (results and metrics)
-  - specs/ (if specifications created)
-  - test-results/ (if tests run)
-```
-
-### 6.3 State Updates
-```
-MAINTAIN continuously:
-  - architecture-core.md (version, checksum)
-  - event-stream.md (all activities)
-  - process-tracker.md (process tasks & objectives)
-  - product-tracker.md (product tasks & objectives)
-```
-
-### 6.4 Documentation Iteration
-```
-UPDATE existing documents:
-  ALWAYS:
-    ✓ Edit existing files in-place
-    ✓ Use MultiEdit for batch updates
-    ✓ Archive obsolete files to .claude/archive/
-    ✓ Track changes with git diff
-
-  NEVER:
-    ✗ Create "new-version.md" files
-    ✗ Generate "update-complete.md" reports
-    ✗ Duplicate information across files
-    ✗ Leave obsolete files in main directories
-
-  WORKFLOW:
-    1. Check existing docs first
-    2. Update relevant sections
-    3. Log changes to event-stream.md
-    4. Archive if replacing entirely
-```
-
-## 7. QUALITY GATES
-
-### 7.1 Phase Validation
-```
-BEFORE phase transition:
-  CHECK:
-    ✓ Current phase objectives met
-    ✓ Required deliverables present
-    ✓ Tests passing (if applicable)
-    ✓ Documentation updated
-```
-
-### 7.2 Loop Control
-```
-MONITOR loop iterations:
-  Phase 1 (Research): Max 3 loops
-  Phase 2 (Specification): Max 5 loops
-  Phase 3 (Planning): Max 2 loops
-  Phase 4 (Execution): Max 10 loops
-  Phase 5 (Cleanup): Max 1 loop
-
-  IF max_loops exceeded:
-    WARN user
-    REQUEST guidance
-```
-
-## 8. CODE NAVIGATION WITH INDEX
-
-### 8.1 Using PROJECT_INDEX.json
-```
-WHEN: Need to understand code structure
-THEN: Use index-analyzer agent
-
-EXAMPLES:
-  - "Use index-analyzer to find auth implementation"
-  - "Use index-analyzer to trace payment flow"
-  - "Use index-analyzer to find where X is called"
-
-NEVER:
-  ✗ Load PROJECT_INDEX.json directly (@PROJECT_INDEX.json)
-  ✗ Try to read the entire index file
-
-ALWAYS:
-  ✓ Use index-analyzer agent for code intelligence
-  ✓ Reference specific sections from its analysis
-  ✓ Run /index to regenerate if > 24 hours old
-```
-
-## 9. PROJECT CONTEXT
-
-### 9.1 System Overview
-```
-PROJECT: The Fountain Studio Website
-STACK: Next.js 15, TypeScript, React 19, Supabase, Tailwind CSS
-PURPOSE: Swiss sound healing & wellness studio website
-TYPE: Multi-language (DE/EN) single-page narrative
-```
-
-### 9.2 Key Components
-```
-UI: shadcn/ui components with Swiss design palette
-I18N: Dictionary-based translation system
-AUTH: Supabase Auth with cookie-based sessions
-BOOKING: Cal.com integration (planned)
-CONTACT: WhatsApp integration
-```
-
-### 9.3 Test Credentials
-```
-EMAIL: quiquequoidontou@proton.me
-PASSWORD: maisouestdoncornicar?
-ACCESS: Password login for @proton.me domains only
-```
-
-## 10. COMMAND REFERENCE
-
-### 10.1 Slash Commands
-```
-/status         → Show current phase and loop
-/prime-research → Load research context
-/prime-spec     → Load specification context
-/prime-planning → Load planning context
-/prime-execution → Load execution context
-/prime-cleanup  → Load cleanup context
-/switch-workflow → Toggle product/process mode
-/validate-phase → Run completion validation
-```
-
-### 10.2 Session Hooks
-```
-AUTOMATIC execution:
-  SessionStart.sh → Initialize session
-  context-loader.sh → Detect task type
-  simple-event-logger.sh → Log events
-  maintain-files.sh → Sync state files
-  SessionEnd.sh → Checkpoint state
+# Cal.com (optional - can use data attributes)
+NEXT_PUBLIC_CAL_LINK=username/event-type
 ```
 
 ---
-*Memory System v1.0 | Streamlined for efficiency | Delegates details to @context.md*
 
+## Best Practices
+
+### DO
+✅ Use `project-intel.mjs` before reading files
+✅ Install shadcn components via MCP tools
+✅ Follow design system tokens (gold usage: 3% max)
+✅ Server components by default
+✅ Dictionary for all text content
+✅ Write tests first (TDD)
+✅ Mobile-first responsive design
+✅ Semantic HTML with proper accessibility
+
+### DON'T
+❌ Read files without intel queries first
+❌ Manually create shadcn components
+❌ Overuse champagne gold color
+❌ Use client components unnecessarily
+❌ Hardcode text (use dictionaries)
+❌ Skip type checking
+❌ Use pure white backgrounds (use silk)
+❌ Create global Supabase server clients
+
+---
+
+## Quick Reference
+
+### File Locations
+- **Pages**: `app/[lang]/page.tsx`
+- **Components**: `components/sections/*.tsx`
+- **Styles**: `app/globals.css`
+- **Config**: `tailwind.config.ts`, `next.config.ts`
+- **Tests**: `tests/unit/`, `tests/e2e/`
+- **Translations**: `dictionaries/*.json`
+- **Images**: `public/images/`
+- **Docs**: `docs/specs/`, `docs/guides/`
+
+### Key Files
+- `app/layout.tsx` - Root layout with Cal.com script
+- `app/[lang]/layout.tsx` - Language layout
+- `app/[lang]/dictionaries.ts` - Dictionary loader + types
+- `components.json` - shadcn/ui configuration
+- `lib/supabase/server.ts` - Server-side database client
+- `project-intel.mjs` - Intelligence query system
+
+---
+
+**Last Updated**: 2025-10-31
+**Version**: 1.0
+**Status**: Production (deployed on Netlify)
