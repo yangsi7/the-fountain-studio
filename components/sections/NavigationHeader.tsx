@@ -22,19 +22,6 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
 
   const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/`;
 
-  const scrollToSection = (sectionId: string) => {
-    // If we're on homepage, scroll directly
-    if (isHomePage) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    } else {
-      // If we're on another page, navigate to homepage with hash
-      window.location.href = `/${lang}#${sectionId}`;
-    }
-  };
-
   return (
     <nav className="sticky top-0 z-50 bg-silk/95 backdrop-blur-sm border-b border-charcoal/10">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
@@ -86,15 +73,6 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
             >
               {dict.nav.about}
             </Link>
-            <button onClick={() => scrollToSection('testimonials')} className="text-charcoal hover:text-gold transition-colors">
-              {dict.nav.testimonials}
-            </button>
-            <button onClick={() => scrollToSection('faq')} className="text-charcoal hover:text-gold transition-colors">
-              {dict.nav.faq}
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="text-charcoal hover:text-gold transition-colors">
-              {dict.nav.contact}
-            </button>
           </div>
 
           {/* Language Switcher */}
@@ -164,9 +142,6 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
               >
                 {dict.nav.about}
               </Link>
-              <button onClick={() => scrollToSection('testimonials')} className="text-left">{dict.nav.testimonials}</button>
-              <button onClick={() => scrollToSection('faq')} className="text-left">{dict.nav.faq}</button>
-              <button onClick={() => scrollToSection('contact')} className="text-left">{dict.nav.contact}</button>
               <Separator className="my-2" />
               <div className="flex gap-2">
                 <Link href="/de" className="flex-1">
