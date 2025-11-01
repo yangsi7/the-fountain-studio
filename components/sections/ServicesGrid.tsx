@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface ServicesGridProps {
-  dict: Dictionary['services'];
+  dict: Dictionary['servicesSummary'];
   onLearnClick: () => void;
   onContactClick: () => void;
 }
@@ -43,7 +43,7 @@ export function ServicesGrid({ dict, onLearnClick, onContactClick }: ServicesGri
   ];
 
   return (
-    <section id="services" className="py-20 lg:py-[140px] px-6 bg-white">
+    <section id="services" className="py-20 lg:py-[140px] px-6 bg-background-white">
       <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
@@ -68,12 +68,13 @@ export function ServicesGrid({ dict, onLearnClick, onContactClick }: ServicesGri
                 service.isPopular ? 'border-charcoal/20 bg-gradient-to-br from-white to-silk' : ''
               }`}
             >
-              <div className="h-48 relative overflow-hidden">
+              <div className="aspect-[4/3] md:aspect-[16/10] lg:aspect-[4/3] relative overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.data.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
                 {service.isPopular && (
                   <Badge className="absolute top-4 right-4 bg-charcoal text-white">
@@ -91,12 +92,7 @@ export function ServicesGrid({ dict, onLearnClick, onContactClick }: ServicesGri
                   <span className="text-charcoal font-semibold">{service.data.price}</span>
                   <Button
                     size="sm"
-                    variant={service.isPopular ? undefined : 'outline'}
-                    className={
-                      service.isPopular
-                        ? 'bg-charcoal hover:bg-charcoal/90 text-white'
-                        : 'border-charcoal text-charcoal hover:bg-charcoal hover:text-white'
-                    }
+                    variant={service.isPopular ? 'gold' : 'gold-outline'}
                     onClick={service.onClick}
                   >
                     {service.data.cta}

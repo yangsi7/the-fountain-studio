@@ -17,7 +17,7 @@
     },
     "scroll": "Scrollen zum Entdecken"
   },
-  "services": {
+  "servicesSummary": {
     "title": "Meine Werkzeuge",
     "subtitle": "Wählen Sie, wie Sie statische Störungen klären und Ihren Fluss finden möchten",
     "biofield": {
@@ -53,7 +53,173 @@
       "cta": "Sitzung Buchen"
     }
   },
-  "about": {
+  "services": {
+    "title": "Services & Preise",
+    "subtitle": "Wählen Sie, wie Sie statische Störungen klären und Ihren Fluss finden möchten",
+    "hero": {
+      "title": "Services & Preise",
+      "subtitle": "Wählen Sie, wie Sie statische Störungen klären und Ihren Fluss finden möchten. Optionen umfassen einzelne Sitzungen mit Fokus auf Klangheilung, Bewegung, Atemarbeit oder Kombinationserlebnisse für tiefere Integration."
+    },
+    "integration": {
+      "title": "Vollständiges Integrationserlebnis",
+      "price": "180 CHF",
+      "duration": "90 Minuten",
+      "componentsTitle": "Sitzungskomponenten:",
+      "components": [
+        "Atemarbeit-Vorbereitung – 15 Minuten",
+        "Entspannende Gyrotonic-Bewegung – 30 Minuten",
+        "Tiefes Biofield Tuning – 45 Minuten"
+      ],
+      "benefits": "Bietet ein ausgewogenes Programm, das Energiearbeit, Bewegung und Klangheilung für eine umfassende Körper-Feld-Integration kombiniert.",
+      "cta": "Integrationssitzung Buchen"
+    },
+    "biofield": {
+      "title": "Biofield Tuning (Klangheilung) Pakete",
+      "packages": [
+        {
+          "name": "Tune Up",
+          "price": "120 CHF",
+          "duration": "Einzelne 60-Minuten-Sitzung",
+          "description": "Beinhaltet Gesundheitsbewertung, gezielte Frequenzarbeit und tiefe Entspannung. Perfekt für Wartung oder Einführung.",
+          "savings": null
+        },
+        {
+          "name": "Taste It",
+          "price": "345 CHF",
+          "duration": "Drei 60-Minuten-Sitzungen",
+          "description": "Entwickelt für Anfänger, um Biofield Tuning zu erkunden und frühe Ergebnisse zu spüren.",
+          "savings": "Sparen Sie 15 CHF"
+        },
+        {
+          "name": "Tune It",
+          "price": "660 CHF",
+          "duration": "Sechs 60-Minuten-Sitzungen",
+          "description": "Ermöglicht tiefere Arbeit an verwurzelten Mustern und signifikante Transformation.",
+          "savings": "Sparen Sie 60 CHF"
+        },
+        {
+          "name": "Level It",
+          "price": "1.050 CHF",
+          "duration": "Zehn Sitzungen über 12 Monate",
+          "description": "Für ernste Themen oder großen Reset. Beinhaltet Anleitung und Integration. Auf Anfrage verfügbar.",
+          "savings": "Sparen Sie 150 CHF"
+        }
+      ],
+      "perfectForTitle": "Perfekt für Sie, wenn…",
+      "perfectFor": "Sie neugierig auf das größere Muster dessen sind, was Sie plagt; bereit sind, aus alten Zyklen auszubrechen; an Frequenzmedizin interessiert sind; mit Stress oder emotionalen Mustern umgehen; bereits mit Energiearbeit vertraut sind; oder einfach einen gesunden Neustart wollen."
+    },
+    "movement": {
+      "title": "Gyrotonic® Bewegung & Gyrokinesis Pakete",
+      "packages": [
+        {
+          "name": "Privates Gyrotonic",
+          "price": "120 CHF",
+          "duration": "60 Minuten",
+          "features": [
+            "Einzelsitzung",
+            "Angepasste Sequenzen",
+            "Fokus auf Wirbelsäulengesundheit",
+            "Regulation des Nervensystems",
+            "Persönliche Bewertung"
+          ],
+          "savings": null
+        },
+        {
+          "name": "Gyrokinesis Sitzung",
+          "price": "120 CHF",
+          "duration": "60 Minuten",
+          "features": [
+            "Kleingruppenkurs",
+            "Achtsame Bewegungsabläufe",
+            "Zugänglich für alle Niveaus",
+            "Atemfokussiert",
+            "Anpassungsfähig"
+          ],
+          "savings": null
+        },
+        {
+          "name": "10-Sitzungen-Paket",
+          "price": "1.050 CHF",
+          "duration": "Kombinationspaket",
+          "features": [
+            "Gyrotonic & Gyrokinesis Mix",
+            "Konsistenter Fortschritt",
+            "Verändert Bewegungsgewohnheiten",
+            "Individuelle Bewertung enthalten"
+          ],
+          "savings": "Sparen Sie 120 CHF"
+        }
+      ],
+      "perfectForTitle": "Perfekt für Sie, wenn…",
+      "perfectFor": "Sie sanfte, nicht belastende, fließende Bewegungsmuster wünschen; Regulation des Nervensystems suchen; sich größer, leichter und freier fühlen möchten; Flexibilität und Anpassungsfähigkeit verbessern wollen."
+    },
+    "breathwork": {
+      "title": "Kardiovaskuläre Atemarbeit",
+      "price": "120 CHF",
+      "duration": "Etwa 45 Minuten",
+      "badge": "Am Beliebtesten",
+      "techniquesTitle": "Techniken:",
+      "techniques": [
+        "Progressive Atemsequenzen",
+        "Rhythmisches Klopfen zur Stimulierung des Lymphflusses",
+        "Einfache choreografierte Bewegungssequenzen"
+      ],
+      "benefitsTitle": "Vorteile:",
+      "benefits": "Fühlen Sie sich leichter und glücklicher, verbesserte Energie, mentale Klarheit und bessere Durchblutung und Koordination. Diese stimulieren alle Kreislaufsysteme (Blut, Nährstoffe, Sauerstoff, Hormone).",
+      "whyTitle": "Warum es funktioniert:",
+      "why": "Keine Vorerfahrung erforderlich. Ideal für Stress- und Angstabbau. Besonders hilfreich für Long-COVID-Erholung, chronische Müdigkeit, postpartale Erholung und Zustände, bei denen Atemmuster eingeschränkt sind. Die Kombination aus Atem, Klopfen und Bewegung hilft, aufgestaute Spannung freizusetzen.",
+      "cta": "Atemarbeit-Sitzung Buchen"
+    },
+    "massage": {
+      "title": "Frequenz-Massage",
+      "price": "75 CHF",
+      "duration": "Etwa 30 Minuten",
+      "description": "Eine gezielte Resonanzsitzung an einem bestimmten Bereich von Spannung oder Unbehagen, unter Verwendung von Klang- und Resonanzwerkzeugen—perfekt für begrenzte Zeit oder lokalisierte Probleme.",
+      "includesTitle": "Sitzung beinhaltet:",
+      "includes": [
+        "Lokalisierter Körperfokus",
+        "Persönliche Bewertung",
+        "Energetische Klärung des Bereichs",
+        "Schnelle, effektive Sitzung zur Freisetzung von Spannung und Wiederherstellung von Kohärenz"
+      ]
+    },
+    "expect": {
+      "title": "Was zu Erwarten Ist",
+      "locationTitle": "Standort",
+      "location": "Erlenstr. 53, 8804 Au ZH (nahe Zürich) mit einfachem öffentlichen Verkehr.",
+      "bookingTitle": "Buchung",
+      "booking": "Sitzungen sind nach Vereinbarung verfügbar. 24-Stunden-Stornierungsrichtlinie gilt.",
+      "paymentTitle": "Zahlung",
+      "payment": "Bargeld, Kreditkarten oder Twint akzeptiert. Pakete werden im Voraus bezahlt.",
+      "remoteTitle": "Remote-Optionen",
+      "remote": "Biofield Tuning und Gyrotonic-Bewegungssitzungen sind online mit ähnlichen Ergebnissen verfügbar.",
+      "gettingStartedTitle": "Einstieg",
+      "gettingStarted": "Es wird empfohlen, mit mindestens drei Sitzungen zu beginnen, um Ihrem System Zeit zu geben, zu reagieren und Veränderungen zu integrieren. Viele Klienten bemerken Veränderungen nach der ersten Sitzung."
+    },
+    "finalCta": {
+      "title": "Bereit zu Beginnen?",
+      "subtitle": "Buchen Sie Ihre Sitzung oder vereinbaren Sie eine kostenlose 15-minütige Beratung, um den perfekten Ausgangspunkt auszuwählen.",
+      "primaryCta": "Ihre Sitzung Buchen",
+      "secondaryCta": "Kostenlose 15-Min-Beratung"
+    }
+  },
+  "learnSummary": {
+    "title": "Wie es Funktioniert",
+    "subtitle": "Die Wissenschaft der Klangheilung, Bewegung und Atemarbeit verstehen",
+    "biofield": {
+      "title": "Biofield Tuning",
+      "content": "Arbeitet mit Ihrem elektrischen Körpersystem unter Verwendung von Stimmgabeln, um Störungen in Ihrem Energiefeld zu lokalisieren und aufzulösen. Sitzungen fördern tiefe Entspannung, emotionale Freisetzung und Regulierung des Nervensystems."
+    },
+    "gyrotonic": {
+      "title": "Gyrotonic® Expansion System",
+      "content": "Eine fließende, dreidimensionale Bewegungsmethode, die Energiebahnen öffnet und Ihr Nervensystem stimuliert. Spezialisierte Geräte bieten sanfte Unterstützung und Widerstand für verbesserte Haltung, Balance und Flexibilität."
+    },
+    "breathwork": {
+      "title": "Atemarbeit (Gyrokinesis Kardiovaskuläres Programm)",
+      "content": "Progressive Atemsequenzen mit rhythmischem Klopfen und einfacher Bewegungschoreografie. Stimuliert alle Kreislaufsysteme und erhöht den Fluss von Blut, Nährstoffen, Sauerstoff und Hormonen für verbesserte Energie und geistige Klarheit."
+    }
+  },
+  "aboutSummary": {
     "title": "Über Kristen",
     "subtitle": "Ihre Bio-Elektrikerin",
     "intro": "Ich sehe mich als Bio-Elektrikerin, die Klang und Frequenz nutzt, um mit Ihrem elektrischen System zu arbeiten.",
@@ -71,20 +237,183 @@
     },
     "cta": "Entdeckungsgespräch Vereinbaren"
   },
+  "about": {
+    "hero": {
+      "title": "Über Kristen & The Fountain Studio",
+      "subtitle": "Ihre Bio-Elektrikerin",
+      "intro": "Unterstützung Ihrer Reise nach Hause zu sich selbst durch sanfte, traumabewusste Praktiken, die Ihre angeborene Heilintelligenz ehren."
+    },
+    "healer": {
+      "title": "Sie Sind Ihr Eigener Heiler",
+      "content": "Ich gehe von der Prämisse aus, dass Sie der Heiler sind und ich ein Katalysator in Ihrem Prozess bin. Mit Ausbildung in transpersonaler Psychologie, Klangheilung, dem Gyrotonic-Bewegungssystem und Atemarbeit schaffe ich Raum für Ihre natürliche Heilintelligenz.",
+      "quote": "Das Ziel ist nicht, jemand anders zu werden, sondern zu dem zurückzukehren, wer Sie wirklich sind."
+    },
+    "mission": {
+      "title": "Mission",
+      "statement": "Kohärenz in einer chaotischen Welt aufbauen, ein Körper, ein Feld nach dem anderen.",
+      "description": "Ich schaffe Raum für Sie, um Ruhe zu finden, sich mit Ihrem Körper zu verbinden und die Wahrheit in Ihrem Energiefeld wiederzuentdecken."
+    },
+    "journey": {
+      "title": "Reise zu Dieser Arbeit",
+      "content": "Mein Hintergrund in Psychologie und meine eigene Gesundheitsreise—einschließlich chronischer Probleme—führten mich dazu, den Körper als elektrisches System zu entdecken. Ich fand Biofield Tuning und die Gyrotonic-Methode und sah, wie sanfte, traumabewusste Modalitäten die Heilintelligenz des Körpers aktivieren konnten."
+    },
+    "approach": {
+      "title": "Ansatz: Die Bio-Elektrikerin",
+      "intro": "Ich sehe mich als Bio-Elektrikerin, die Klang und Frequenz nutzt, um mit Ihrem elektrischen System zu arbeiten:",
+      "points": [
+        {
+          "title": "Spannung hinzufügen",
+          "description": "Zu Ihrem System, um Ihnen zu helfen, sich leichter und freier zu fühlen"
+        },
+        {
+          "title": "Statische Störungen und Rauschen klären",
+          "description": "Die die Klarheit Ihrer Wahrheit blockieren, um positive Veränderungen zu ermöglichen"
+        },
+        {
+          "title": "Beruhigen und Regulierung unterstützen",
+          "description": "Des Nervensystems, damit Sie Erfahrungen integrieren können"
+        }
+      ],
+      "emphasis": "Alle Frequenzen müssen online sein. Meine Rolle ist es, zuzuhören und Kohärenz zu unterstützen, anstatt etwas zu 'reparieren'."
+    },
+    "credentials": {
+      "title": "Qualifikationen & Zertifizierungen",
+      "items": [
+        {
+          "title": "Transpersonale Psychologie",
+          "description": "Tiefes Verständnis der Psyche und Verbindung zwischen inneren und äußeren Realitäten"
+        },
+        {
+          "title": "Zertifizierte Biofield Tuning Praktikerin",
+          "description": "Ausgebildet in Eileen McKusicks Methode zur Regulierung des Biofelds, Schmerzlinderung und Wiederherstellung des natürlichen Rhythmus"
+        },
+        {
+          "title": "Zertifizierte Gyrotonic® Praktikerin",
+          "description": "Ausgebildet in Juliu Horvaths einzigartigem Bewegungssystem zur Förderung der Wirbelsäulengesundheit und Nervensystemregulierung"
+        },
+        {
+          "title": "Atemarbeit-Facilitator",
+          "description": "Spezialisiert auf kardiovaskuläre Atemarbeitspraktiken (Kolakoski-Methode) zur Unterstützung des Nervensystems"
+        }
+      ]
+    },
+    "studio": {
+      "title": "Der Studio-Raum",
+      "description": "Im ruhigen Dorf Au bei Zürich gelegen, ist das Studio als Heiligtum konzipiert, um sich von der Welt zu lösen und sich wieder mit sich selbst zu verbinden.",
+      "locationTitle": "Standort & Zugang",
+      "address": "Tiefenweg 5A, 8804 Au ZH",
+      "access": "Parkplätze vorhanden. Bushaltestellen in der Nähe. Einfache Anbindung mit öffentlichen Verkehrsmitteln von Zürich.",
+      "environmentTitle": "Umgebung",
+      "environment": "Ruhiger, intimer Raum mit professioneller Ausrüstung und sicheren sanitären Einrichtungen für Heilung.",
+      "options": "Persönliche Sitzungen, Remote-Biofield-Tuning-Sitzungen und Online-Bewegungskurse verfügbar."
+    },
+    "workWith": {
+      "title": "Wie Ich Mit Ihnen Arbeite",
+      "principles": [
+        {
+          "title": "Traumabewusst & sanft",
+          "description": "Sitzungen sind durch Verständnis von Trauma und dem Nervensystem informiert. Das Ziel ist sanfte Unterstützung statt Zwang."
+        },
+        {
+          "title": "Ihr Prozess, Ihr Tempo",
+          "description": "Ich treffe Sie dort, wo Sie sind. Es gibt keine Eile, schneller zu heilen, als Sie bereit sind."
+        },
+        {
+          "title": "Integration über schnelle Lösungen",
+          "description": "Betonung auf dauerhafter Integration statt schneller Ergebnisse. Tiefe Kohärenz und langfristige Veränderung erfordern Zuhören und Unterstützung des natürlichen Rhythmus des Körpers."
+        }
+      ],
+      "quote": "Es fühlt sich endlich an, als würde ich in meinen eigenen Schuhen stehen."
+    },
+    "finalCta": {
+      "title": "Bereit, Ihre Reise zu Beginnen?",
+      "subtitle": "Vereinbaren Sie ein Entdeckungsgespräch, um zu besprechen, welcher Ansatz für Sie richtig ist, oder erkunden Sie unsere Services und Preise.",
+      "primaryCta": "Entdeckungsgespräch Vereinbaren",
+      "secondaryCta": "Services & Preise Ansehen"
+    }
+  },
   "learn": {
     "title": "Wie es Funktioniert",
     "subtitle": "Die Wissenschaft der Klangheilung verstehen",
+    "hero": {
+      "title": "Wie es Funktioniert",
+      "subtitle": "Verstehen, wie Klangheilung, Bewegung und Atemarbeit zusammenarbeiten, um statische Störungen zu klären und den natürlichen Fluss wiederherzustellen",
+      "intro": "Der Körper funktioniert als physisches und elektrisches System. Gedanken, Emotionen und Erfahrungen erzeugen statische Störungen und Rauschen. Jede Modalität adressiert spezifische Komponenten des Systems.",
+      "quote": "Frequenz ist Alles",
+      "modalities": [
+        "Klangheilung arbeitet mit dem Energiefeld unter Verwendung von Stimmgabeln, um Verzerrungen zu lokalisieren und aufzulösen. Es fördert tiefe Entspannung, emotionale Freisetzung und Regulation des Nervensystems.",
+        "Bewegung (Gyrotonic®) arbeitet mit dem physischen Körper durch spiralförmige, rhythmische Bewegung. Es verbessert Haltung, Mobilität und Regulation des Nervensystems.",
+        "Atemarbeit nutzt bewusstes Atmen, um mit Durchblutung und Nervensystem zu arbeiten. Es hebt Energie an und verbessert Durchblutung und mentale Klarheit."
+      ]
+    },
     "biofield": {
-      "title": "Biofield Tuning",
-      "content": "Ihr Körper funktioniert als elektrisches System mit eigenem elektromagnetischem Feld. Mit Stimmgabeln lokalisieren wir Bereiche von Turbulenzen oder Stagnation in Ihrem Feld - oft entsprechend vergangenen Erfahrungen oder emotionalen Mustern. Die kohärenten Frequenzen helfen Ihrem Körper, sich neu zu organisieren und loszulassen, was Ihnen nicht mehr dient."
+      "title": "Biofield Tuning (Klangheilung)",
+      "whatItIsTitle": "Was es ist",
+      "whatItIs": "Eine Methode, die mit Ihrem elektrischen Körpersystem arbeitet—dem elektrischen Strom im Gewebe und dem umgebenden Magnetfeld. Praktizierende lokalisieren Muster von Erfahrungen und Beziehungen (einschließlich Erinnerungen) und halten Stimmgabeln nahe Bereichen von Turbulenzen, bis sich der Körper um die stetigen, kohärenten Frequenzen neu organisiert.",
+      "howItWorksTitle": "Wie es funktioniert",
+      "howItWorks": "Der Praktiker hört auf Bereiche von Widerstand oder Resonanz und hält die Gabel, bis der Körper harmonisiert. Sitzungen bringen oft sanftes Zittern, Schwitzen oder emotionale Freisetzungen.",
+      "benefitsTitle": "Vorteile",
+      "benefits": "Tiefe Entspannung, Stressreduktion, Freisetzung gespeicherter Muster und Erinnerungen, verbesserter Energiefluss und mentale Klarheit. Es wird empfohlen, mindestens drei Sitzungen für die volle Wirkung zuzulassen."
     },
     "gyrotonic": {
-      "title": "Gyrotonic® Methode",
-      "content": "Dieses einzigartige Bewegungssystem arbeitet durch fließende, kreisförmige Bewegungen mit Ihrem ganzen Körper. Mit spezialisierten Geräten dekomprimieren wir Gelenke, verbessern die Durchblutung und stimulieren Ihr Nervensystem. Das Ergebnis ist eine verbesserte Haltung, Balance und ein tiefes Gefühl der Verkörperung."
+      "title": "Gyrotonic® Expansion System Methode",
+      "whatItIsTitle": "Was es ist",
+      "whatItIs": "Eine Bewegungsmethode, die Ihr gesamtes System adressiert, indem sie Energiewege öffnet und Ihr Nervensystem stimuliert. Spezialisierte Ausrüstung (Pulley Tower®) bietet sanfte Unterstützung und Widerstand.",
+      "howItWorksTitle": "Wie es funktioniert",
+      "howItWorks": "Fließende, kreisförmige Bewegungen beginnen vom Rumpf und fördern Balance, Effizienz, Kraft und Flexibilität. Die Gelenke werden dekomprimiert und das Gewicht gleichmäßig verteilt.",
+      "benefitsTitle": "Vorteile",
+      "benefits": "Verbesserte Haltung, Balance, Kraft und Flexibilität; reguliertes Nervensystem; anpassbar an alle Fähigkeiten von Verletzungserholung bis zu Elite-Leistung."
     },
     "breathwork": {
-      "title": "Atemarbeit",
-      "content": "Durch bewusste Atemmuster und rhythmische Bewegung aktivieren wir die natürliche Heilungsreaktion Ihres Körpers. Dieses Herz-Kreislauf-Programm erhöht den Sauerstofffluss, stimuliert die Lymphdrainage und hilft, Ihr Nervensystem für anhaltende Ruhe und Klarheit zu regulieren."
+      "title": "Atemarbeit (Gyrokinesis Kardiovaskuläres Programm)",
+      "whatItIsTitle": "Was es ist",
+      "whatItIs": "Ein von Juliu Horvath entwickeltes Atemprogramm, das sich auf respiratorische Gesundheit durch progressive Atemsequenzen und Bewegung konzentriert.",
+      "howItWorksTitle": "Wie es funktioniert",
+      "howItWorks": [
+        "Progressive Atemsequenzen",
+        "Rhythmisches Klopfen zur Stimulierung des Lymphflusses",
+        "Einfache choreografierte Bewegungssequenzen",
+        "Diese stimulieren alle Kreislaufsysteme und erhöhen den Fluss von Blut, Nährstoffen, Sauerstoff und Hormonen"
+      ],
+      "benefitsTitle": "Vorteile",
+      "benefits": "Sich leichter und gehobener fühlen, verbesserte Energie, mentale Klarheit, bessere Durchblutung und Ganzkörperkoordination."
+    },
+    "comparison": {
+      "title": "Wie Sie Ihren Ansatz Wählen",
+      "focusLabel": "Fokus:",
+      "roleLabel": "Ihre Rolle:",
+      "effectLabel": "Sofortige Wirkung:",
+      "chooseLabel": "Wählen Sie es, wenn:",
+      "modalities": [
+        {
+          "name": "Klangheilung",
+          "focus": "Energiefeld und emotionale Muster",
+          "role": "Passiv (Sie liegen und empfangen)",
+          "effect": "Tiefe Entspannung und Stressabbau",
+          "choose": "Sie Linderung von Stress, Traumamustern oder dem Gefühl 'festzustecken' suchen"
+        },
+        {
+          "name": "Bewegung",
+          "focus": "Physischer Körper und Nervensystem",
+          "role": "Aktiv (geführte Bewegung)",
+          "effect": "Sich größer, stärker und freier fühlen",
+          "choose": "Sie verbesserte Haltung, Mobilität oder Koordination benötigen"
+        },
+        {
+          "name": "Atemarbeit",
+          "focus": "Durchblutung und respiratorische Gesundheit",
+          "role": "Aktiv (Atmen und leichte Bewegungen)",
+          "effect": "Gehobene Stimmung und Energie mit mentaler Klarheit",
+          "choose": "Sie mehr Energie, Fokus oder verbesserte Durchblutung wünschen"
+        }
+      ],
+      "note": "Unsicher, wo Sie anfangen sollen? Erwägen Sie die Kombination von Modalitäten für einen umfassenden Ansatz."
+    },
+    "finalCta": {
+      "title": "Bereit zu Beginnen?",
+      "subtitle": "Buchen Sie ein Entdeckungsgespräch, um zu besprechen, welcher Ansatz für Sie richtig ist, oder erkunden Sie unsere Services und Preise.",
+      "primaryCta": "Entdeckungsgespräch Buchen",
+      "secondaryCta": "Services & Preise Ansehen"
     }
   },
   "testimonials": {

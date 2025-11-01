@@ -52,7 +52,8 @@ export function BookingSection({ dict }: BookingSectionProps) {
 
                 <Button
                   size="lg"
-                  className="w-full bg-gold hover:bg-gold-hover text-white transform hover:scale-105 transition-all"
+                  variant="gold"
+                  className="w-full transform hover:scale-105"
                   data-cal-namespace="15min"
                   data-cal-link="simon-yang-z2fy7e/15min"
                   data-cal-config='{"layout":"month_view"}'
@@ -102,7 +103,8 @@ export function BookingSection({ dict }: BookingSectionProps) {
               <h3 className="text-xl font-semibold text-charcoal mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <Button
-                  className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  variant="whatsapp"
+                  className="w-full"
                   onClick={() => window.open(`https://wa.me/41787950009?text=Hi%20Kristen,%20I'm%20interested%20in%20booking%20a%20session`, '_blank')}
                 >
                   <MessageCircle className="w-4 h-4 mr-2" />

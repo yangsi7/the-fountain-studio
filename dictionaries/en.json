@@ -17,12 +17,12 @@
     },
     "scroll": "Scroll to explore"
   },
-  "services": {
+  "servicesSummary": {
     "title": "My Tool Kit",
     "subtitle": "Choose how you want to clear static and find your flow",
     "biofield": {
       "title": "Biofield Tuning",
-      "description": "Works with your energy field using tuning forks to locate and dissolve distortion",
+      "description": "Works with your energy field using tuning forks to locate and resolve distortions",
       "benefits": "Nervous system regulation, emotional release, deep relaxation",
       "duration": "60 minutes",
       "price": "120 CHF",
@@ -47,13 +47,179 @@
     "integration": {
       "title": "Complete Integration",
       "description": "90-minute session combining movement and sound healing for comprehensive body-field integration",
-      "benefits": "Deep integration, full-system reset, lasting change",
+      "benefits": "Deep integration, whole-system reset, lasting change",
       "duration": "90 minutes",
       "price": "180 CHF",
       "cta": "Book Session"
     }
   },
-  "about": {
+  "services": {
+    "title": "Services & Pricing",
+    "subtitle": "Choose how you want to clear static and find your flow",
+    "hero": {
+      "title": "Services & Pricing",
+      "subtitle": "Choose how you want to clear static and find your flow. Options include individual sessions focused on Sound Healing, Movement, Breathwork or Combination experiences designed for deeper integration."
+    },
+    "integration": {
+      "title": "Complete Integration Experience",
+      "price": "180 CHF",
+      "duration": "90 minutes",
+      "componentsTitle": "Session Components:",
+      "components": [
+        "Breathwork preparation – 15 minutes",
+        "Relaxing Gyrotonic movement – 30 minutes",
+        "Deep Biofield Tuning – 45 minutes"
+      ],
+      "benefits": "Provides a balanced program combining energy work, movement and sound healing for comprehensive body–field integration.",
+      "cta": "Book Integration Session"
+    },
+    "biofield": {
+      "title": "Biofield Tuning (Sound Healing) Packages",
+      "packages": [
+        {
+          "name": "Tune Up",
+          "price": "120 CHF",
+          "duration": "Single 60-minute session",
+          "description": "Includes health assessment, targeted frequency work and deep relaxation. Perfect for maintenance or introduction.",
+          "savings": null
+        },
+        {
+          "name": "Taste It",
+          "price": "345 CHF",
+          "duration": "Three 60-minute sessions",
+          "description": "Designed for beginners to explore Biofield Tuning and feel early results.",
+          "savings": "Save 15 CHF"
+        },
+        {
+          "name": "Tune It",
+          "price": "660 CHF",
+          "duration": "Six 60-minute sessions",
+          "description": "Enables deeper work on entrenched patterns and significant transformation.",
+          "savings": "Save 60 CHF"
+        },
+        {
+          "name": "Level It",
+          "price": "1,050 CHF",
+          "duration": "Ten sessions over 12 months",
+          "description": "For serious issues or major reset. Includes guidance and integration. Available on request.",
+          "savings": "Save 150 CHF"
+        }
+      ],
+      "perfectForTitle": "Perfect for you if…",
+      "perfectFor": "You're curious about the larger pattern of what ails you, ready to step out of old cycles, interested in frequency medicine, dealing with stress or emotional patterns, already familiar with energy work, or simply want a healthy reboot."
+    },
+    "movement": {
+      "title": "Gyrotonic® Movement & Gyrokinesis Packages",
+      "packages": [
+        {
+          "name": "Private Gyrotonic",
+          "price": "120 CHF",
+          "duration": "60 minutes",
+          "features": [
+            "One-on-one session",
+            "Customized sequences",
+            "Spinal health focus",
+            "Nervous system regulation",
+            "Personal assessment"
+          ],
+          "savings": null
+        },
+        {
+          "name": "Gyrokinesis Session",
+          "price": "120 CHF",
+          "duration": "60 minutes",
+          "features": [
+            "Small group class",
+            "Mindful movement flows",
+            "Accessible to all levels",
+            "Breath-focused",
+            "Adaptable"
+          ],
+          "savings": null
+        },
+        {
+          "name": "10-Session Package",
+          "price": "1,050 CHF",
+          "duration": "Combination package",
+          "features": [
+            "Gyrotonic & Gyrokinesis mix",
+            "Consistent progress",
+            "Shifts movement habits",
+            "Individual review included"
+          ],
+          "savings": "Save 120 CHF"
+        }
+      ],
+      "perfectForTitle": "Perfect for you if…",
+      "perfectFor": "You desire gentle, non-impact, flowing movement patterns; seek nervous system regulation; want to feel taller, lighter and freer; wish to improve flexibility and adaptability."
+    },
+    "breathwork": {
+      "title": "Cardiovascular Breathwork",
+      "price": "120 CHF",
+      "duration": "Approximately 45 minutes",
+      "badge": "Most Popular",
+      "techniquesTitle": "Techniques:",
+      "techniques": [
+        "Progressive breathing sequences",
+        "Rhythmic tapping to stimulate lymphatic flow",
+        "Simple choreographed movement sequences"
+      ],
+      "benefitsTitle": "Benefits:",
+      "benefits": "Feel lighter and happier, improved energy, mental clarity and better circulation and coordination. These stimulate all circulatory systems (blood, nutrients, oxygen, hormones).",
+      "whyTitle": "Why it works:",
+      "why": "No prior experience required. Ideal for stress and anxiety relief. Particularly helpful for long COVID recovery, chronic fatigue, postpartum recovery and conditions where breath patterns are restricted. The combination of breath, tapping and movement helps release built-up tension.",
+      "cta": "Book Breathwork Session"
+    },
+    "massage": {
+      "title": "Frequency Massage",
+      "price": "75 CHF",
+      "duration": "About 30 minutes",
+      "description": "A targeted resonance session on one specific area of tension or discomfort, using sound and resonance tools—perfect for limited time or localized issues.",
+      "includesTitle": "Session includes:",
+      "includes": [
+        "Localized body focus",
+        "Personal assessment",
+        "Energetic clearing of the area",
+        "Quick, effective session to release tension and restore coherence"
+      ]
+    },
+    "expect": {
+      "title": "What to Expect",
+      "locationTitle": "Location",
+      "location": "Erlenstr. 53, 8804 Au ZH (near Zurich) with easy public transport.",
+      "bookingTitle": "Booking",
+      "booking": "Sessions are available by appointment. 24-hour cancellation policy applies.",
+      "paymentTitle": "Payment",
+      "payment": "Cash, credit cards or Twint accepted. Packages are paid in advance.",
+      "remoteTitle": "Remote Options",
+      "remote": "Biofield Tuning and Gyrotonic movement sessions are available online with similar results.",
+      "gettingStartedTitle": "Getting Started",
+      "gettingStarted": "It is recommended to begin with at least three sessions to give your system time to respond and integrate changes. Many clients notice shifts after the first session."
+    },
+    "finalCta": {
+      "title": "Ready to Begin?",
+      "subtitle": "Book your session or schedule a free 15-minute consultation to help select the perfect starting point.",
+      "primaryCta": "Book Your Session",
+      "secondaryCta": "Free 15-Min Consultation"
+    }
+  },
+  "learnSummary": {
+    "title": "How It Works",
+    "subtitle": "Understanding the science of sound healing, movement, and breathwork",
+    "biofield": {
+      "title": "Biofield Tuning",
+      "content": "Works with your body's electrical system using tuning forks to locate and resolve distortions in your energy field. Sessions promote deep relaxation, emotional release, and nervous system regulation."
+    },
+    "gyrotonic": {
+      "title": "Gyrotonic® Expansion System",
+      "content": "A flowing, three-dimensional movement method that opens energy pathways and stimulates your nervous system. Specialized equipment provides smooth support and resistance for improved posture, balance, and flexibility."
+    },
+    "breathwork": {
+      "title": "Breathwork (Gyrokinesis Cardiovascular Program)",
+      "content": "Progressive breathing sequences with rhythmic tapping and simple movement choreography. Stimulates all circulatory systems, increasing flow of blood, nutrients, oxygen, and hormones for improved energy and mental clarity."
+    }
+  },
+  "aboutSummary": {
     "title": "About Kristen",
     "subtitle": "Your Bio-Electrician",
     "intro": "I view myself as a bio-electrician who uses sound and frequency to work with your electrical system.",
@@ -71,20 +237,183 @@
     },
     "cta": "Schedule Discovery Call"
   },
+  "about": {
+    "hero": {
+      "title": "About Kristen & The Fountain Studio",
+      "subtitle": "Your Bio-Electrician",
+      "intro": "Supporting your journey home to yourself through gentle, trauma-aware practices that honour your innate healing intelligence."
+    },
+    "healer": {
+      "title": "You Are Your Own Healer",
+      "content": "I operate from the premise that you are the healer and I am a catalyst in your process. With training in transpersonal psychology, sound healing, the Gyrotonic movement system and breathwork, I create space for your natural healing intelligence to emerge.",
+      "quote": "The goal isn't to become someone else, but to come back to who you truly are."
+    },
+    "mission": {
+      "title": "Mission",
+      "statement": "Building coherence in a chaotic world, one body, one field at a time.",
+      "description": "I create space for you to gain calm, connect with your body and rediscover the truth present in your energy field."
+    },
+    "journey": {
+      "title": "Journey to This Work",
+      "content": "My background in psychology and my own health journey—including chronic issues—led me to discover the body as an electrical system. I found Biofield Tuning and the Gyrotonic Method and saw how gentle, trauma-aware modalities could activate the body's healing intelligence."
+    },
+    "approach": {
+      "title": "Approach: The Bio-Electrician",
+      "intro": "I view myself as a bio-electrician who uses sound and frequency to work with your electrical system:",
+      "points": [
+        {
+          "title": "Add voltage",
+          "description": "To your system to help you feel lighter and freer"
+        },
+        {
+          "title": "Clear static and noise",
+          "description": "That blocks clarity of your truth to facilitate positive change"
+        },
+        {
+          "title": "Calm and support regulation",
+          "description": "Of the nervous system so you can integrate experiences"
+        }
+      ],
+      "emphasis": "All frequencies need to be online. My role is to listen and support coherence rather than 'fix' anything."
+    },
+    "credentials": {
+      "title": "Credentials & Certifications",
+      "items": [
+        {
+          "title": "Transpersonal Psychology",
+          "description": "Deep understanding of the psyche and connection between inner and outer realities"
+        },
+        {
+          "title": "Certified Biofield Tuning Practitioner",
+          "description": "Trained with Eileen McKusick's method to regulate the biofield, relieve pain and restore natural rhythm"
+        },
+        {
+          "title": "Certified Gyrotonic® Practitioner",
+          "description": "Trained in Juliu Horvath's unique movement system promoting spinal health and nervous system regulation"
+        },
+        {
+          "title": "Breathwork Facilitator",
+          "description": "Specializes in cardiovascular breathwork practices (Kolakoski Method) to support the nervous system"
+        }
+      ]
+    },
+    "studio": {
+      "title": "The Studio Space",
+      "description": "Located in the quiet village of Au near Zurich, the studio is designed as a sanctuary to disconnect from the world and reconnect with yourself.",
+      "locationTitle": "Location & Access",
+      "address": "Tiefenweg 5A, 8804 Au ZH",
+      "access": "Parking available. Bus stops nearby. Easy public transport access from Zurich.",
+      "environmentTitle": "Environment",
+      "environment": "Quiet, intimate space with professional equipment and safe sanitation for healing.",
+      "options": "In-person sessions, remote Biofield Tuning sessions, and online movement classes available."
+    },
+    "workWith": {
+      "title": "How I Work With You",
+      "principles": [
+        {
+          "title": "Trauma-aware & gentle",
+          "description": "Sessions are informed by understanding of trauma and the nervous system. The goal is gentle support rather than forcing."
+        },
+        {
+          "title": "Your process, your pace",
+          "description": "I meet you where you are. There's no rush to heal faster than you are ready."
+        },
+        {
+          "title": "Integration over quick fixes",
+          "description": "Emphasis on lasting integration rather than rapid results. Deep coherence and long-term change require listening and supporting the body's natural rhythm."
+        }
+      ],
+      "quote": "It finally feels like I'm standing in my own shoes."
+    },
+    "finalCta": {
+      "title": "Ready to Begin Your Journey?",
+      "subtitle": "Schedule a discovery call to discuss which approach is right for you, or explore our services and pricing.",
+      "primaryCta": "Schedule Discovery Call",
+      "secondaryCta": "View Services & Pricing"
+    }
+  },
   "learn": {
     "title": "How It Works",
     "subtitle": "Understanding the Science of Sound Healing",
+    "hero": {
+      "title": "How It Works",
+      "subtitle": "Understanding how sound healing, movement and breathwork work together to clear static and restore natural flow",
+      "intro": "The body operates as a physical and electrical system. Thoughts, emotions and experiences create static and noise. Each modality addresses specific components of the system.",
+      "quote": "Frequency is Everything",
+      "modalities": [
+        "Sound healing works with the energy field using tuning forks to locate distortion and dissolve it. It promotes deep relaxation, emotional release and nervous system regulation.",
+        "Movement (Gyrotonic®) works with the physical body through spiraling, rhythmic movement. It improves posture, mobility and nervous system regulation.",
+        "Breathwork uses conscious breathing to work with circulation and the nervous system. It uplifts energy and improves circulation and mental clarity."
+      ]
+    },
     "biofield": {
-      "title": "Biofield Tuning",
-      "content": "Your body operates as an electrical system with its own electromagnetic field. Using tuning forks, we locate areas of turbulence or stagnation in your field - often corresponding to past experiences or emotional patterns. The coherent frequencies help your body reorganize itself, releasing what no longer serves you."
+      "title": "Biofield Tuning (Sound Healing)",
+      "whatItIsTitle": "What it is",
+      "whatItIs": "A method working with your body's electrical system—the electric current inside tissue and the magnetic field surrounding it. Practitioners locate patterns of experiences and relationships (including memories) and hold tuning forks near areas of turbulence until the body reorganizes itself around the steady, coherent frequencies.",
+      "howItWorksTitle": "How it works",
+      "howItWorks": "The practitioner listens for areas of resistance or resonance, holding the fork until the body harmonizes. Sessions often bring gentle shaking, sweating or emotional releases.",
+      "benefitsTitle": "Benefits",
+      "benefits": "Deep relaxation, stress reduction, release of stored patterns and memories, improved energy flow and mental clarity. It is recommended to allow at least three sessions for full effect."
     },
     "gyrotonic": {
-      "title": "Gyrotonic® Method",
-      "content": "This unique movement system works with your whole body through flowing, circular movements. Using specialized equipment, we decompress joints, improve circulation, and stimulate your nervous system. The result is improved posture, balance, and a deep sense of embodiment."
+      "title": "Gyrotonic® Expansion System Method",
+      "whatItIsTitle": "What it is",
+      "whatItIs": "A movement method addressing your whole system by opening energy pathways and stimulating your nervous system. Specialized equipment (Pulley Tower®) provides smooth support and resistance.",
+      "howItWorksTitle": "How it works",
+      "howItWorks": "Flowing, circular movements originate from the torso, promoting balance, efficiency, strength and flexibility. The joints are decompressed and weight is distributed evenly.",
+      "benefitsTitle": "Benefits",
+      "benefits": "Improved posture, balance, strength and flexibility; regulated nervous system; adaptable to all abilities from injury recovery to elite performance."
     },
     "breathwork": {
-      "title": "Breathwork",
-      "content": "Through conscious breathing patterns and rhythmic movement, we activate your body's natural healing response. This cardiovascular program increases oxygen flow, stimulates lymphatic drainage, and helps regulate your nervous system for lasting calm and clarity."
+      "title": "Breathwork (Gyrokinesis Cardiovascular Program)",
+      "whatItIsTitle": "What it is",
+      "whatItIs": "A breathing program developed by Juliu Horvath focusing on respiratory health through progressive breathing sequences and movement.",
+      "howItWorksTitle": "How it works",
+      "howItWorks": [
+        "Progressive breathing sequences",
+        "Rhythmic tapping to stimulate lymphatic flow",
+        "Simple choreographed movement sequences",
+        "These stimulate all circulatory systems, increasing flow of blood, nutrients, oxygen and hormones"
+      ],
+      "benefitsTitle": "Benefits",
+      "benefits": "Feeling lighter and uplifted, improved energy, mental clarity, better circulation and whole-body coordination."
+    },
+    "comparison": {
+      "title": "How to Choose Your Approach",
+      "focusLabel": "Focus:",
+      "roleLabel": "Your Role:",
+      "effectLabel": "Immediate Effect:",
+      "chooseLabel": "Choose it when:",
+      "modalities": [
+        {
+          "name": "Sound Healing",
+          "focus": "Energy field and emotional patterns",
+          "role": "Passive (you lie down and receive)",
+          "effect": "Deep relaxation and stress relief",
+          "choose": "You seek relief from stress, trauma patterns or feeling 'stuck'"
+        },
+        {
+          "name": "Movement",
+          "focus": "Physical body and nervous system",
+          "role": "Active (guided movement)",
+          "effect": "Feeling taller, stronger and freer",
+          "choose": "You need improved posture, mobility or coordination"
+        },
+        {
+          "name": "Breathwork",
+          "focus": "Circulation and respiratory health",
+          "role": "Active (breathing and light movements)",
+          "effect": "Uplifted mood and energy with mental clarity",
+          "choose": "You want more energy, focus or improved circulation"
+        }
+      ],
+      "note": "Unsure where to start? Consider combining modalities for a comprehensive approach."
+    },
+    "finalCta": {
+      "title": "Ready to Begin?",
+      "subtitle": "Book a discovery call to discuss which approach is right for you, or explore our services and pricing.",
+      "primaryCta": "Book Discovery Call",
+      "secondaryCta": "View Services & Pricing"
     }
   },
   "testimonials": {

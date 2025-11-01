@@ -31,7 +31,7 @@ export type Dictionary = {
     };
     scroll: string;
   };
-  services: {
+  servicesSummary: {
     title: string;
     subtitle: string;
     biofield: {
@@ -67,20 +67,88 @@ export type Dictionary = {
       cta: string;
     };
   };
-  about: {
+  services: {
     title: string;
     subtitle: string;
-    intro: string;
-    description: string;
-    quote: string;
-    mission: string;
-    credentials: {
+    hero: {
       title: string;
-      items: string[];
+      subtitle: string;
     };
-    cta: string;
+    integration: {
+      title: string;
+      price: string;
+      duration: string;
+      componentsTitle: string;
+      components: string[];
+      benefits: string;
+      cta: string;
+    };
+    biofield: {
+      title: string;
+      packages: Array<{
+        name: string;
+        price: string;
+        duration: string;
+        description: string;
+        savings: string | null;
+      }>;
+      perfectForTitle: string;
+      perfectFor: string;
+    };
+    movement: {
+      title: string;
+      packages: Array<{
+        name: string;
+        price: string;
+        duration: string;
+        features: string[];
+        savings: string | null;
+      }>;
+      perfectForTitle: string;
+      perfectFor: string;
+    };
+    breathwork: {
+      title: string;
+      price: string;
+      duration: string;
+      badge: string;
+      techniquesTitle: string;
+      techniques: string[];
+      benefitsTitle: string;
+      benefits: string;
+      whyTitle: string;
+      why: string;
+      cta: string;
+    };
+    massage: {
+      title: string;
+      price: string;
+      duration: string;
+      description: string;
+      includesTitle: string;
+      includes: string[];
+    };
+    expect: {
+      title: string;
+      locationTitle: string;
+      location: string;
+      bookingTitle: string;
+      booking: string;
+      paymentTitle: string;
+      payment: string;
+      remoteTitle: string;
+      remote: string;
+      gettingStartedTitle: string;
+      gettingStarted: string;
+    };
+    finalCta: {
+      title: string;
+      subtitle: string;
+      primaryCta: string;
+      secondaryCta: string;
+    };
   };
-  learn: {
+  learnSummary: {
     title: string;
     subtitle: string;
     biofield: {
@@ -94,6 +162,139 @@ export type Dictionary = {
     breathwork: {
       title: string;
       content: string;
+    };
+  };
+  aboutSummary: {
+    title: string;
+    subtitle: string;
+    intro: string;
+    description: string;
+    quote: string;
+    mission: string;
+    credentials: {
+      title: string;
+      items: string[];
+    };
+    cta: string;
+  };
+  about: {
+    hero: {
+      title: string;
+      subtitle: string;
+      intro: string;
+    };
+    healer: {
+      title: string;
+      content: string;
+      quote: string;
+    };
+    mission: {
+      title: string;
+      statement: string;
+      description: string;
+    };
+    journey: {
+      title: string;
+      content: string;
+    };
+    approach: {
+      title: string;
+      intro: string;
+      points: Array<{
+        title: string;
+        description: string;
+      }>;
+      emphasis: string;
+    };
+    credentials: {
+      title: string;
+      items: Array<{
+        title: string;
+        description: string;
+      }>;
+    };
+    studio: {
+      title: string;
+      description: string;
+      locationTitle: string;
+      address: string;
+      access: string;
+      environmentTitle: string;
+      environment: string;
+      options: string;
+    };
+    workWith: {
+      title: string;
+      principles: Array<{
+        title: string;
+        description: string;
+      }>;
+      quote: string;
+    };
+    finalCta: {
+      title: string;
+      subtitle: string;
+      primaryCta: string;
+      secondaryCta: string;
+    };
+  };
+  learn: {
+    title: string;
+    subtitle: string;
+    hero: {
+      title: string;
+      subtitle: string;
+      intro: string;
+      quote: string;
+      modalities: string[];
+    };
+    biofield: {
+      title: string;
+      whatItIsTitle: string;
+      whatItIs: string;
+      howItWorksTitle: string;
+      howItWorks: string;
+      benefitsTitle: string;
+      benefits: string;
+    };
+    gyrotonic: {
+      title: string;
+      whatItIsTitle: string;
+      whatItIs: string;
+      howItWorksTitle: string;
+      howItWorks: string;
+      benefitsTitle: string;
+      benefits: string;
+    };
+    breathwork: {
+      title: string;
+      whatItIsTitle: string;
+      whatItIs: string;
+      howItWorksTitle: string;
+      howItWorks: string[];
+      benefitsTitle: string;
+      benefits: string;
+    };
+    comparison: {
+      title: string;
+      focusLabel: string;
+      roleLabel: string;
+      effectLabel: string;
+      chooseLabel: string;
+      modalities: Array<{
+        name: string;
+        focus: string;
+        role: string;
+        effect: string;
+        choose: string;
+      }>;
+      note: string;
+    };
+    finalCta: {
+      title: string;
+      subtitle: string;
+      primaryCta: string;
+      secondaryCta: string;
     };
   };
   testimonials: {

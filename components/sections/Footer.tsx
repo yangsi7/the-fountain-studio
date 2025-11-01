@@ -7,7 +7,7 @@ import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface FooterProps {
   dict: Dictionary['footer'];
-  onNavigate: (sectionId: string) => void;
+  onNavigate?: (sectionId: string) => void;
 }
 
 export function Footer({ dict, onNavigate }: FooterProps) {
@@ -35,17 +35,17 @@ export function Footer({ dict, onNavigate }: FooterProps) {
             <h4 className="font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2 text-white/70">
               <li>
-                <button onClick={() => onNavigate('services')} className="hover:text-white">
+                <button onClick={() => onNavigate?.('services')} className="hover:text-white">
                   {dict.links.services}
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('about')} className="hover:text-white">
+                <button onClick={() => onNavigate?.('about')} className="hover:text-white">
                   {dict.links.about}
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('contact')} className="hover:text-white">
+                <button onClick={() => onNavigate?.('contact')} className="hover:text-white">
                   {dict.links.contact}
                 </button>
               </li>

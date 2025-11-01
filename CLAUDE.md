@@ -573,6 +573,67 @@ pnpm dlx shadcn@latest add button
 - Copy/paste from shadcn website
 - Modify shadcn component internals (extend via composition)
 
+---
+
+### shadcn MCP Reference
+
+**Full Guide**: `@docs/shadcn-mcp.md` (comprehensive usage patterns, troubleshooting)
+
+**Core Workflow** (CoD^Σ):
+```
+Discovery: get_registries → list_items@registry
+Search: search_items[query] → matches
+Learn: get_examples[pattern] → demos+code
+Install: get_add_command[@ns/item...] → CLI → Bash → audit
+```
+
+**Tools** (7 available, namespace-aware):
+```
+Tool            Purpose             Tokens  Use When
+────────────────────────────────────────────────────────────
+get_registries  List @namespaces    ~50     Session start
+list_items      Browse all          ~1K     Discovery
+search_items    Find by query       ~100    Searching
+get_examples    Usage demos         ~2K     Learning patterns
+view_items      Full source         ~5K     Deep analysis
+get_add_command Generate CLI        ~50     Installation
+audit_checklist Validate setup      ~200    Post-install
+```
+
+**Optimal Pattern** (token-efficient):
+```
+search[query] → (view[items] ⊕ examples[pattern]) → add_command[items] → audit
+
+∴ Token cost: 100 + (5K ⊕ 2K) + 50 + 200 ≈ 350-5350
+  Prefer: search → examples → add → audit ≈ 2.5K (80% savings vs view)
+```
+
+**Registry System**:
+```
+@namespace/item ∈ components.json.registries
+@shadcn ⊂ official | @v0 ⊂ generated | @acme ⊂ custom
+
+Auth: headers.Authorization := "Bearer ${TOKEN}"
+Versions: params.version := "v2" ∨ "${VAR}"
+```
+
+**Anti-Patterns**:
+```
+❌ Manual creation → components/ui/*.tsx
+❌ view_items before search (50x tokens)
+❌ Skip examples for complex components
+❌ Modify shadcn internals (use composition)
+❌ Skip audit after installation
+```
+
+**Example Queries**:
+```
+search_items: "button", "form input", "data table"
+get_examples: "{component}-demo", "{component} example", "example-{feature}"
+```
+
+---
+
 ### Color Usage Guidelines
 
 **Champagne Gold** (3% rule):

@@ -12,6 +12,7 @@ import { TestimonialsCarousel } from '@/components/sections/TestimonialsCarousel
 import { FAQSection } from '@/components/sections/FAQSection';
 import { BookingSection } from '@/components/sections/BookingSection';
 import { Footer } from '@/components/sections/Footer';
+import { WaveDivider } from '@/components/ui/wave-divider';
 import { type Dictionary } from './dictionaries';
 
 interface PageContentProps {
@@ -42,23 +43,29 @@ export function PageContent({ dict, lang }: PageContentProps) {
         dict={dict.hero}
         onLearnMoreClick={() => scrollToSection('services')}
       />
+      <WaveDivider variant="subtle" color="cream" />
 
       <ServicesGrid
-        dict={dict.services}
+        dict={dict.servicesSummary}
         onLearnClick={() => scrollToSection('learn')}
         onContactClick={() => scrollToSection('contact')}
       />
+      <WaveDivider variant="subtle" color="silk" flip />
 
       <AboutSection
-        dict={dict.about}
+        dict={dict.aboutSummary}
         onContactClick={() => scrollToSection('contact')}
       />
+      <WaveDivider variant="subtle" color="cream" />
 
-      <LearnAccordion dict={dict.learn} />
+      <LearnAccordion dict={dict.learnSummary} />
+      <WaveDivider variant="subtle" color="silk" flip />
 
       <TestimonialsCarousel dict={dict.testimonials} />
+      <WaveDivider variant="subtle" color="cream" />
 
       <FAQSection dict={dict.faq} />
+      <WaveDivider variant="medium" color="silk" flip />
 
       <BookingSection
         dict={dict}

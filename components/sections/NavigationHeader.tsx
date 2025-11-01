@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -13,10 +14,24 @@ interface NavigationHeaderProps {
 }
 
 export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    return pathname === `/${lang}${path}` || pathname === `/${lang}${path}/`;
+  };
+
+  const isHomePage = pathname === `/${lang}` || pathname === `/${lang}/`;
+
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // If we're on homepage, scroll directly
+    if (isHomePage) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // If we're on another page, navigate to homepage with hash
+      window.location.href = `/${lang}#${sectionId}`;
     }
   };
 
@@ -31,22 +46,53 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center">
           <div className="flex gap-8">
-            <button onClick={() => scrollToSection('services')} className="text-charcoal hover:text-charcoal/70 transition-colors">
+            <Link
+              href={`/${lang}`}
+              className={`transition-colors ${
+                isHomePage
+                  ? 'text-gold font-semibold'
+                  : 'text-charcoal hover:text-gold'
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              href={`/${lang}/services`}
+              className={`transition-colors ${
+                isActive('/services')
+                  ? 'text-gold font-semibold'
+                  : 'text-charcoal hover:text-gold'
+              }`}
+            >
               {dict.nav.services}
-            </button>
-            <button onClick={() => scrollToSection('about')} className="text-charcoal hover:text-charcoal/70 transition-colors">
-              {dict.nav.about}
-            </button>
-            <button onClick={() => scrollToSection('learn')} className="text-charcoal hover:text-charcoal/70 transition-colors">
+            </Link>
+            <Link
+              href={`/${lang}/learn`}
+              className={`transition-colors ${
+                isActive('/learn')
+                  ? 'text-gold font-semibold'
+                  : 'text-charcoal hover:text-gold'
+              }`}
+            >
               {dict.nav.learn}
-            </button>
-            <button onClick={() => scrollToSection('testimonials')} className="text-charcoal hover:text-charcoal/70 transition-colors">
+            </Link>
+            <Link
+              href={`/${lang}/about`}
+              className={`transition-colors ${
+                isActive('/about')
+                  ? 'text-gold font-semibold'
+                  : 'text-charcoal hover:text-gold'
+              }`}
+            >
+              {dict.nav.about}
+            </Link>
+            <button onClick={() => scrollToSection('testimonials')} className="text-charcoal hover:text-gold transition-colors">
               {dict.nav.testimonials}
             </button>
-            <button onClick={() => scrollToSection('faq')} className="text-charcoal hover:text-charcoal/70 transition-colors">
+            <button onClick={() => scrollToSection('faq')} className="text-charcoal hover:text-gold transition-colors">
               {dict.nav.faq}
             </button>
-            <button onClick={() => scrollToSection('contact')} className="text-charcoal hover:text-charcoal/70 transition-colors">
+            <button onClick={() => scrollToSection('contact')} className="text-charcoal hover:text-gold transition-colors">
               {dict.nav.contact}
             </button>
           </div>
@@ -86,9 +132,38 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             <div className="mt-6 flex flex-col gap-4">
-              <button onClick={() => scrollToSection('services')} className="text-left">{dict.nav.services}</button>
-              <button onClick={() => scrollToSection('about')} className="text-left">{dict.nav.about}</button>
-              <button onClick={() => scrollToSection('learn')} className="text-left">{dict.nav.learn}</button>
+              <Link
+                href={`/${lang}`}
+                className={`text-left ${
+                  isHomePage ? 'text-gold font-semibold' : 'text-charcoal'
+                }`}
+              >
+                Home
+              </Link>
+              <Link
+                href={`/${lang}/services`}
+                className={`text-left ${
+                  isActive('/services') ? 'text-gold font-semibold' : 'text-charcoal'
+                }`}
+              >
+                {dict.nav.services}
+              </Link>
+              <Link
+                href={`/${lang}/learn`}
+                className={`text-left ${
+                  isActive('/learn') ? 'text-gold font-semibold' : 'text-charcoal'
+                }`}
+              >
+                {dict.nav.learn}
+              </Link>
+              <Link
+                href={`/${lang}/about`}
+                className={`text-left ${
+                  isActive('/about') ? 'text-gold font-semibold' : 'text-charcoal'
+                }`}
+              >
+                {dict.nav.about}
+              </Link>
               <button onClick={() => scrollToSection('testimonials')} className="text-left">{dict.nav.testimonials}</button>
               <button onClick={() => scrollToSection('faq')} className="text-left">{dict.nav.faq}</button>
               <button onClick={() => scrollToSection('contact')} className="text-left">{dict.nav.contact}</button>
