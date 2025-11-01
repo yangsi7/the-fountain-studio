@@ -9,7 +9,7 @@ interface FAQSectionProps {
 
 export function FAQSection({ dict }: FAQSectionProps) {
   return (
-    <section id="faq" className="py-20 lg:py-[140px] px-6 bg-white">
+    <section id="faq" className="py-20 lg:py-[140px] px-6 bg-background-white">
       <div className="container mx-auto max-w-3xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">

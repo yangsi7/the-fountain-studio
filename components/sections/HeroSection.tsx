@@ -29,7 +29,7 @@ export function HeroSection({ dict, onLearnMoreClick }: HeroSectionProps) {
           src="/images/hero-swiss-alps.jpg"
           alt="Swiss Alps healing space"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
           quality={90}
           sizes="100vw"
@@ -62,7 +62,7 @@ export function HeroSection({ dict, onLearnMoreClick }: HeroSectionProps) {
           transition={{ delay: 0.7, duration: 0.8 }}>
           <Button
             size="lg"
-            className="bg-gold hover:bg-gold-hover text-white"
+            variant="gold"
             data-cal-namespace="15min"
             data-cal-link="simon-yang-z2fy7e/15min"
             data-cal-config='{"layout":"month_view"}'
@@ -71,7 +71,7 @@ export function HeroSection({ dict, onLearnMoreClick }: HeroSectionProps) {
           </Button>
           <Button
             size="lg"
-            className="bg-charcoal hover:bg-charcoal/90 text-white border-0"
+            variant="charcoal"
             onClick={onLearnMoreClick}
           >
             {dict.cta.learn}

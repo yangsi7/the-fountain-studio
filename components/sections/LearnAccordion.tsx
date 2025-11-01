@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface LearnAccordionProps {
-  dict: Dictionary['learn'];
+  dict: Dictionary['learnSummary'];
 }
 
 export function LearnAccordion({ dict }: LearnAccordionProps) {
@@ -28,7 +28,7 @@ export function LearnAccordion({ dict }: LearnAccordionProps) {
   ];
 
   return (
-    <section id="learn" className="py-20 lg:py-[140px] px-6 bg-white">
+    <section id="learn" className="py-20 lg:py-[140px] px-6 bg-background-white">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-serif text-charcoal mb-4">
@@ -50,12 +50,13 @@ export function LearnAccordion({ dict }: LearnAccordionProps) {
                   <div>
                     <p>{section.data.content}</p>
                   </div>
-                  <div className="relative h-64 rounded-lg overflow-hidden">
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                     <Image
                       src={section.image}
                       alt={section.data.title}
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
                 </div>

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface AboutSectionProps {
-  dict: Dictionary['about'];
+  dict: Dictionary['aboutSummary'];
   onContactClick: () => void;
 }
 
@@ -61,7 +61,7 @@ export function AboutSection({ dict, onContactClick }: AboutSectionProps) {
 
             <Button
               size="lg"
-              className="bg-charcoal hover:bg-charcoal/90 text-white"
+              variant="charcoal"
               onClick={onContactClick}
             >
               {dict.cta}

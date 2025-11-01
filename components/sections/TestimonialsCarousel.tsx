@@ -37,7 +37,7 @@ export function TestimonialsCarousel({ dict }: TestimonialsCarouselProps) {
           <CarouselContent>
             {dict.items.map((testimonial, index) => (
               <CarouselItem key={index}>
-                <Card className="border-0 bg-white/90 backdrop-blur">
+                <Card className="border-0 bg-card/90 backdrop-blur">
                   <CardContent className="pt-8 pb-8 px-12">
                     <div className="flex justify-center mb-4">
                       {Array.from({ length: testimonial.rating }).map((_, i) => (
