@@ -22,6 +22,8 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('Hash Navigation Visual Feedback - Animation', () => {
+  test.setTimeout(90000); // 90s timeout: cumulative waits (60s URL + 10s element + 10s highlight + animations)
+
   test('applies highlight class after hash navigation to #biofield', async ({ page }) => {
     await page.goto('/en');
 
@@ -29,8 +31,13 @@ test.describe('Hash Navigation Visual Feedback - Animation', () => {
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
 
-    // Wait for highlight class to be applied (navigation + scroll + 150ms delay)
-    // Increased timeout to 10s to handle slower browsers
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load (check for #biofield section existence)
+    await page.waitForSelector('#biofield', { timeout: 10000 });
+
+    // Then wait for highlight class to be applied
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
     // Verify highlight class is present
@@ -47,7 +54,13 @@ test.describe('Hash Navigation Visual Feedback - Animation', () => {
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
 
-    // Wait for highlight class to be applied (increased timeout)
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
+
+    // Wait for highlight class to be applied
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
     // Wait for animation to complete (2s) + small buffer (500ms)
@@ -66,6 +79,12 @@ test.describe('Hash Navigation Visual Feedback - Animation', () => {
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
 
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
+
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
     // Check computed styles during animation
@@ -82,11 +101,19 @@ test.describe('Hash Navigation Visual Feedback - Animation', () => {
 });
 
 test.describe('Hash Navigation Visual Feedback - Accessibility', () => {
+  test.setTimeout(90000); // 90s timeout: cumulative waits (60s URL + 10s element + 10s highlight + focus/SR)
+
   test('sets focus on target section after navigation', async ({ page }) => {
     await page.goto('/en');
 
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
+
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
 
     // Wait for highlight class (proves navigation completed + focus management executed)
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
@@ -103,6 +130,12 @@ test.describe('Hash Navigation Visual Feedback - Accessibility', () => {
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
 
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
+
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
     // Check tabindex attribute
@@ -115,6 +148,12 @@ test.describe('Hash Navigation Visual Feedback - Accessibility', () => {
 
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
+
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
 
     // Wait for highlight class (proves navigation completed + SR announcement created)
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
@@ -131,6 +170,8 @@ test.describe('Hash Navigation Visual Feedback - Accessibility', () => {
 });
 
 test.describe('Hash Navigation Visual Feedback - Reduced Motion', () => {
+  test.setTimeout(60000); // 60s timeout for slow Next.js compilation
+
   test('respects prefers-reduced-motion: no animation, static border', async ({ page }) => {
     // Emulate reduced motion preference
     await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -139,6 +180,12 @@ test.describe('Hash Navigation Visual Feedback - Reduced Motion', () => {
 
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
+
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
 
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
@@ -159,6 +206,12 @@ test.describe('Hash Navigation Visual Feedback - Reduced Motion', () => {
     const biofieldLink = page.locator('a[href="/en/services#biofield"]').first();
     await biofieldLink.click();
 
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
+
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
     // Highlight class should still be present
@@ -176,11 +229,19 @@ test.describe('Hash Navigation Visual Feedback - Reduced Motion', () => {
 });
 
 test.describe('Hash Navigation Visual Feedback - All Targets', () => {
+  test.setTimeout(60000); // 60s timeout for slow Next.js compilation
+
   test('visual feedback works for #gyrotonic section', async ({ page }) => {
     await page.goto('/en');
 
     const link = page.locator('a[href*="#gyrotonic"]').first();
     await link.click();
+
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#gyrotonic', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#gyrotonic', { timeout: 10000 });
 
     await page.waitForSelector('#gyrotonic.hash-target-highlight', { timeout: 10000 });
 
@@ -196,6 +257,12 @@ test.describe('Hash Navigation Visual Feedback - All Targets', () => {
     const link = page.locator('a[href*="#breathwork"]').first();
     await link.click();
 
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#breathwork', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#breathwork', { timeout: 10000 });
+
     await page.waitForSelector('#breathwork.hash-target-highlight', { timeout: 10000 });
 
     const hasClass = await page.locator('#breathwork').evaluate(el =>
@@ -209,6 +276,12 @@ test.describe('Hash Navigation Visual Feedback - All Targets', () => {
 
     const link = page.locator('a[href*="#integration"]').first();
     await link.click();
+
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#integration', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#integration', { timeout: 10000 });
 
     await page.waitForSelector('#integration.hash-target-highlight', { timeout: 10000 });
 
@@ -254,12 +327,20 @@ test.describe('Hash Navigation Visual Feedback - All Targets', () => {
 });
 
 test.describe('Hash Navigation Visual Feedback - Cross-Language', () => {
+  test.setTimeout(60000); // 60s timeout for slow Next.js compilation
+
   test('visual feedback works on German page (DE)', async ({ page }) => {
     await page.goto('/de');
 
     // Find "Mehr Erfahren" (Learn More) link for Biofield
     const link = page.locator('a[href="/de/services#biofield"]').first();
     await link.click();
+
+    // Wait for URL navigation to complete (handles Next.js compilation delay)
+    await page.waitForURL('**/services#biofield', { timeout: 60000 });
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
 
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });
 
@@ -274,6 +355,9 @@ test.describe('Hash Navigation Visual Feedback - Cross-Language', () => {
 
     const link = page.locator('a[href="/de/services#biofield"]').first();
     await link.click();
+
+    // Wait for Services page to load first
+    await page.waitForSelector('#biofield', { timeout: 10000 });
 
     // Wait for highlight class to ensure navigation completed
     await page.waitForSelector('#biofield.hash-target-highlight', { timeout: 10000 });

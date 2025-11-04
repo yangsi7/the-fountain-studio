@@ -1,8 +1,8 @@
 # Workbook - Current Context
 
-**Session**: 2025-11-03
-**Phase**: Phase 2 Complete → Ready for Phase 2.2
-**Status**: 18/24 tasks complete (75% progress)
+**Session**: 2025-11-04
+**Phase**: Phase 2.2 Complete → Ready for Phase 2.3
+**Status**: 19/24 tasks complete (79% progress)
 
 ---
 
@@ -38,27 +38,24 @@
 
 ---
 
-## Next Priority: Phase 1.4.2 - Image Loading Tests
+## Next Priority: Phase 2.3 - Scroll-to-Section Visual Feedback
 
-**Task**: Fix 19 image loading test failures
+**Goal**: Add visual feedback when user navigates to section via hash
 
-**Root Cause Analysis**:
-- Next.js uses lazy loading by default (`loading="lazy"`)
-- Images below viewport don't load until scrolled into view
-- Tests check `img.complete` immediately after `page.goto()` → fails for lazy-loaded images
-
-**Solution Strategy**:
-1. **Scroll images into viewport** before checking load status
-2. Wait for `img.naturalWidth > 0` instead of just `img.complete === true`
-3. Use `scrollIntoViewIfNeeded()` pattern from HashScrollHandler.tsx
+**Implementation**:
+1. **Visual Effect**: Subtle gold border (2px) + light background tint (5% opacity)
+2. **Duration**: 2s animation (500ms fade-in → 1s hold → 500ms fade-out)
+3. **Accessibility**: Focus management, screen reader announcements, reduced motion support
+4. **Testing**: 15+ E2E tests across all browsers
 
 **Acceptance Criteria**:
-1. All 19 image loading tests pass (100% success rate)
-2. Works across all 5 browsers
-3. Test execution time < 2 minutes
-4. No regressions in existing 141 passing tests
+1. Target section shows subtle visual highlight after hash navigation
+2. WCAG 2.1 AA+ compliance maintained
+3. 15+ E2E tests passing (all scenarios covered)
+4. No performance regressions (Lighthouse >90)
+5. Design system compliant (gold usage ≤3%, HSL tokens only)
 
-**Estimated Time**: 1-2 hours
+**Estimated Time**: 2-3 hours
 
 ---
 
