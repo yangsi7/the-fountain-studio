@@ -9,15 +9,15 @@
 
 ```
 Completed := {
-  Phase1[T1.1, T1.2, T1.3, T1.4, T1.5],
+  Phase1[T1.1, T1.2, T1.3, T1.4, T1.5, T1.3_TESTS],
   Phase2[T2.1, T2.2, T2.3, T2.4, T2.5, T2.6],
   Phase3[T3.1, T3.2, T3.3, T3.4]
 } ✅
-Pending := {Phase4[T4.2, T4.3], Phase5[T5.1-T5.3], Phase6[T6.1-T6.4]}
+Pending := {Phase2.2_HASH_FRAGMENTS, Phase4[T4.2, T4.3], Phase5[T5.1-T5.3], Phase6[T6.1-T6.4]}
 Blocked := {}
 
-Progress := 17/24 = 71% (Phases 1-3 COMPLETE ✅, Phase 4 IN PROGRESS 🔄)
-Status := PHASE_4_IN_PROGRESS (Visual polish & responsive fixes)
+Progress := 18/24 = 75% (Phases 1-3 + Phase 1.3 Tests COMPLETE ✅)
+Status := READY_FOR_PHASE_2.2 (Update homepage CTAs with hash fragments)
 ```
 
 ---
@@ -73,7 +73,7 @@ Status := PHASE_4_IN_PROGRESS (Visual polish & responsive fixes)
   - **AC4**: ✅ Accessibility: aria-hidden="true" for decorative elements
   - **Dependencies**: None
   - **Evidence**:
-    - Specification: docs/sessions/2025-10-31-website-overhaul/wave-graphics-specification.md
+    - Specification: docs/sessions/archive/2025-10-31-website-overhaul/wave-graphics-specification.md
     - Implementation: components/ui/wave-divider.tsx (150 lines)
     - Integration: app/[lang]/PageContent.tsx:46-72 (6 wave dividers)
     - Testing: Playwright verification, screenshots at 3 viewports
@@ -229,6 +229,38 @@ Status := PHASE_4_IN_PROGRESS (Visual polish & responsive fixes)
     - About page: 7 wave dividers
     - All use alternating flip states for visual variety
   - **Completed**: 2025-10-31 (Phase 1)
+
+---
+
+### Phase 1.4: Production Readiness QA [IN PROGRESS 🔄]
+
+**Goal**: Achieve 100% E2E test pass rate for deployment readiness
+
+**Status**: 🔄 IN PROGRESS - Mobile navigation FIXED, image loading in progress
+
+#### Completed ✓
+
+- [x] **T1.4.1**: Mobile navigation fix VALIDATED
+  - **AC1**: ✅ Mobile hamburger menu opens correctly
+  - **AC2**: ✅ Navigation links work in mobile sheet dialog
+  - **AC3**: ✅ All 6 mobile navigation tests passing
+  - **AC4**: ✅ Works across Mobile Chrome and Mobile Safari
+  - **Evidence**: tests/e2e/production-readiness.spec.ts:194-214 (clickNavLink helper)
+  - **Root Cause**: Selector matched hidden desktop nav instead of mobile Sheet dialog
+  - **Solution**: Viewport-aware helper detecting mobile (<768px) → open hamburger → click link in dialog
+  - **Status**: ✅ COMPLETE (2025-11-04)
+
+#### In Progress 🔄
+
+- [🔄] **T1.4.2**: Image loading test failures fix
+  - **AC1**: All images load correctly on Services page (3+ images)
+  - **AC2**: All images load correctly on Learn page (3+ images)
+  - **AC3**: Zero broken images on homepage
+  - **AC4**: Zero broken images on services page
+  - **AC5**: Tests pass across all 5 browsers (Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari)
+  - **Root Cause**: Next.js lazy loading (`loading="lazy"`) - images below viewport not loaded until scrolled
+  - **Solution**: Scroll images into viewport before checking load status (`scrollIntoViewIfNeeded()` + `naturalWidth > 0`)
+  - **Status**: 50% complete - Solution identified, implementation in progress
 
 ---
 

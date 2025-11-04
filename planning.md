@@ -125,7 +125,7 @@ User Request → Next.js Router → [lang] Detection → getDictionary(lang)
    - **Key Features**: SVG wave dividers (3 variants), paper grain texture
    - **Dependencies**: None
    - **Status**: SPECIFICATION COMPLETE
-   - **Evidence**: docs/sessions/2025-10-31-website-overhaul/wave-graphics-specification.md
+   - **Evidence**: docs/sessions/archive/2025-10-31-website-overhaul/wave-graphics-specification.md
 
 ### Phase 2: Site Architecture Migration [COMPLETE ✅]
 
@@ -661,24 +661,25 @@ the-fountain-studio/
 - **Review Feedback**: @docs/review-website-from-ales.md (stakeholder critique)
 - **Design System Spec**: @docs/specs/design-system.md (current design tokens)
 - **Original Content**: @docs/starter-material/draft-content/website-copy.md
-- **Session Research**: @docs/sessions/2025-10-31-website-overhaul/ (artifacts)
+- **Session Research**: @docs/sessions/archive/2025-10-31-website-overhaul/ (artifacts)
 - **Constitution**: @constitution.md (project principles)
 
 ---
 
 ## Notes
 
-**Current Focus**: Phase 4 In Progress 🔄 (71% Complete)
-- **Phases 1-3**: ✅ COMPLETE (17/24 tasks)
-  - Phase 1: Design system foundation (HSL colors, fonts, buttons, waves)
-  - Phase 2: Multi-page architecture (Services, Learn, About pages + navigation)
-  - Phase 3: Design system compliance (100% semantic tokens, no hardcoded colors)
-- **Phase 4**: 🔄 IN PROGRESS (1/3 tasks)
-  - T4.1 ✅ Complete: Image aspect ratios fixed
-  - T4.2 🔄 In Progress: Texture system 50% (tokens added, utility class pending)
-  - T4.3 ⏳ Pending: Wave divider polish
-- **Next**: Complete T4.2 (textures), then T4.3 (wave polish)
-- **Performance**: Type check passes, dev server runs cleanly, no errors
+**Current Focus**: Mobile Navigation VALIDATED ✅ → Ready for Image Loading Fix (Phase 3 QA)
+- **Phases 1-3**: ✅ COMPLETE (18/24 tasks)
+- **Phase 3 QA (NEW)**: Production readiness validation
+  - Mobile navigation tests: ✅ FIXED (6 failures → 0)
+  - Image loading tests: ⏳ IN PROGRESS (19 failures - lazy loading issue)
+  - Test pass rate: 141/160 (88%) → Target: 100%
+- **Phase 1.3 Complete**: Language switcher tests 35/35 passing
+  - Documentation: docs/sessions/2025-11-03-language-switcher-completion/COMPLETION_SUMMARY.md
+  - Test success rate: 86% → 100% (+14% improvement)
+  - Solution: getVisibleLanguageSwitcher helper with fallback text selector
+- **Next**: Fix image loading tests (scroll-into-viewport solution)
+- **Performance**: Type check clean, dev server stable
 
 **Visual Assets Strategy** (User Confirmation):
 ✅ **Confirmed**: Images are strategically distributed between homepage and detail pages:
