@@ -30,6 +30,5 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
-# Enable Edge Functions if needed for image optimization
-[functions]
-  external_node_modules = ["sharp"]
+# Note: Image optimization handled automatically by @netlify/plugin-nextjs
+# using Netlify Image CDN - no functions config needed

@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Create optimized standalone bundle for production deployment
+  output: 'standalone',
+
+  // Explicitly exclude sharp binaries from function tracing
+  // Netlify Image CDN handles all image optimization automatically
+  outputFileTracingExcludes: {
+    '*': [
+      'node_modules/@img/**/*',
+      'node_modules/sharp/**/*',
+      '.pnpm/@img/**/*',
+      '.pnpm/sharp@*/**/*',
+    ],
+  },
+
   images: {
     // Use Netlify's image optimization instead of Next.js built-in
     // This avoids bundling sharp and reduces function size significantly
