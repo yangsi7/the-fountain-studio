@@ -187,6 +187,44 @@
     }
   }
 
+  /* ========================================
+     Phase 2.3: Hash Target Highlight Animation
+     ======================================== */
+
+  @keyframes hash-target-highlight {
+    0% {
+      border-color: transparent;
+      background-color: transparent;
+    }
+    25% {
+      border-color: hsl(var(--color-gold) / 0.3);
+      background-color: hsl(var(--color-gold) / 0.05);
+    }
+    75% {
+      border-color: hsl(var(--color-gold) / 0.3);
+      background-color: hsl(var(--color-gold) / 0.05);
+    }
+    100% {
+      border-color: transparent;
+      background-color: transparent;
+    }
+  }
+
+  .hash-target-highlight {
+    animation: hash-target-highlight 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: border-color 500ms, background-color 500ms;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .hash-target-highlight {
+      animation: none;
+      border: 2px solid hsl(var(--color-gold) / 0.2);
+    }
+  }
+
   .text-primary {
     color: hsl(var(--color-text-primary));
   }
