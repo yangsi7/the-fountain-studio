@@ -42,7 +42,7 @@ jobs:
         if: github.event_name == 'pull_request'
         id: deploy-preview
         run: |
-          OUTPUT=$(npx netlify deploy --dir=.next --site=${{ secrets.NETLIFY_SITE_ID }} --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --json)
+          OUTPUT=$(npx netlify deploy --site=${{ secrets.NETLIFY_SITE_ID }} --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --json)
           echo "deploy_url=$(echo $OUTPUT | jq -r '.deploy_url')" >> $GITHUB_OUTPUT
           echo "logs_url=$(echo $OUTPUT | jq -r '.logs')" >> $GITHUB_OUTPUT
         env:
@@ -53,7 +53,7 @@ jobs:
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         id: deploy-prod
         run: |
-          OUTPUT=$(npx netlify deploy --prod --dir=.next --site=${{ secrets.NETLIFY_SITE_ID }} --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --json)
+          OUTPUT=$(npx netlify deploy --prod --site=${{ secrets.NETLIFY_SITE_ID }} --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} --json)
           echo "deploy_url=$(echo $OUTPUT | jq -r '.deploy_url')" >> $GITHUB_OUTPUT
           echo "logs_url=$(echo $OUTPUT | jq -r '.logs')" >> $GITHUB_OUTPUT
         env:
