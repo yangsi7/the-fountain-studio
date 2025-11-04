@@ -127,6 +127,30 @@
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Respect user motion preferences for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Scroll margin for hash navigation - accounts for sticky header */
+  section[id], div[id] {
+    scroll-margin-top: 80px;
+  }
+
+  /* Larger offset on mobile where sticky header may be taller */
+  @media (max-width: 768px) {
+    section[id], div[id] {
+      scroll-margin-top: 100px;
+    }
+  }
+
   body {
     @apply bg-background text-foreground text-base antialiased font-sans;
     /* 18px base font size with relaxed line height for readability */

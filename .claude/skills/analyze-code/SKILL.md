@@ -1,6 +1,16 @@
 ---
 name: analyze-code
 description: Intelligence-first code analysis for bugs, architecture, performance, and security. Use proactively when investigating code issues, tracing dependencies, or understanding system behavior. MUST query project-intel.mjs before reading files.
+parameters:
+  mode:
+    type: string
+    enum: [auto, overview, feature, architecture]
+    default: auto
+    description: "Analysis mode: auto (detect from context), overview (general repository context → refs/overview.md), feature (specific feature/domain → refs/design.md), architecture (system structure analysis)"
+  target:
+    type: string
+    optional: true
+    description: "Target for analysis (e.g., feature name, component name). Required when mode=feature, optional otherwise."
 ---
 
 # Code Analysis Skill
@@ -28,22 +38,91 @@ This skill performs comprehensive code analysis using an **intel-first approach*
 
 ---
 
+## Analysis Modes & Auto-Detection
+
+This skill supports **three analysis modes** optimized for different use cases:
+
+### Mode 1: Overview (General Repository Context)
+**Purpose**: Create comprehensive repository map for reference (refs/overview.md)
+**Use When**:
+- First time exploring a codebase
+- Need high-level architecture understanding
+- Building project documentation
+- User asks: "understand this codebase", "what's the architecture", "show me the structure"
+
+**Output**: `refs/overview.md` with project stats, directory tree, component inventory, entry points
+
+**Token Budget**: ~2K (vs 50K+ reading all files) = **96% savings**
+
+### Mode 2: Feature (Specific Domain Context)
+**Purpose**: Deep dive into specific feature/domain for development (refs/design.md)
+**Use When**:
+- Understanding how a specific feature works
+- Planning feature modifications
+- Need detailed feature documentation
+- User asks: "how does [X] work", "analyze the booking feature", "explain authentication"
+
+**Output**: `refs/design.md` with feature boundary, dependency graph, data flow, integration points
+
+**Token Budget**: ~8K (vs 40K+ reading feature files) = **80% savings**
+
+### Mode 3: Architecture (System Structure Analysis)
+**Purpose**: Analyze system layers, boundaries, and architectural patterns
+**Use When**:
+- Evaluating architecture decisions
+- Finding architectural violations
+- Planning major refactoring
+- User asks: "review architecture", "find circular dependencies", "show layers"
+
+**Output**: `report.md` with layer analysis, boundary violations, pattern identification
+
+**Token Budget**: ~5K (vs 30K+ reading system) = **83% savings**
+
+### Auto-Detection Logic
+
+When `mode=auto` (default), detect from user message context:
+
+| User Message Pattern | Detected Mode | Example |
+|---------------------|---------------|---------|
+| "understand codebase", "show me structure", "what's here" | **overview** | "I'm new to this project, show me the structure" |
+| "how does [X] work", "analyze [feature]", "[component] explanation" | **feature** (target=[X]) | "How does the booking system work?" |
+| "review architecture", "find cycles", "analyze layers" | **architecture** | "Review the architecture for circular dependencies" |
+| Ambiguous | **Ask user** | "What would you like me to analyze?" |
+
+**Mode Selection CoD^Σ**:
+```
+UserMessage → ContextAnalysis
+  ∣ contains("codebase", "structure", "overview") → mode=overview
+  ∣ contains("how does", feature_name) → mode=feature, target=feature_name
+  ∣ contains("architecture", "layers", "cycles") → mode=architecture
+  ∣ else → AskUser("What would you like me to analyze? (overview/feature/architecture)")
+```
+
+---
+
 ## Workflow Files
 
-**Detailed Workflows**:
-- **@.claude/skills/analyze-code/workflows/analysis-workflow.md** - Complete Phases 1-4 (scope, intel queries, MCP verification, report generation)
+**Mode-Specific Workflows** (Load based on detected mode):
+- **@.claude/skills/analyze-code/workflows/overview-workflow.md** - Complete command chain for overview mode (stats → tree → list → search → summarize)
+- **@.claude/skills/analyze-code/workflows/feature-workflow.md** - Complete command chain for feature mode (search → investigate → symbols → dependencies → importers)
+- **@.claude/skills/analyze-code/workflows/architecture-workflow.md** - Complete command chain for architecture mode (map-imports → trace → metrics → analyze patterns)
 
 **Reference Materials**:
-- **@.claude/skills/analyze-code/references/decision-trees.md** - 3 analysis type decision trees (bug diagnosis, architecture, performance)
+- **@.claude/skills/analyze-code/references/decision-trees.md** - Mode selection tree + 3 analysis type decision trees
 - **@.claude/skills/analyze-code/references/enforcement-rules.md** - 3 non-negotiable rules (no naked claims, intel before reading, MCP for authority)
-- **@.claude/skills/analyze-code/references/failure-modes.md** - 5 common failures with solutions
 
 ---
 
 ## Templates You Will Use
 
-- **@.claude/templates/analysis-spec.md** - Scope definition (Phase 1)
-- **@.claude/templates/report.md** - Final analysis report (Phase 4)
+**Mode-Specific Output Templates**:
+- **@.claude/templates/analysis/overview.md** - Repository overview template (mode=overview → refs/overview.md)
+- **@.claude/templates/analysis/design.md** - Feature design template (mode=feature → refs/design.md)
+- **@.claude/templates/analysis/architecture.md** - Architecture analysis template (mode=architecture → report.md)
+
+**General Templates**:
+- **@.claude/templates/analysis-spec.md** - Scope definition (Phase 1, all modes)
+- **@.claude/templates/report.md** - Standard analysis reports with CoD^Σ traces
 - **@.claude/templates/mcp-query.md** - Optional MCP queries (Phase 3)
 
 ---
@@ -56,7 +135,7 @@ This skill performs comprehensive code analysis using an **intel-first approach*
 
 ## The Process (Overview)
 
-**See:** @.claude/skills/analyze-code/workflows/analysis-workflow.md for complete details
+**See:** Mode-specific workflow files in @.claude/skills/analyze-code/workflows/ for complete command chains
 
 Copy this checklist to track progress:
 
@@ -141,7 +220,7 @@ Analysis Progress:
 - [ ] Intel results saved to /tmp/ for evidence
 - [ ] No files read before intel queries complete
 
-**See:** @.claude/skills/analyze-code/workflows/analysis-workflow.md for complete query examples
+**See:** @.claude/skills/analyze-code/workflows/{mode}-workflow.md for complete query examples
 
 ---
 
@@ -179,7 +258,7 @@ Verify findings with authoritative sources:
 - [ ] MCP results documented in Evidence section
 - [ ] Discrepancies between intel and MCP flagged
 
-**See:** @.claude/skills/analyze-code/workflows/analysis-workflow.md for complete verification examples
+**See:** @.claude/skills/analyze-code/workflows/{mode}-workflow.md for complete verification examples
 
 ---
 
@@ -244,7 +323,7 @@ Step 5: ∘ Conclusion
 - [ ] Recommendations are specific
 - [ ] Total report ≤ 1000 tokens when populated
 
-**See:** @.claude/skills/analyze-code/workflows/analysis-workflow.md for complete report examples
+**See:** @.claude/skills/analyze-code/workflows/{mode}-workflow.md for complete report examples
 
 ---
 
@@ -312,16 +391,35 @@ Verify library/framework behavior with authoritative MCP sources, not memory or 
 ## When to Use This Skill
 
 **Use analyze-code when:**
-- User reports a bug or error
-- User asks "why does X happen?"
-- User wants to understand system architecture
-- User suspects performance issues
-- User needs dependency analysis
+- User wants to **understand the codebase** (overview mode)
+- User asks "**how does [feature] work**" (feature mode)
+- User wants to **review architecture** (architecture mode)
+- User needs **dependency analysis** or **impact assessment**
+- User is **exploring unfamiliar code** or **building documentation**
 
-**Don't use when:**
-- Simple syntax questions (no analysis needed)
-- User wants to write new code (use planning skill)
-- User wants to implement a fix (use execution skill)
+**What This Skill Does NOT Do (Delegate Instead):**
+
+❌ **Bug Diagnosis** → Use **debug-issues** skill instead
+- Error messages, stack traces, "why is X broken?"
+- Infinite loops, memory leaks, crashes
+- Root cause analysis of failures
+
+❌ **Performance Profiling** → Use **perf-analysis** skill (if available)
+- Slow page loads, high CPU usage
+- Memory profiling, bottleneck identification
+
+❌ **Security Scanning** → Use **security-audit** skill (if available)
+- Vulnerability detection, exposed secrets
+- Security best practices validation
+
+✅ **This Skill Creates**:
+- `refs/overview.md` - Repository map for reference
+- `refs/design.md` - Feature context for development
+- `report.md` - Architecture analysis with patterns
+
+**Scope Boundaries**:
+- **analyze-code**: Structure understanding (what exists, how it's organized)
+- **debug-issues**: Problem solving (why it's broken, how to fix)
 
 ---
 
@@ -379,17 +477,264 @@ analyze-code → create-implementation-plan skill (refactoring) → implement-an
 
 ## Failure Modes
 
-**See:** @.claude/skills/analyze-code/references/failure-modes.md
+**Purpose**: Identify and fix the 5 most common intelligence-first analysis failures.
 
-**Summary of 5 Common Failures:**
+### Failure 1: PROJECT_INDEX.json Missing or Stale
 
-1. **PROJECT_INDEX.json Missing** - Solution: Run `/index`
-2. **Intelligence Queries Return No Results** - Solution: Regenerate index, broaden search
-3. **MCP Tools Not Available** - Solution: Configure .mcp.json, use workaround
-4. **Analysis Scope Too Broad** - Solution: Define narrow scope in analysis-spec.md
-5. **CoD^Σ Evidence Missing** - Solution: Save intel results, complete CoD^Σ trace
+**Symptom**:
+- `project-intel.mjs --overview --json` returns "Error: PROJECT_INDEX.json not found"
+- `project-intel.mjs --search "LoginForm" --json` returns empty results despite files existing
 
-**Diagnostic Workflow**: Check index → Check queries → Check MCP → Check scope → Check evidence
+**Impact**: Intelligence queries fail or return empty results, forcing direct file reading (token waste)
+
+**Solution**:
+```bash
+# Immediate fix: Generate PROJECT_INDEX.json
+/index
+
+# Verify generation
+ls -la PROJECT_INDEX.json
+project-intel.mjs --overview --json
+```
+
+**Prevention**:
+- Hook auto-generates index on file changes (configure in .claude/settings.json)
+- Run `/index` at session start if index missing
+- Check index timestamp vs latest code changes
+
+---
+
+### Failure 2: Intelligence Queries Return No Results
+
+**Symptom**:
+- `project-intel.mjs --search "auth" --type tsx --json` returns empty despite auth files existing
+- `project-intel.mjs --symbols src/components/LoginForm.tsx --json` returns "File not found in index"
+
+**Impact**: Cannot locate relevant code, may incorrectly conclude code doesn't exist
+
+**Root Causes**:
+1. File excluded by .gitignore (node_modules/, .next/, dist/)
+2. Wrong file type filter (searching --type tsx but file is .ts)
+3. Typo in search pattern ("lgin" instead of "login")
+4. File not yet indexed (new file created after index generation)
+
+**Solution**:
+```bash
+# Step 1: Verify file exists
+ls -la src/components/LoginForm.tsx
+git check-ignore -v src/components/LoginForm.tsx
+
+# Step 2: Regenerate index
+/index
+
+# Step 3: Verify index contents
+project-intel.mjs --stats --json
+project-intel.mjs --search "login" --json  # No type filter
+
+# Step 4: Adjust search strategy
+project-intel.mjs --search "Login" --json
+project-intel.mjs --search "auth" --type ts --json
+```
+
+**Prevention**: Run `/index` after creating new files, use broader search terms initially
+
+---
+
+### Failure 3: MCP Tools Not Available
+
+**Symptom**:
+- "Tool call failed: mcp__Ref__ref_search_documentation"
+- "Error: MCP server 'Ref' not configured"
+
+**Impact**: Cannot verify library behavior, must rely on memory (less accurate)
+
+**Solution**:
+```bash
+# Check MCP configuration
+cat .mcp.json
+
+# Configure Ref MCP (example)
+{
+  "mcpServers": {
+    "ref": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-ref"]
+    }
+  }
+}
+```
+
+**Workaround** (if MCP unavailable):
+- Skip external library verification
+- Note in report: "MCP verification unavailable"
+- Focus analysis on internal code only
+- Use web search as fallback
+
+---
+
+### Failure 4: Analysis Scope Too Broad
+
+**Symptom**:
+- Token limit exceeded
+- Analysis incomplete
+- Multiple unrelated issues found
+- Report exceeds 1000 tokens
+
+**Impact**: Cannot complete analysis, findings lack depth, token budget exhausted
+
+**Root Causes**:
+1. No scope defined (analyzing entire codebase)
+2. Overly broad search (searching for "component" or "function")
+3. Reading full files (not using targeted reads after intel queries)
+4. Multiple unrelated issues (trying to solve everything at once)
+
+**Solution**:
+
+**Define Narrow Scope**:
+```markdown
+# analysis-spec.md
+## Objective
+Identify why LoginForm component re-renders infinitely
+
+## In-Scope
+- LoginForm.tsx only
+- Related hooks (useEffect, useState)
+- Direct dependencies only
+
+## Out-of-Scope
+- Other components
+- Backend API
+- Routing
+```
+
+**Use Targeted Searches**:
+```bash
+# ❌ Too broad
+project-intel.mjs --search "component" --json
+
+# ✅ Specific
+project-intel.mjs --search "LoginForm" --type tsx --json
+```
+
+**Read Targeted Lines**:
+```bash
+# ❌ Full file
+Read src/components/LoginForm.tsx
+
+# ✅ Specific lines (after intel queries identify location)
+sed -n '40,60p' src/components/LoginForm.tsx
+```
+
+**Prevention**: Define scope in analysis-spec.md before starting, use specific search terms, target single issue per analysis
+
+---
+
+### Failure 5: CoD^Σ Evidence Missing
+
+**Symptom**:
+- Report makes claims without file:line references
+- No intelligence query results shown
+- Missing reasoning steps
+- Cannot verify findings
+
+**Impact**: No audit trail, others can't reproduce analysis, recommendations lack credibility
+
+**Root Causes**:
+1. Skipped evidence collection (made claims without querying)
+2. Intel queries not documented (ran queries but didn't save results)
+3. MCP verification skipped (assumed behavior without checking)
+4. CoD^Σ trace incomplete (missing reasoning steps)
+
+**Solution**:
+
+**Complete Intel Queries**:
+```bash
+# Save all intel query results
+project-intel.mjs --search "LoginForm" --json > /tmp/search.json
+project-intel.mjs --symbols src/LoginForm.tsx --json > /tmp/symbols.json
+project-intel.mjs --dependencies src/LoginForm.tsx --json > /tmp/deps.json
+```
+
+**Document Every Step in CoD^Σ Trace**:
+```markdown
+## CoD^Σ Trace
+
+**Claim:** LoginForm re-renders at src/LoginForm.tsx:45
+
+**Trace:**
+Step 1: → IntelQuery("search LoginForm")
+  ↳ Source: project-intel.mjs --search "LoginForm" --type tsx
+  ↳ Data: Found src/components/LoginForm.tsx
+  ↳ Tokens: 100
+
+Step 2: ⇄ IntelQuery("analyze symbols")
+  ↳ Source: project-intel.mjs --symbols src/components/LoginForm.tsx
+  ↳ Data: useEffect at line 45
+  ↳ Tokens: 150
+
+Step 3: → TargetedRead(lines 40-60)
+  ↳ Source: sed -n '40,60p' src/components/LoginForm.tsx
+  ↳ Data: useEffect(() => { setUser({...user}) }, [user])
+  ↳ Tokens: 100
+
+Step 4: ⊕ MCPVerify("React docs")
+  ↳ Tool: Ref MCP - "React useEffect dependencies"
+  ↳ Data: "Every value must be in dependency array"
+  ↳ Tokens: 200
+
+Step 5: ∘ Conclusion
+  ↳ Logic: Effect depends on [user] and mutates user
+  ↳ Root Cause: src/LoginForm.tsx:45 infinite loop
+  ↳ Fix: Use functional setState
+
+**Total Tokens:** 550
+```
+
+**Enforcement Checklist**:
+- [ ] All intel queries documented with commands
+- [ ] Intel results saved to /tmp/*.json
+- [ ] CoD^Σ trace shows all 5 steps
+- [ ] MCP verification included (if applicable)
+- [ ] Targeted read excerpts included
+- [ ] Every claim has file:line reference
+
+**Report is incomplete until all checkboxes checked**
+
+---
+
+### Diagnostic Workflow for All Failures
+
+When analysis fails:
+```
+Failure detected
+    ↓
+1. Check index (Failure 1)
+   → PROJECT_INDEX.json exists and fresh?
+    ↓
+2. Check queries (Failure 2)
+   → Intel queries return results?
+    ↓
+3. Check MCP (Failure 3)
+   → MCP tools configured and working?
+    ↓
+4. Check scope (Failure 4)
+   → Scope narrow and well-defined?
+    ↓
+5. Check evidence (Failure 5)
+   → CoD^Σ trace complete with evidence?
+```
+
+**Quick Reference**:
+
+| Failure | Symptom | Quick Fix |
+|---------|---------|-----------|
+| **1. Index Missing** | Intel queries fail | Run `/index` |
+| **2. No Results** | Empty search results | Regenerate index, broaden search |
+| **3. MCP Unavailable** | MCP tool errors | Configure .mcp.json, use workaround |
+| **4. Scope Too Broad** | Token limit exceeded | Define narrow scope in analysis-spec.md |
+| **5. Missing Evidence** | Claims lack proof | Save intel results, complete CoD^Σ trace |
+
+**Remember**: Most analysis failures are preventable with proper scope definition and systematic intelligence queries
 
 ---
 

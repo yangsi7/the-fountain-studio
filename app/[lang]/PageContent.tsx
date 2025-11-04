@@ -35,9 +35,11 @@ export function PageContent({ dict, lang }: PageContentProps) {
     }
   };
 
+  // Scroll handler for HeroSection only (other sections now link to detail pages)
+
   return (
     <div className="min-h-screen bg-silk">
-      <NavigationHeader dict={dict} lang={lang} />
+      <NavigationHeader dict={dict} lang={lang} currentPath="" />
 
       <HeroSection
         dict={dict.hero}
@@ -47,18 +49,17 @@ export function PageContent({ dict, lang }: PageContentProps) {
 
       <ServicesGrid
         dict={dict.servicesSummary}
-        onLearnClick={() => scrollToSection('learn')}
-        onContactClick={() => scrollToSection('contact')}
+        lang={lang}
       />
       <WaveDivider variant="subtle" color="silk" flip />
 
       <AboutSection
         dict={dict.aboutSummary}
-        onContactClick={() => scrollToSection('contact')}
+        lang={lang}
       />
       <WaveDivider variant="subtle" color="cream" />
 
-      <LearnAccordion dict={dict.learnSummary} />
+      <LearnAccordion dict={dict.learnSummary} lang={lang} />
       <WaveDivider variant="subtle" color="silk" flip />
 
       <TestimonialsCarousel dict={dict.testimonials} />

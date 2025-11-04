@@ -51,7 +51,8 @@
       "duration": "90 minutes",
       "price": "180 CHF",
       "cta": "Book Session"
-    }
+    },
+    "viewAllCta": "View All Services & Pricing"
   },
   "services": {
     "title": "Services & Pricing",
@@ -59,6 +60,32 @@
     "hero": {
       "title": "Services & Pricing",
       "subtitle": "Choose how you want to clear static and find your flow. Options include individual sessions focused on Sound Healing, Movement, Breathwork or Combination experiences designed for deeper integration."
+    },
+    "pricingSummary": {
+      "title": "Pricing Overview",
+      "subtitle": "Explore our four approaches to healing. Each modality works with a different aspect of your system—energy field, body, nervous system, or circulation—to restore your natural flow.",
+      "categories": [
+        {
+          "name": "Complete Integration",
+          "description": "90-minute combination session: Breathwork, movement, and sound healing for deep body-field integration",
+          "anchor": "#integration"
+        },
+        {
+          "name": "Biofield Tuning",
+          "description": "Sound healing packages: From single sessions to 10-session series for profound transformation",
+          "anchor": "#biofield"
+        },
+        {
+          "name": "Gyrotonic® Movement",
+          "description": "Flowing movement system packages: Private sessions, group classes, and 10-session series",
+          "anchor": "#gyrotonic"
+        },
+        {
+          "name": "Breathwork",
+          "description": "Cardiovascular breathing program: Progressive breathing sequences for energy boosts and clarity",
+          "anchor": "#breathwork"
+        }
+      ]
     },
     "integration": {
       "title": "Complete Integration Experience",
@@ -217,7 +244,8 @@
     "breathwork": {
       "title": "Breathwork (Gyrokinesis Cardiovascular Program)",
       "content": "Progressive breathing sequences with rhythmic tapping and simple movement choreography. Stimulates all circulatory systems, increasing flow of blood, nutrients, oxygen, and hormones for improved energy and mental clarity."
-    }
+    },
+    "exploreAllCta": "Explore All Modalities"
   },
   "aboutSummary": {
     "title": "About Kristen",

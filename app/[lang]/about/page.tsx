@@ -1,9 +1,11 @@
 import { type Metadata } from 'next';
+import Image from 'next/image';
 import { getDictionary } from '../dictionaries';
 import { NavigationHeader } from '@/components/sections/NavigationHeader';
 import { Footer } from '@/components/sections/Footer';
 import { WaveDivider } from '@/components/ui/wave-divider';
 import { Button } from '@/components/ui/button';
+import { HashScrollHandler } from '@/components/HashScrollHandler';
 
 interface AboutPageProps {
   params: Promise<{ lang: string }>;
@@ -41,7 +43,8 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
   return (
     <>
-      <NavigationHeader dict={dict} lang={lang} />
+      <NavigationHeader dict={dict} lang={lang} currentPath="/about" />
+      <HashScrollHandler />
       <main className="min-h-screen bg-silk">
       {/* Hero Section */}
       <section className="py-24 md:py-32 bg-cream">
@@ -63,17 +66,31 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <WaveDivider variant="subtle" color="silk" />
 
       {/* You Are Your Own Healer */}
-      <section className="py-24 bg-silk">
+      <section id="philosophy" className="py-24 bg-silk">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif mb-8">
-              {dict.about.healer.title}
-            </h2>
-            <div className="space-y-6 text-lg">
-              <p>{dict.about.healer.content}</p>
-              <p className="text-2xl font-serif text-gold text-center italic py-6">
-                {dict.about.healer.quote}
-              </p>
+          <div className="grid md:grid-cols-[2fr_1fr] gap-12 items-start">
+            {/* Text Content (Left - 2/3 width) */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-serif mb-8">
+                {dict.about.healer.title}
+              </h2>
+              <div className="space-y-6 text-lg">
+                <p>{dict.about.healer.content}</p>
+                <p className="text-2xl font-serif text-gold text-center italic py-6">
+                  {dict.about.healer.quote}
+                </p>
+              </div>
+            </div>
+
+            {/* Portrait (Right - 1/3 width) */}
+            <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+              <Image
+                src="/images/Kristen-faceshot.jpeg"
+                alt="Kristen Slabaugh, founder of The Fountain Studio"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
             </div>
           </div>
         </div>
@@ -108,7 +125,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <WaveDivider variant="subtle" color="silk" />
 
       {/* Approach: Bio-Electrician */}
-      <section className="py-24 bg-silk">
+      <section id="approach" className="py-24 bg-silk">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif mb-8">
@@ -140,7 +157,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <WaveDivider variant="medium" color="cream" flip />
 
       {/* Credentials */}
-      <section className="py-24 bg-cream">
+      <section id="credentials" className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif mb-12 text-center">
@@ -169,7 +186,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
       <WaveDivider variant="subtle" color="silk" />
 
       {/* Studio Space */}
-      <section className="py-24 bg-silk">
+      <section id="studio" className="py-24 bg-silk">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif mb-8">

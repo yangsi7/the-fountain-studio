@@ -14,16 +14,6 @@
         "@executeautomation/playwright-mcp-server"
       ]
     },
-    "21st-dev": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@21st-dev/magic@latest"
-      ],
-      "env": {
-        "API_KEY": "8c455d5b1d96b5677aa80400c33a98a0d41b1558c1ab6d004691f0e7429d7c77"
-      }
-    },
     "mcp-server-firecrawl": {
       "command": "npx",
       "args": [
@@ -49,6 +39,34 @@
       "args": [
         "shadcn@latest",
         "mcp"
+      ]
+    },
+    "21st-dev": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@21st-dev/magic@latest"
+      ],
+      "env": {
+        "API_KEY": "8c455d5b1d96b5677aa80400c33a98a0d41b1558c1ab6d004691f0e7429d7c77"
+      }
+    },
+    "firecrawl": {
+      "command": "/Users/yourusername/.nvm/versions/node/v22.x.x/bin/node",
+      "args": [
+        "/Users/yourusername/.nvm/versions/node/v22.x.x/lib/node_modules/firecrawl-mcp/dist/index.js"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-fbf3d554863348fb9a7c54436ad069c9"
+      }
+    },
+    "server-gmail-autoauth-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "@gongrzhe/server-gmail-autoauth-mcp"
       ]
     }
   }

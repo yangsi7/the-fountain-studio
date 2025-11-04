@@ -51,7 +51,8 @@
       "duration": "90 Minuten",
       "price": "180 CHF",
       "cta": "Sitzung Buchen"
-    }
+    },
+    "viewAllCta": "Alle Angebote & Preise Ansehen"
   },
   "services": {
     "title": "Services & Preise",
@@ -59,6 +60,32 @@
     "hero": {
       "title": "Services & Preise",
       "subtitle": "Wählen Sie, wie Sie statische Störungen klären und Ihren Fluss finden möchten. Optionen umfassen einzelne Sitzungen mit Fokus auf Klangheilung, Bewegung, Atemarbeit oder Kombinationserlebnisse für tiefere Integration."
+    },
+    "pricingSummary": {
+      "title": "Preisübersicht",
+      "subtitle": "Entdecken Sie unsere vier Ansätze zur Heilung. Jede Methode arbeitet mit einem anderen Aspekt Ihres Systems – Energiefeld, Körper, Nervensystem oder Kreislauf – um Ihren natürlichen Fluss wiederherzustellen.",
+      "categories": [
+        {
+          "name": "Vollständige Integration",
+          "description": "90-Minuten-Kombisitzung: Atemarbeit, Bewegung und Klangheilung für tiefe Körper-Feld-Integration",
+          "anchor": "#integration"
+        },
+        {
+          "name": "Biofield Tuning",
+          "description": "Klangheilungspakete: Von Einzelsitzungen bis zu 10er-Serien für tiefgreifende Transformation",
+          "anchor": "#biofield"
+        },
+        {
+          "name": "Gyrotonic® Bewegung",
+          "description": "Fließende Bewegungssystem-Pakete: Privatsitzungen, Gruppenkurse und 10er-Serien",
+          "anchor": "#gyrotonic"
+        },
+        {
+          "name": "Atemarbeit",
+          "description": "Kardiovaskuläres Atemprogramm: Progressive Atemsequenzen für Energieschübe und Klarheit",
+          "anchor": "#breathwork"
+        }
+      ]
     },
     "integration": {
       "title": "Vollständiges Integrationserlebnis",
@@ -217,7 +244,8 @@
     "breathwork": {
       "title": "Atemarbeit (Gyrokinesis Kardiovaskuläres Programm)",
       "content": "Progressive Atemsequenzen mit rhythmischem Klopfen und einfacher Bewegungschoreografie. Stimuliert alle Kreislaufsysteme und erhöht den Fluss von Blut, Nährstoffen, Sauerstoff und Hormonen für verbesserte Energie und geistige Klarheit."
-    }
+    },
+    "exploreAllCta": "Alle Modalitäten Erkunden"
   },
   "aboutSummary": {
     "title": "Über Kristen",

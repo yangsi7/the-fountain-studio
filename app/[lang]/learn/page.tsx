@@ -1,9 +1,11 @@
 import { type Metadata } from 'next';
+import Image from 'next/image';
 import { getDictionary } from '../dictionaries';
 import { NavigationHeader } from '@/components/sections/NavigationHeader';
 import { Footer } from '@/components/sections/Footer';
 import { WaveDivider } from '@/components/ui/wave-divider';
 import { Button } from '@/components/ui/button';
+import { HashScrollHandler } from '@/components/HashScrollHandler';
 
 interface LearnPageProps {
   params: Promise<{ lang: string }>;
@@ -41,7 +43,8 @@ export default async function LearnPage({ params }: LearnPageProps) {
 
   return (
     <>
-      <NavigationHeader dict={dict} lang={lang} />
+      <NavigationHeader dict={dict} lang={lang} currentPath="/learn" />
+      <HashScrollHandler />
       <main className="min-h-screen bg-silk">
       {/* Hero Section */}
       <section className="py-24 md:py-32 bg-cream">
@@ -72,13 +75,25 @@ export default async function LearnPage({ params }: LearnPageProps) {
       <WaveDivider variant="subtle" color="silk" />
 
       {/* Biofield Tuning Section */}
-      <section className="py-24 bg-silk">
+      <section id="biofield" className="py-24 bg-silk">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif mb-8">
-              {dict.learn.biofield.title}
-            </h2>
+          <h2 className="text-3xl md:text-4xl font-serif mb-12">
+            {dict.learn.biofield.title}
+          </h2>
 
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Image (Left) - Sticky */}
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden md:sticky md:top-24">
+              <Image
+                src="/images/learn-biofield.jpg"
+                alt="Biofield Tuning methodology with tuning forks"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+
+            {/* Text Content (Right) */}
             <div className="space-y-6 text-lg">
               <div>
                 <h3 className="text-xl font-serif mb-3 text-gold">
@@ -108,13 +123,14 @@ export default async function LearnPage({ params }: LearnPageProps) {
       <WaveDivider variant="subtle" color="cream" flip />
 
       {/* Gyrotonic Section */}
-      <section className="py-24 bg-cream">
+      <section id="gyrotonic" className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif mb-8">
-              {dict.learn.gyrotonic.title}
-            </h2>
+          <h2 className="text-3xl md:text-4xl font-serif mb-12">
+            {dict.learn.gyrotonic.title}
+          </h2>
 
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Text Content (Left) */}
             <div className="space-y-6 text-lg">
               <div>
                 <h3 className="text-xl font-serif mb-3 text-gold">
@@ -137,6 +153,17 @@ export default async function LearnPage({ params }: LearnPageProps) {
                 <p>{dict.learn.gyrotonic.benefits}</p>
               </div>
             </div>
+
+            {/* Image (Right) - Sticky */}
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden md:sticky md:top-24">
+              <Image
+                src="/images/learn-gyrotonic.jpg"
+                alt="Gyrotonic Expansion System method"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -144,13 +171,25 @@ export default async function LearnPage({ params }: LearnPageProps) {
       <WaveDivider variant="subtle" color="silk" />
 
       {/* Breathwork Section */}
-      <section className="py-24 bg-silk">
+      <section id="breathwork" className="py-24 bg-silk">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif mb-8">
-              {dict.learn.breathwork.title}
-            </h2>
+          <h2 className="text-3xl md:text-4xl font-serif mb-12">
+            {dict.learn.breathwork.title}
+          </h2>
 
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Image (Left) - Sticky */}
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden md:sticky md:top-24">
+              <Image
+                src="/images/learn-breathwork.jpg"
+                alt="Breathwork session"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+
+            {/* Text Content (Right) */}
             <div className="space-y-6 text-lg">
               <div>
                 <h3 className="text-xl font-serif mb-3 text-gold">

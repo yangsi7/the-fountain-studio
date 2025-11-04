@@ -4,6 +4,69 @@
 
 ---
 
+## Mode Selection Tree (Primary)
+
+**Use When**: analyze-code skill is invoked to determine which analysis mode to use
+
+**Decision Process**:
+```
+User Request → Context Analysis
+    ↓
+┌─ Contains "codebase", "structure", "overview", "new to this project"?
+│   → MODE: overview
+│   → OUTPUT: refs/overview.md
+│   → TOKEN BUDGET: ~2K (96% savings)
+│
+├─ Contains "how does [X] work", "[feature] explanation", specific component/feature name?
+│   → MODE: feature (target=[X])
+│   → OUTPUT: refs/design.md
+│   → TOKEN BUDGET: ~8K (80% savings)
+│
+├─ Contains "architecture", "layers", "cycles", "boundaries", "review design"?
+│   → MODE: architecture
+│   → OUTPUT: report.md
+│   → TOKEN BUDGET: ~5K (83% savings)
+│
+└─ Ambiguous context?
+    → ASK USER: "What would you like me to analyze?"
+    → OPTIONS: ["General codebase overview", "Specific feature/component", "System architecture"]
+```
+
+**Mode Characteristics**:
+
+| Mode | Purpose | Output | Key Queries | When to Use |
+|------|---------|--------|-------------|-------------|
+| **overview** | Understand repository | `refs/overview.md` | stats, tree, list, search | New to codebase, need general context |
+| **feature** | Deep dive into domain | `refs/design.md` | search, investigate, symbols, dependencies | "How does booking work?", understand specific feature |
+| **architecture** | System structure | `report.md` | map-imports, trace, metrics, patterns | Review layers, find cycles, analyze coupling |
+
+**Mode Selection CoD^Σ**:
+```
+UserMessage("understand this codebase")
+  → ContextAnalysis(contains("codebase", "structure"))
+  → mode=overview
+
+UserMessage("how does the booking system work?")
+  → ContextAnalysis(contains("how does", "booking"))
+  → mode=feature, target="booking"
+
+UserMessage("review the architecture for circular dependencies")
+  → ContextAnalysis(contains("architecture", "circular"))
+  → mode=architecture
+```
+
+**Workflow Files**:
+- **overview**: `.claude/skills/analyze-code/workflows/overview-workflow.md`
+- **feature**: `.claude/skills/analyze-code/workflows/feature-workflow.md`
+- **architecture**: `.claude/skills/analyze-code/workflows/architecture-workflow.md`
+
+**Output Templates**:
+- **overview**: `.claude/templates/analysis/overview.md` → `refs/overview.md`
+- **feature**: `.claude/templates/analysis/design.md` → `refs/design.md`
+- **architecture**: `.claude/templates/analysis/architecture.md` → `report.md`
+
+---
+
 ## Tree 1: Bug Diagnosis
 
 **Use When**: User reports error/bug or unexpected behavior

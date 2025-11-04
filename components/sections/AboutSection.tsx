@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -7,10 +8,10 @@ import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface AboutSectionProps {
   dict: Dictionary['aboutSummary'];
-  onContactClick: () => void;
+  lang: string;
 }
 
-export function AboutSection({ dict, onContactClick }: AboutSectionProps) {
+export function AboutSection({ dict, lang }: AboutSectionProps) {
   return (
     <section id="about" className="py-20 lg:py-[140px] px-6 bg-silk">
       <div className="container mx-auto">
@@ -62,9 +63,11 @@ export function AboutSection({ dict, onContactClick }: AboutSectionProps) {
             <Button
               size="lg"
               variant="charcoal"
-              onClick={onContactClick}
+              asChild
             >
-              {dict.cta}
+              <Link href={`/${lang}/about`}>
+                {dict.cta}
+              </Link>
             </Button>
           </motion.div>
         </div>

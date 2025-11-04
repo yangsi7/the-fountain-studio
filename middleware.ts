@@ -1,9 +1,19 @@
-import { updateSession } from "@/lib/supabase/middleware";
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  // Handle authentication with Supabase
-  return await updateSession(request);
+  // TEMPORARY: Disable Supabase auth for public marketing site
+  // The current .env.local points to Horkos Invoice Automation Supabase project
+  // which redirects to wrong auth page. Since The Fountain Studio is a public
+  // website with no protected routes, we skip Supabase middleware entirely.
+  // TODO: Either create proper Supabase project for The Fountain Studio OR
+  // remove Supabase entirely as it's not needed for this public site.
+
+  return NextResponse.next({
+    request,
+  });
+
+  // Handle authentication with Supabase (DISABLED)
+  // return await updateSession(request);
 }
 
 export const config = {

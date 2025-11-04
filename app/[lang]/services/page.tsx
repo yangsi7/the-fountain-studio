@@ -1,9 +1,12 @@
 import { type Metadata } from 'next';
+import Image from 'next/image';
 import { getDictionary } from '../dictionaries';
 import { NavigationHeader } from '@/components/sections/NavigationHeader';
 import { Footer } from '@/components/sections/Footer';
 import { WaveDivider } from '@/components/ui/wave-divider';
 import { Button } from '@/components/ui/button';
+import { PricingSummarySection } from '@/components/sections/PricingSummarySection';
+import { HashScrollHandler } from '@/components/HashScrollHandler';
 
 interface ServicesPageProps {
   params: Promise<{ lang: string }>;
@@ -41,7 +44,8 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
   return (
     <>
-      <NavigationHeader dict={dict} lang={lang} />
+      <NavigationHeader dict={dict} lang={lang} currentPath="/services" />
+      <HashScrollHandler />
       <main className="min-h-screen bg-silk">
       {/* Hero Section */}
       <section className="py-24 md:py-32 bg-cream">
@@ -57,50 +61,69 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
 
       <WaveDivider variant="subtle" color="silk" />
 
+      {/* Pricing Summary Overview */}
+      <PricingSummarySection dict={dict.services.pricingSummary} lang={lang} />
+
+      <WaveDivider variant="subtle" color="cream" flip />
+
       {/* Complete Integration Experience */}
-      <section className="py-24 bg-silk">
+      <section id="integration" className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif mb-6">
-              {dict.services.integration.title}
-            </h2>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Text Content */}
+            <div className="space-y-6">
+              <h2 className="text-3xl md:text-4xl font-serif">
+                {dict.services.integration.title}
+              </h2>
 
-            <div className="flex items-baseline gap-4 mb-8">
-              <span className="text-4xl font-serif text-gold">
-                {dict.services.integration.price}
-              </span>
-              <span className="text-lg text-charcoal-secondary">
-                {dict.services.integration.duration}
-              </span>
+              <div className="flex items-baseline gap-4">
+                <span className="text-4xl font-serif text-gold">
+                  {dict.services.integration.price}
+                </span>
+                <span className="text-lg text-charcoal-secondary">
+                  {dict.services.integration.duration}
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-xl font-serif">
+                  {dict.services.integration.componentsTitle}
+                </h3>
+                <ul className="space-y-3 pl-6">
+                  {dict.services.integration.components.map((component: string, index: number) => (
+                    <li key={index} className="text-lg flex items-start">
+                      <span className="text-gold mr-3">•</span>
+                      <span>{component}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p className="text-lg">
+                {dict.services.integration.benefits}
+              </p>
+
+              <Button variant="gold" size="lg" asChild>
+                <a
+                  data-cal-namespace="15min"
+                  data-cal-link="simon-yang-z2fy7e/15min"
+                  data-cal-config='{"layout":"month_view"}'
+                >
+                  {dict.services.integration.cta}
+                </a>
+              </Button>
             </div>
 
-            <div className="space-y-6 mb-8">
-              <h3 className="text-xl font-serif">
-                {dict.services.integration.componentsTitle}
-              </h3>
-              <ul className="space-y-3 pl-6">
-                {dict.services.integration.components.map((component: string, index: number) => (
-                  <li key={index} className="text-lg flex items-start">
-                    <span className="text-gold mr-3">•</span>
-                    <span>{component}</span>
-                  </li>
-                ))}
-              </ul>
+            {/* Image */}
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+              <Image
+                src="/images/service-integration.jpg"
+                alt="Complete Integration Experience combining breathwork, Gyrotonic movement, and Biofield Tuning"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
-
-            <p className="text-lg mb-8">
-              {dict.services.integration.benefits}
-            </p>
-
-            <Button variant="gold" size="lg" asChild>
-              <a
-                data-cal-namespace="15min"
-                data-cal-link="simon-yang-z2fy7e/15min"
-                data-cal-config='{"layout":"month_view"}'
-              >
-                {dict.services.integration.cta}
-              </a>
-            </Button>
           </div>
         </div>
       </section>
@@ -108,8 +131,19 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       <WaveDivider variant="subtle" color="cream" flip />
 
       {/* Biofield Tuning Packages */}
-      <section className="py-24 bg-cream">
+      <section id="biofield" className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Header Image */}
+          <div className="relative aspect-[21/9] rounded-lg overflow-hidden mb-12">
+            <Image
+              src="/images/Kristen-giving-treatment.jpeg"
+              alt="Biofield Tuning sound healing session with tuning forks"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+
           <h2 className="text-3xl md:text-4xl font-serif mb-12 text-center">
             {dict.services.biofield.title}
           </h2>
@@ -145,8 +179,19 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       <WaveDivider variant="subtle" color="silk" />
 
       {/* Gyrotonic Movement Packages */}
-      <section className="py-24 bg-silk">
+      <section id="gyrotonic" className="py-24 bg-silk">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Header Image */}
+          <div className="relative aspect-[21/9] rounded-lg overflow-hidden mb-12">
+            <Image
+              src="/images/service-gyrotonic-movement.jpg"
+              alt="Gyrotonic movement session with specialized equipment"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </div>
+
           <h2 className="text-3xl md:text-4xl font-serif mb-12 text-center">
             {dict.services.movement.title}
           </h2>
@@ -189,26 +234,38 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
       <WaveDivider variant="subtle" color="cream" flip />
 
       {/* Breathwork */}
-      <section className="py-24 bg-cream">
+      <section id="breathwork" className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-serif mb-6">
-              {dict.services.breathwork.title}
-            </h2>
-
-            <div className="flex items-baseline gap-4 mb-8">
-              <span className="text-4xl font-serif text-gold">
-                {dict.services.breathwork.price}
-              </span>
-              <span className="text-lg text-charcoal-secondary">
-                {dict.services.breathwork.duration}
-              </span>
-              <span className="text-sm bg-gold-muted px-3 py-1 rounded-full">
-                {dict.services.breathwork.badge}
-              </span>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Image (Left) */}
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+              <Image
+                src="/images/service-breathwork.jpg"
+                alt="Breathwork cardiovascular session"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
 
-            <div className="space-y-6 mb-8">
+            {/* Text Content (Right) */}
+            <div className="space-y-6">
+              <h2 className="text-3xl md:text-4xl font-serif">
+                {dict.services.breathwork.title}
+              </h2>
+
+              <div className="flex items-baseline gap-4">
+                <span className="text-4xl font-serif text-gold">
+                  {dict.services.breathwork.price}
+                </span>
+                <span className="text-lg text-charcoal-secondary">
+                  {dict.services.breathwork.duration}
+                </span>
+                <span className="text-sm bg-gold-muted px-3 py-1 rounded-full">
+                  {dict.services.breathwork.badge}
+                </span>
+              </div>
+
               <div>
                 <h3 className="text-xl font-serif mb-3">
                   {dict.services.breathwork.techniquesTitle}
@@ -236,17 +293,17 @@ export default async function ServicesPage({ params }: ServicesPageProps) {
                 </h3>
                 <p className="text-lg">{dict.services.breathwork.why}</p>
               </div>
-            </div>
 
-            <Button variant="gold" size="lg" asChild>
-              <a
-                data-cal-namespace="15min"
-                data-cal-link="simon-yang-z2fy7e/15min"
-                data-cal-config='{"layout":"month_view"}'
-              >
-                {dict.services.breathwork.cta}
-              </a>
-            </Button>
+              <Button variant="gold" size="lg" asChild>
+                <a
+                  data-cal-namespace="15min"
+                  data-cal-link="simon-yang-z2fy7e/15min"
+                  data-cal-config='{"layout":"month_view"}'
+                >
+                  {dict.services.breathwork.cta}
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

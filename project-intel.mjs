@@ -128,10 +128,12 @@ function matchesPattern(filePath, pattern) {
 
 /**
  * Filter an array of file paths using exclusion patterns
+ * @deprecated - Currently unused but kept for potential future use
  */
-// function filterFiles(files, patterns) {
-//   return files.filter(file => !shouldExclude(file, patterns));
-// }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function filterFiles(files, patterns) {
+  return files.filter(file => !shouldExclude(file, patterns));
+}
 
 /**
  * OutputBuffer class to collect and manage output with line limit warnings

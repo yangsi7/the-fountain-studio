@@ -15,6 +15,95 @@ You are now executing the `/analyze` command. This command performs comprehensiv
 
 Analyze this codebase or specific issue using the **analyze-code skill** (@.claude/skills/analyze-code/SKILL.md).
 
+## Analysis Modes
+
+The analyze-code skill supports **three specialized modes** optimized for different use cases:
+
+### Mode 1: Overview (General Repository Context)
+
+**Purpose**: Create comprehensive repository map for reference
+
+**When to Use**:
+- New to the codebase
+- Need general understanding of structure
+- Creating documentation
+- Onboarding new team members
+
+**Output**: `refs/overview.md` (repository map, component inventory, architecture patterns)
+
+**Token Budget**: ~2K (vs 50K+ reading all files) = **96% savings**
+
+**Example Usage**:
+```
+User: "I'm new to this project, show me the structure"
+Mode: overview (auto-detected)
+```
+
+---
+
+### Mode 2: Feature (Specific Domain Context)
+
+**Purpose**: Deep dive into specific feature/domain for development
+
+**When to Use**:
+- Understanding how a feature works
+- Planning modifications
+- Creating feature documentation
+- Investigating feature-specific issues
+
+**Output**: `refs/design.md` (feature boundary, dependency graphs, data flow, integration points)
+
+**Token Budget**: ~8K (vs 40K+ reading feature files) = **80% savings**
+
+**Example Usage**:
+```
+User: "How does the booking system work?"
+Mode: feature (auto-detected, target="booking")
+```
+
+---
+
+### Mode 3: Architecture (System Structure Analysis)
+
+**Purpose**: Analyze system layers, boundaries, and architectural patterns
+
+**When to Use**:
+- Reviewing architecture decisions
+- Finding circular dependencies
+- Evaluating code organization
+- Planning major refactoring
+
+**Output**: `report.md` (layer analysis, boundary violations, coupling metrics, refactoring recommendations)
+
+**Token Budget**: ~5K (vs 30K+ reading system) = **83% savings**
+
+**Example Usage**:
+```
+User: "Review the architecture for circular dependencies"
+Mode: architecture (auto-detected)
+```
+
+---
+
+### Mode Selection (Automatic)
+
+**The skill auto-detects mode from your message context:**
+
+| Your Message Contains | Detected Mode | Output |
+|----------------------|---------------|---------|
+| "codebase", "structure", "overview" | **overview** | refs/overview.md |
+| "how does [X] work", specific feature name | **feature** (target=[X]) | refs/design.md |
+| "architecture", "layers", "cycles" | **architecture** | report.md |
+
+**Manual Mode Specification** (optional):
+```
+/analyze mode=overview
+/analyze mode=feature target=authentication
+/analyze mode=architecture
+```
+
+If the mode is ambiguous, the skill will ask you to clarify.
+
 ## Process Overview
 
 Follow the analyze-code skill workflow:

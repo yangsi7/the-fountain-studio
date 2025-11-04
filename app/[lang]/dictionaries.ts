@@ -66,6 +66,7 @@ export type Dictionary = {
       price: string;
       cta: string;
     };
+    viewAllCta: string;
   };
   services: {
     title: string;
@@ -73,6 +74,15 @@ export type Dictionary = {
     hero: {
       title: string;
       subtitle: string;
+    };
+    pricingSummary: {
+      title: string;
+      subtitle: string;
+      categories: Array<{
+        name: string;
+        description: string;
+        anchor: string;
+      }>;
     };
     integration: {
       title: string;
@@ -163,6 +173,7 @@ export type Dictionary = {
       title: string;
       content: string;
     };
+    exploreAllCta: string;
   };
   aboutSummary: {
     title: string;

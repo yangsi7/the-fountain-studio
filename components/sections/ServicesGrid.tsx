@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -9,35 +10,30 @@ import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface ServicesGridProps {
   dict: Dictionary['servicesSummary'];
-  onLearnClick: () => void;
-  onContactClick: () => void;
+  lang: string;
 }
 
-export function ServicesGrid({ dict, onLearnClick, onContactClick }: ServicesGridProps) {
+export function ServicesGrid({ dict, lang }: ServicesGridProps) {
   const services = [
     {
       key: 'biofield',
       image: '/images/Kristen-giving-treatment.jpeg',
       data: dict.biofield,
-      onClick: onLearnClick,
     },
     {
       key: 'gyrotonic',
       image: '/images/service-gyrotonic-movement.jpg',
       data: dict.gyrotonic,
-      onClick: onLearnClick,
     },
     {
       key: 'breathwork',
       image: '/images/service-breathwork.jpg',
       data: dict.breathwork,
-      onClick: onLearnClick,
     },
     {
       key: 'integration',
       image: '/images/service-integration.jpg',
       data: dict.integration,
-      onClick: onContactClick,
       isPopular: true,
     },
   ];
@@ -93,15 +89,26 @@ export function ServicesGrid({ dict, onLearnClick, onContactClick }: ServicesGri
                   <Button
                     size="sm"
                     variant={service.isPopular ? 'gold' : 'gold-outline'}
-                    onClick={service.onClick}
+                    asChild
                   >
-                    {service.data.cta}
+                    <Link href={`/${lang}/services#${service.key}`} scroll={false}>
+                      {service.data.cta}
+                    </Link>
                   </Button>
                 </div>
               </CardContent>
             </Card>
             </motion.div>
           ))}
+        </div>
+
+        {/* View All Services CTA */}
+        <div className="text-center mt-12">
+          <Button variant="gold-outline" size="lg" asChild>
+            <Link href={`/${lang}/services#pricing`} scroll={false}>
+              {dict.viewAllCta}
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

@@ -18,11 +18,13 @@ ULTRA IMPORTANT: **Documentation Structure**: See @docs/documentation-rules.md f
 
 ## Start
 Before performing any action first:
-1. **Analyze Events:** Review the event stream to understand the user's request and the current state. Focus especially on the latest user instructions and any recent results or errors.  
+1. **Analyze Events:** Review @event-stream.md, @todo.md to understand the user's request and the current state. Focus especially on the latest user instructions and any recent results or errors. If they are not up to date, update them.
 2. **System Understanding:** If the task is complex or involves system design and/or system architecture, invoke the System Understanding Module to deeply analyze the problem. Identify key entities and their relationships, and construct a high-level outline or diagram of the solution approach. Use this understanding to inform subsequent planning. 
 3. **Determine the next action to take.** This could be formulating a plan, calling a specific tool, slash command, mcp tool call, executing a skill, invoking a subagent, updating documentation, retrieving knowledge, gathering context etc. Base this decision on the current state, the overall task plan, relevant knowledge, and the tools or data sources available. Execute the chosen action. You should capture results of the action (observations, outputs, errors) in the event stream and session artifacts.  
-4. **Execute** 
+4. **Execute**
+5. Log the action in @event-stream.md, if a tasks is completed mark it as done in @todo.md, if you learned any critical context, log is in @workbook.md. If any of these files exceed 300 lines, prune it, removing irrelevant, superceded entries then older entries. 
 5. **Iterate**
+
 
 
 ## Repository Hygiene - CRITICAL RULES
@@ -332,17 +334,24 @@ Read components/booking/CalBookingModal.tsx
 the-fountain-studio/
 ├── app/
 │   ├── [lang]/              # Language routing (de/en)
-│   │   ├── page.tsx         # Home page (single-page narrative)
+│   │   ├── page.tsx         # Home page (scrollable with CTAs to detail pages)
 │   │   ├── PageContent.tsx  # Client component wrapper
+│   │   ├── services/        # Services detail page
+│   │   │   └── page.tsx     # Complete services & pricing
+│   │   ├── learn/           # Learn detail page
+│   │   │   └── page.tsx     # Complete methodology content
+│   │   ├── about/           # About detail page
+│   │   │   └── page.tsx     # Complete studio story & credentials
 │   │   ├── layout.tsx       # Language-aware layout
 │   │   └── dictionaries.ts  # Dictionary loader
 │   ├── globals.css          # Tailwind + shadcn styles
 │   └── layout.tsx           # Root layout with Cal.com script
 │
 ├── components/
-│   ├── sections/            # Page sections (Hero, Services, About, etc.)
+│   ├── sections/            # Page sections (Hero, ServicesGrid, AboutSection, etc.)
+│   │   └── NavigationHeader.tsx  # Multi-page navigation with active states
 │   ├── booking/             # Cal.com integration components
-│   ├── ui/                  # shadcn/ui components
+│   ├── ui/                  # shadcn/ui components + WaveDivider
 │   └── theme-switcher.tsx   # Dark/light mode toggle
 │
 ├── dictionaries/            # Translation files
@@ -385,7 +394,46 @@ the-fountain-studio/
 
 ## Key Architecture Decisions
 
-### 1. Multi-Language Strategy
+### 1. Multi-Page Architecture with Navigation
+
+**Structure** (SEO-optimized detail pages):
+
+```
+Homepage (/)           → Scrollable sections with CTAs to detail pages
+Services (/services)   → Complete services & pricing content
+Learn (/learn)         → Complete methodology & modality explanations
+About (/about)         → Complete studio story, credentials, location
+```
+
+**Navigation Pattern**:
+- **NavigationHeader**: Links to all 4 pages with active state detection
+- **Homepage Sections**: CTAs link to detail pages using Next.js Link
+  - ServicesGrid → `/services` (View All Services & Pricing)
+  - LearnAccordion → `/learn` (Explore All Modalities)
+  - AboutSection → `/about` (Learn About Kristen)
+- **HeroSection**: Scrolls to homepage #services section (homepage only)
+
+**Implementation**:
+```tsx
+// Homepage sections use lang prop to link to detail pages
+<ServicesGrid dict={dict.servicesSummary} lang={lang} />
+<AboutSection dict={dict.aboutSummary} lang={lang} />
+<LearnAccordion dict={dict.learnSummary} lang={lang} />
+
+// Each section has "View All" CTA
+<Button variant="gold-outline" size="lg" asChild>
+  <Link href={`/${lang}/services`}>View All Services & Pricing</Link>
+</Button>
+```
+
+**Content Strategy**:
+- Homepage: Summary sections with conversion-focused CTAs
+- Detail pages: Complete content from website-copy.md (no simplification)
+- Visual assets: Homepage uses images for conversion, detail pages prioritize text/SEO
+
+---
+
+### 2. Multi-Language Strategy
 
 **Dictionary-Based Approach** (no middleware complexity):
 
@@ -402,11 +450,13 @@ const dict = await getDictionary(params.lang);
 
 **Routes**:
 - `/de` - German (default)
+- `/de/services`, `/de/learn`, `/de/about` - Detail pages (German)
 - `/en` - English
+- `/en/services`, `/en/learn`, `/en/about` - Detail pages (English)
 
 **Type Safety**: `Dictionary` type exported from dictionaries.ts ensures type-safe translations.
 
-### 2. Cal.com Integration
+### 3. Cal.com Integration
 
 **Booking Flow**:
 1. User clicks CTA button with `data-cal-*` attributes
@@ -435,7 +485,7 @@ const dict = await getDictionary(params.lang);
 - `app/[lang]/PageContent.tsx` - Cal initialization
 - `components/booking/CalBookingModal.tsx` - Inline embed component
 
-### 3. Design System
+### 4. Design System
 
 **Swiss Medical Spa Principles**:
 - **Champagne Gold (#B8956A)**: 3% maximum usage, CTAs only
@@ -808,6 +858,9 @@ export async function DataComponent() {
 ### Architecture
 - `architecture-core.md` - System architecture (v4.0)
 - `docs/tech-stack.md` - Technology decisions
+
+### Intelligence Tools
+- `.claude/shared-imports/project-intel-mjs-guide.md` - Complete project-intel.mjs reference (907 lines, 17 commands, intelligence-first workflows)
 
 ---
 

@@ -11,9 +11,10 @@ import { type Dictionary } from '@/app/[lang]/dictionaries';
 interface NavigationHeaderProps {
   dict: Dictionary;
   lang: string;
+  currentPath: string; // Pass from server component to avoid hydration mismatch
 }
 
-export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
+export function NavigationHeader({ dict, lang, currentPath }: NavigationHeaderProps) {
   const pathname = usePathname();
 
   const isActive = (path: string) => {
@@ -77,7 +78,7 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
 
           {/* Language Switcher */}
           <div className="flex items-center gap-2 ml-4">
-            <Link href="/de">
+            <Link href={`/de${currentPath}`} data-testid="lang-switcher-de">
               <Button
                 size="sm"
                 variant={lang === 'de' ? 'default' : 'outline'}
@@ -86,7 +87,7 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
                 DE
               </Button>
             </Link>
-            <Link href="/en">
+            <Link href={`/en${currentPath}`} data-testid="lang-switcher-en">
               <Button
                 size="sm"
                 variant={lang === 'en' ? 'default' : 'outline'}
@@ -144,7 +145,7 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
               </Link>
               <Separator className="my-2" />
               <div className="flex gap-2">
-                <Link href="/de" className="flex-1">
+                <Link href={`/de${currentPath}`} className="flex-1" data-testid="lang-switcher-de-mobile">
                   <Button
                     size="sm"
                     variant={lang === 'de' ? 'default' : 'outline'}
@@ -153,7 +154,7 @@ export function NavigationHeader({ dict, lang }: NavigationHeaderProps) {
                     Deutsch
                   </Button>
                 </Link>
-                <Link href="/en" className="flex-1">
+                <Link href={`/en${currentPath}`} className="flex-1" data-testid="lang-switcher-en-mobile">
                   <Button
                     size="sm"
                     variant={lang === 'en' ? 'default' : 'outline'}

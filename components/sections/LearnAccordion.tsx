@@ -1,14 +1,17 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import { type Dictionary } from '@/app/[lang]/dictionaries';
 
 interface LearnAccordionProps {
   dict: Dictionary['learnSummary'];
+  lang: string;
 }
 
-export function LearnAccordion({ dict }: LearnAccordionProps) {
+export function LearnAccordion({ dict, lang }: LearnAccordionProps) {
   const sections = [
     {
       key: 'biofield',
@@ -64,6 +67,15 @@ export function LearnAccordion({ dict }: LearnAccordionProps) {
             </AccordionItem>
           ))}
         </Accordion>
+
+        {/* Explore All Modalities CTA */}
+        <div className="text-center mt-12">
+          <Button variant="gold-outline" size="lg" asChild>
+            <Link href={`/${lang}/learn`} scroll={false}>
+              {dict.exploreAllCta}
+            </Link>
+          </Button>
+        </div>
       </div>
     </section>
   );
