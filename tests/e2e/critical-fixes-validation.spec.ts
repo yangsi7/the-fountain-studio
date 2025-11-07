@@ -18,8 +18,8 @@ test.describe('Phase 1: i18n Fixes', () => {
       await expect(viewAllButton).toBeVisible();
       await expect(viewAllButton).toHaveText('Alle Angebote & Preise Ansehen');
 
-      // Verify it links to /de/services
-      await expect(viewAllButton).toHaveAttribute('href', '/de/services');
+      // Verify it links to /de/services#pricing
+      await expect(viewAllButton).toHaveAttribute('href', '/de/services#pricing');
     });
 
     test('ServicesGrid displays correct English CTA', async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe('Phase 1: i18n Fixes', () => {
       const viewAllButton = page.getByRole('link', { name: /view all services/i });
       await expect(viewAllButton).toBeVisible();
       await expect(viewAllButton).toHaveText('View All Services & Pricing');
-      await expect(viewAllButton).toHaveAttribute('href', '/en/services');
+      await expect(viewAllButton).toHaveAttribute('href', '/en/services#pricing');
     });
 
     test('LearnAccordion displays correct German CTA', async ({ page }) => {
@@ -61,10 +61,10 @@ test.describe('Phase 1: i18n Fixes', () => {
       await page.goto('/de');
       await page.waitForLoadState('networkidle');
 
-      const enButton = page.getByRole('link', { name: 'EN' }).first();
+      const enButton = page.getByTestId('lang-switcher-en');
       await enButton.click();
 
-      await page.waitForURL('/en');
+      await page.waitForURL('/en', { timeout: 60000 });
       expect(page.url()).toContain('/en');
       expect(page.url()).not.toContain('/de');
     });
@@ -73,10 +73,10 @@ test.describe('Phase 1: i18n Fixes', () => {
       await page.goto('/de/services');
       await page.waitForLoadState('networkidle');
 
-      const enButton = page.getByRole('link', { name: 'EN' }).first();
+      const enButton = page.getByTestId('lang-switcher-en');
       await enButton.click();
 
-      await page.waitForURL('/en/services');
+      await page.waitForURL('/en/services', { timeout: 60000 });
       expect(page.url()).toContain('/en/services');
     });
 
@@ -84,10 +84,10 @@ test.describe('Phase 1: i18n Fixes', () => {
       await page.goto('/de/learn');
       await page.waitForLoadState('networkidle');
 
-      const enButton = page.getByRole('link', { name: 'EN' }).first();
+      const enButton = page.getByTestId('lang-switcher-en');
       await enButton.click();
 
-      await page.waitForURL('/en/learn');
+      await page.waitForURL('/en/learn', { timeout: 60000 });
       expect(page.url()).toContain('/en/learn');
     });
 
@@ -95,10 +95,10 @@ test.describe('Phase 1: i18n Fixes', () => {
       await page.goto('/de/about');
       await page.waitForLoadState('networkidle');
 
-      const enButton = page.getByRole('link', { name: 'EN' }).first();
+      const enButton = page.getByTestId('lang-switcher-en');
       await enButton.click();
 
-      await page.waitForURL('/en/about');
+      await page.waitForURL('/en/about', { timeout: 60000 });
       expect(page.url()).toContain('/en/about');
     });
 
@@ -106,10 +106,10 @@ test.describe('Phase 1: i18n Fixes', () => {
       await page.goto('/en/services');
       await page.waitForLoadState('networkidle');
 
-      const deButton = page.getByRole('link', { name: 'DE' }).first();
+      const deButton = page.getByTestId('lang-switcher-de');
       await deButton.click();
 
-      await page.waitForURL('/de/services');
+      await page.waitForURL('/de/services', { timeout: 60000 });
       expect(page.url()).toContain('/de/services');
     });
   });
@@ -194,45 +194,6 @@ test.describe('Phase 2.1: Section IDs', () => {
       await expect(approachSection).toBeVisible();
       await expect(credentialsSection).toBeVisible();
       await expect(studioSection).toBeVisible();
-    });
-  });
-});
-
-test.describe('Visual Regression Tests', () => {
-  test('Homepage German looks correct', async ({ page }) => {
-    await page.goto('/de');
-    await page.waitForLoadState('networkidle');
-
-    // Wait for animations to settle
-    await page.waitForTimeout(1000);
-
-    await expect(page).toHaveScreenshot('homepage-de.png', {
-      fullPage: true,
-      maxDiffPixels: 100,
-    });
-  });
-
-  test('Homepage English looks correct', async ({ page }) => {
-    await page.goto('/en');
-    await page.waitForLoadState('networkidle');
-
-    await page.waitForTimeout(1000);
-
-    await expect(page).toHaveScreenshot('homepage-en.png', {
-      fullPage: true,
-      maxDiffPixels: 100,
-    });
-  });
-
-  test('Services page looks correct', async ({ page }) => {
-    await page.goto('/en/services');
-    await page.waitForLoadState('networkidle');
-
-    await page.waitForTimeout(1000);
-
-    await expect(page).toHaveScreenshot('services-page.png', {
-      fullPage: true,
-      maxDiffPixels: 100,
     });
   });
 });

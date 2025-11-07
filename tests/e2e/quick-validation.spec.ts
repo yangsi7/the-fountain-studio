@@ -14,7 +14,7 @@ test.describe('Quick Validation: Dictionary CTAs', () => {
     await servicesLink.waitFor({ state: 'visible', timeout: 10000 });
     await expect(servicesLink).toBeVisible();
     const servicesHref = await servicesLink.getAttribute('href');
-    expect(servicesHref).toBe('/de/services');
+    expect(servicesHref).toBe('/de/services#pricing');
 
     // Check Learn CTA - wait for Framer Motion animation
     const learnLink = page.getByRole('link', { name: /alle modalitäten/i });
@@ -33,7 +33,7 @@ test.describe('Quick Validation: Dictionary CTAs', () => {
     await servicesLink.waitFor({ state: 'visible', timeout: 10000 });
     await expect(servicesLink).toBeVisible();
     const servicesHref = await servicesLink.getAttribute('href');
-    expect(servicesHref).toBe('/en/services');
+    expect(servicesHref).toBe('/en/services#pricing');
 
     // Check Learn CTA - wait for Framer Motion animation
     const learnLink = page.getByRole('link', { name: /explore all modalities/i });
