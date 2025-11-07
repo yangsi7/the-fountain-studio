@@ -1,10 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Separator } from '@/components/ui/separator';
 import { type Dictionary } from '@/app/[lang]/dictionaries';
 
@@ -16,6 +17,7 @@ interface NavigationHeaderProps {
 
 export function NavigationHeader({ dict, lang, currentPath }: NavigationHeaderProps) {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   const isActive = (path: string) => {
     return pathname === `/${lang}${path}` || pathname === `/${lang}${path}/`;
@@ -25,7 +27,7 @@ export function NavigationHeader({ dict, lang, currentPath }: NavigationHeaderPr
 
   return (
     <nav className="sticky top-0 z-50 bg-silk/95 backdrop-blur-sm border-b border-charcoal/10">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="w-full max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link href={`/${lang}`} className="text-2xl font-serif text-charcoal">
           The Fountain Studio
@@ -80,18 +82,18 @@ export function NavigationHeader({ dict, lang, currentPath }: NavigationHeaderPr
           <div className="flex items-center gap-2 ml-4">
             <Link href={`/de${currentPath}`} data-testid="lang-switcher-de">
               <Button
-                size="sm"
+                size="default"
                 variant={lang === 'de' ? 'default' : 'outline'}
-                className="h-8 px-3"
+                className="px-3"
               >
                 DE
               </Button>
             </Link>
             <Link href={`/en${currentPath}`} data-testid="lang-switcher-en">
               <Button
-                size="sm"
+                size="default"
                 variant={lang === 'en' ? 'default' : 'outline'}
-                className="h-8 px-3"
+                className="px-3"
               >
                 EN
               </Button>
@@ -100,63 +102,86 @@ export function NavigationHeader({ dict, lang, currentPath }: NavigationHeaderPr
         </div>
 
         {/* Mobile Menu */}
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" aria-label="Open navigation menu">
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-            </SheetHeader>
-            <div className="mt-6 flex flex-col gap-4">
+          <SheetContent className="w-[280px] sm:w-[320px]">
+            {/* Swiss minimalism: no header title, let content speak */}
+            <div className="mt-12 flex flex-col gap-8">
               <Link
                 href={`/${lang}`}
-                className={`text-left ${
-                  isHomePage ? 'text-gold font-semibold' : 'text-charcoal'
+                onClick={() => setOpen(false)}
+                className={`py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-sm ${
+                  isHomePage
+                    ? 'text-gold font-semibold'
+                    : 'text-charcoal hover:text-gold hover:underline underline-offset-4'
                 }`}
               >
                 Home
               </Link>
               <Link
                 href={`/${lang}/services`}
-                className={`text-left ${
-                  isActive('/services') ? 'text-gold font-semibold' : 'text-charcoal'
+                onClick={() => setOpen(false)}
+                className={`py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-sm ${
+                  isActive('/services')
+                    ? 'text-gold font-semibold'
+                    : 'text-charcoal hover:text-gold hover:underline underline-offset-4'
                 }`}
               >
                 {dict.nav.services}
               </Link>
               <Link
                 href={`/${lang}/learn`}
-                className={`text-left ${
-                  isActive('/learn') ? 'text-gold font-semibold' : 'text-charcoal'
+                onClick={() => setOpen(false)}
+                className={`py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-sm ${
+                  isActive('/learn')
+                    ? 'text-gold font-semibold'
+                    : 'text-charcoal hover:text-gold hover:underline underline-offset-4'
                 }`}
               >
                 {dict.nav.learn}
               </Link>
               <Link
                 href={`/${lang}/about`}
-                className={`text-left ${
-                  isActive('/about') ? 'text-gold font-semibold' : 'text-charcoal'
+                onClick={() => setOpen(false)}
+                className={`py-4 text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-sm ${
+                  isActive('/about')
+                    ? 'text-gold font-semibold'
+                    : 'text-charcoal hover:text-gold hover:underline underline-offset-4'
                 }`}
               >
                 {dict.nav.about}
               </Link>
-              <Separator className="my-2" />
-              <div className="flex gap-2">
-                <Link href={`/de${currentPath}`} className="flex-1" data-testid="lang-switcher-de-mobile">
+
+              <Separator className="my-4" />
+
+              {/* Language Switcher - keep full-width buttons for easy thumb reach */}
+              <div className="flex gap-3">
+                <Link
+                  href={`/de${currentPath}`}
+                  className="flex-1"
+                  data-testid="lang-switcher-de-mobile"
+                  onClick={() => setOpen(false)}
+                >
                   <Button
-                    size="sm"
+                    size="lg"
                     variant={lang === 'de' ? 'default' : 'outline'}
                     className="w-full"
                   >
                     Deutsch
                   </Button>
                 </Link>
-                <Link href={`/en${currentPath}`} className="flex-1" data-testid="lang-switcher-en-mobile">
+                <Link
+                  href={`/en${currentPath}`}
+                  className="flex-1"
+                  data-testid="lang-switcher-en-mobile"
+                  onClick={() => setOpen(false)}
+                >
                   <Button
-                    size="sm"
+                    size="lg"
                     variant={lang === 'en' ? 'default' : 'outline'}
                     className="w-full"
                   >
