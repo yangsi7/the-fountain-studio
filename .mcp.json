@@ -4,7 +4,7 @@
       "type": "http",
       "url": "https://api.ref.tools/mcp",
       "headers": {
-        "x-ref-api-key": "ref-dd4e77a8f073f099e8d8"
+        "x-ref-api-key": "${REF_API_KEY}"
       }
     },
     "playwright": {
@@ -21,7 +21,7 @@
         "firecrawl-mcp"
       ],
       "env": {
-        "FIRECRAWL_API_KEY": "fc-fbf3d554863348fb9a7c54436ad069c9",
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}",
         "FIRECRAWL_RETRY_MAX_ATTEMPTS": "5",
         "FIRECRAWL_RETRY_INITIAL_DELAY": "2000",
         "FIRECRAWL_RETRY_MAX_DELAY": "30000",
@@ -48,7 +48,7 @@
         "@21st-dev/magic@latest"
       ],
       "env": {
-        "API_KEY": "8c455d5b1d96b5677aa80400c33a98a0d41b1558c1ab6d004691f0e7429d7c77"
+        "API_KEY": "${TWENTYFIRST_API_KEY}"
       }
     },
     "firecrawl": {
@@ -57,7 +57,7 @@
         "/Users/yourusername/.nvm/versions/node/v22.x.x/lib/node_modules/firecrawl-mcp/dist/index.js"
       ],
       "env": {
-        "FIRECRAWL_API_KEY": "fc-fbf3d554863348fb9a7c54436ad069c9"
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
       }
     },
     "server-gmail-autoauth-mcp": {
